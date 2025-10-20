@@ -36,16 +36,16 @@ public class TestBehaviour1 extends GenericTest
 
 		//Start VBPMN.
 		final Vbpmn vbpmn = this.getVbpmnInstance(
-				tmpDir,
-				null,
-				Arrays.asList("A", "B", "C"),		//Alphabet of the LTS, necessary when passing a BCG file directly
-				Balancement.FORCE_BALANCEMENT,
-				filePaths.getLeft(),
-				filePaths.getRight(),
-				COMPARISON_MODE,
-				PROPERTY_MODE,
-				FORMULA_ARG,
-				FORMULA
+			tmpDir,
+			null,
+			Arrays.asList("A", "B", "C"),		//Alphabet of the LTS, necessary when passing a BCG file directly
+			Balancement.FORCE_BALANCEMENT,
+			filePaths.getLeft(),
+			filePaths.getRight(),
+			COMPARISON_MODE,
+			PROPERTY_MODE,
+			FORMULA_ARG,
+			FORMULA
 		);
 		final boolean result = vbpmn.execute();
 

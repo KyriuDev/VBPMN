@@ -39,13 +39,13 @@ public class Test16 extends GenericTest
 
 		//Start VBPMN.
 		final Vbpmn vbpmn = this.getVbpmnInstance(
-				tmpDir,
-				filePaths.getLeft(),
-				filePaths.getRight(),
-				COMPARISON_MODE,
-				PROPERTY_MODE,
-				FORMULA_ARG,
-				FORMULA
+			tmpDir,
+			filePaths.getLeft(),
+			filePaths.getRight(),
+			COMPARISON_MODE,
+			PROPERTY_MODE,
+			FORMULA_ARG,
+			FORMULA
 		);
 		final boolean result = vbpmn.execute();
 

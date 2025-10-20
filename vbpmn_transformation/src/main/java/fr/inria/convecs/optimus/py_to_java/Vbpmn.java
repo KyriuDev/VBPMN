@@ -87,39 +87,40 @@ public class Vbpmn
 	private static final String INCLUSIVE_COMPARISON = "inclusive";
 	private static final String EXCLUSIVE_COMPARISON = "exclusive";
 	private static final List<String> OPERATIONS_COMPARISON = Arrays.asList(
-			CONSERVATIVE_COMPARISON,
-			INCLUSIVE_COMPARISON,
-			EXCLUSIVE_COMPARISON
+		CONSERVATIVE_COMPARISON,
+		INCLUSIVE_COMPARISON,
+		EXCLUSIVE_COMPARISON
 	);
 
 	private static final String AND_PROPERTY = "property-and";
 	private static final String IMPLIED_PROPERTY = "property-implied";
 	private static final String HIDING_OPERATION = "_"; //NOT IN Python CODE
 	private static final List<String> OPERATIONS_PROPERTY = Arrays.asList(
-			AND_PROPERTY,
-			IMPLIED_PROPERTY
+		AND_PROPERTY,
+		IMPLIED_PROPERTY
 	);
 	private static final List<String> OPERATIONS = Arrays.asList(
-			CONSERVATIVE_COMPARISON,
-			INCLUSIVE_COMPARISON,
-			EXCLUSIVE_COMPARISON,
-			AND_PROPERTY,
-			IMPLIED_PROPERTY
+		CONSERVATIVE_COMPARISON,
+		INCLUSIVE_COMPARISON,
+		EXCLUSIVE_COMPARISON,
+		AND_PROPERTY,
+		IMPLIED_PROPERTY
 	);
 	private static final String OPERATIONS_DEFAULT = CONSERVATIVE_COMPARISON;
 	private static final String SELECTION_FIRST = "first";
 	private static final String SELECTION_SECOND = "second";
 	private static final String SELECTION_ALL = "all";
 	private static final List<String> SELECTIONS = Arrays.asList(
-			SELECTION_FIRST,
-			SELECTION_SECOND,
-			SELECTION_ALL
+		SELECTION_FIRST,
+		SELECTION_SECOND,
+		SELECTION_ALL
 	);
 	private static final String SELECTIONS_DEFAULT = SELECTION_ALL;
 	private static final String EQUAL_OPERATION = "equal";
 	private static final String SMALLER_OPERATION = "smaller";
 	private static final String GREATER_OPERATION = "greater";
-	private static final HashMap<String, String> OPERATION_TO_BISIMULATOR = new HashMap<String, String>(){{
+	private static final HashMap<String, String> OPERATION_TO_BISIMULATOR = new HashMap<>()
+	{{
 		put(CONSERVATIVE_COMPARISON, EQUAL_OPERATION);
 		put(INCLUSIVE_COMPARISON, SMALLER_OPERATION);
 		put(EXCLUSIVE_COMPARISON, GREATER_OPERATION);
@@ -140,7 +141,6 @@ public class Vbpmn
 	private final Collection<String> alphabetModel1;
 	private final Collection<String> alphabetModel2;
 	private final ArrayList<Pair<Long, String>> executionTimes;
-
 
 	public Vbpmn(final String[] sysArgs,
 				 final String outputFolder)
@@ -345,23 +345,23 @@ public class Vbpmn
 			if (OPERATIONS_COMPARISON.contains(args.getString("operation")))
 			{
 				comparator = new ComparisonChecker(
-						result1.getMiddle(),
-						result2.getMiddle(),
-						args.getString("operation"),
-						args.getList("hiding"),
-						args.get("exposemode") != null && args.getBoolean("exposemode"),
-						args.get("renaming") == null ? new HashMap<>() : args.get("renaming"),
-						args.getString("renamed") == null ? "all" : args.getString("renamed"),
-						new ArrayList[]{syncSet1, syncSet2}
+					result1.getMiddle(),
+					result2.getMiddle(),
+					args.getString("operation"),
+					args.getList("hiding"),
+					args.get("exposemode") != null && args.getBoolean("exposemode"),
+					args.get("renaming") == null ? new HashMap<>() : args.get("renaming"),
+					args.getString("renamed") == null ? "all" : args.getString("renamed"),
+					new ArrayList[]{syncSet1, syncSet2}
 				);
 				mode = "The comparison of the processes took ";
 			}
 			else
 			{
 				comparator = new FormulaChecker(
-						result1.getMiddle(),
-						result2.getMiddle(),
-						args.getString("formula")
+					result1.getMiddle(),
+					result2.getMiddle(),
+					args.getString("formula")
 				);
 				mode = "The evaluation of the formula took ";
 			}
@@ -580,7 +580,7 @@ public class Vbpmn
 					File.separator + "fr" + File.separator + "inria" + File.separator + "convecs" + File.separator +
 					"optimus" + File.separator + "py_to_java" + File.separator + "cadp_compliance" + File.separator +
 					cadpVersionDir + "\" exists and contains the file \"Pif2Lnt.class\". \nIf yes, please send an" +
-					" email to the staff.";
+					" email to the staff. Otherwise, please reinstall the latest version of VBPMN.";
 			System.out.println(errorMessage);
 			logger.error(errorMessage);
 			throw new RuntimeException(errorMessage, e);
@@ -614,7 +614,7 @@ public class Vbpmn
 					File.separator + "fr" + File.separator + "inria" + File.separator + "convecs" + File.separator +
 					"optimus" + File.separator + "py_to_java" + File.separator + "cadp_compliance" + File.separator +
 					cadpVersionDir + "\" exists and contains the file \"BpmnTypesBuilder.class\". \nIf yes, please" +
-					" send an email to the staff.";
+					" send an email to the staff. Otherwise, please reinstall the latest version of VBPMN.";
 			System.out.println(errorMessage);
 			logger.error(errorMessage);
 			throw new RuntimeException(errorMessage, e);
@@ -750,16 +750,17 @@ public class Vbpmn
 				}
 
 				svlCommands.append(PyToJavaUtils.parametrize(
-						SVL_HIDING_TEMPLATE,
-						workModel1,
-						hideMode,
-						PyToJavaUtils.join(this.hiding, ","))
+					SVL_HIDING_TEMPLATE,
+					workModel1,
+					hideMode,
+					PyToJavaUtils.join(this.hiding, ","))
 				);
+
 				svlCommands.append(PyToJavaUtils.parametrize(
-						SVL_HIDING_TEMPLATE,
-						workModel2,
-						hideMode,
-						PyToJavaUtils.join(this.hiding, ","))
+					SVL_HIDING_TEMPLATE,
+					workModel2,
+					hideMode,
+					PyToJavaUtils.join(this.hiding, ","))
 				);
 			}
 
@@ -782,30 +783,33 @@ public class Vbpmn
 				{
 					case SELECTION_ALL:
 						svlCommands.append(PyToJavaUtils.parametrize(
-								SVL_RENAMING_TEMPLATE,
-								workModel1,
-								PyToJavaUtils.join(renamings, ","))
+							SVL_RENAMING_TEMPLATE,
+							workModel1,
+							PyToJavaUtils.join(renamings, ","))
 						);
 						svlCommands.append(PyToJavaUtils.parametrize(
-								SVL_RENAMING_TEMPLATE,
-								workModel2,
-								PyToJavaUtils.join(renamings, ","))
+							SVL_RENAMING_TEMPLATE,
+							workModel2,
+							PyToJavaUtils.join(renamings, ","))
 						);
 						break;
+
 					case SELECTION_FIRST:
 						svlCommands.append(PyToJavaUtils.parametrize(
-								SVL_RENAMING_TEMPLATE,
-								workModel1,
-								PyToJavaUtils.join(renamings, ","))
+							SVL_RENAMING_TEMPLATE,
+							workModel1,
+							PyToJavaUtils.join(renamings, ","))
 						);
 						break;
+
 					case SELECTION_SECOND:
 						svlCommands.append(PyToJavaUtils.parametrize(
-								SVL_RENAMING_TEMPLATE,
-								workModel2,
-								PyToJavaUtils.join(renamings, ","))
+							SVL_RENAMING_TEMPLATE,
+							workModel2,
+							PyToJavaUtils.join(renamings, ","))
 						);
 						break;
+
 					default:
 						//Should never happen
 						logger.error("The list of elements to rename is not empty but the selectionis \"{}\"!", this.renamed);
@@ -820,11 +824,11 @@ public class Vbpmn
 			 */
 
 			svlCommands.append(PyToJavaUtils.parametrize(
-					SVL_COMPARISON_CHECKING_TEMPLATE,
-					workModel1,
-					OPERATION_TO_BISIMULATOR.get(this.operation),
-					equivalenceVersion,
-					workModel2)
+				SVL_COMPARISON_CHECKING_TEMPLATE,
+				workModel1,
+				OPERATION_TO_BISIMULATOR.get(this.operation),
+				equivalenceVersion,
+				workModel2)
 			);
 
 			//TODO VERIFIER LA CREATION DU FICHIER AINSI QUE SON CONTENU
@@ -929,17 +933,17 @@ public class Vbpmn
 		public void genSVL(final String filename)
 		{
 			final StringBuilder svlCommands = new StringBuilder(PyToJavaUtils.parametrize(
-					SVL_FORMULA_CHECKING_TEMPLATE,
-					this.model1,
-					MCL_FORMULA)
+				SVL_FORMULA_CHECKING_TEMPLATE,
+				this.model1,
+				MCL_FORMULA)
 			);
 
 			if (!this.model1.equals(this.model2))
 			{
 				svlCommands.append(PyToJavaUtils.parametrize(
-						SVL_FORMULA_CHECKING_TEMPLATE,
-						this.model2,
-						MCL_FORMULA)
+					SVL_FORMULA_CHECKING_TEMPLATE,
+					this.model2,
+					MCL_FORMULA)
 				);
 			}
 
