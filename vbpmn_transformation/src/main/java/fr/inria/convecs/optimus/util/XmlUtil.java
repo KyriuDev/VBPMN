@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 package fr.inria.convecs.optimus.util;
 
 import java.io.File;
@@ -19,34 +15,36 @@ import org.slf4j.LoggerFactory;
  * @author ajayk
  *
  */
-public class XmlUtil {
+public class XmlUtil
+{
+	private static final Logger logger = LoggerFactory.getLogger(XmlUtil.class);
 
-  private static final Logger logger = LoggerFactory.getLogger(XmlUtil.class);
+	public static boolean isDocumentValid(final File inputXml,
+										  final File schema)
+	{
+		boolean isValid = false;
 
-  public static boolean isDocumentValid(File inputXml, File schema) {
-    boolean isValid = false;
+		try
+		{
+			final XMLValidationSchemaFactory schemaFactory = XMLValidationSchemaFactory.newInstance(XMLValidationSchema.SCHEMA_ID_W3C_SCHEMA);
+			final XMLValidationSchema xsd = schemaFactory.createSchema(schema);
+			final XMLInputFactory2 inputFactory = (XMLInputFactory2) XMLInputFactory.newInstance();
+			final XMLStreamReader2 streamReader = inputFactory.createXMLStreamReader(inputXml);
+			streamReader.validateAgainst(xsd);
 
-    try {
-      XMLValidationSchemaFactory schemaFactory =
+			while (streamReader.hasNext())
+			{
+				streamReader.next();
+			}
 
-          XMLValidationSchemaFactory.newInstance(XMLValidationSchema.SCHEMA_ID_W3C_SCHEMA);
+			streamReader.closeCompletely();
+			isValid = true;
+		}
+		catch (Exception e)
+		{
+			logger.warn("Error while validating {} against the schema {}", inputXml.getName(), schema.getName(), e);
+		}
 
-      XMLValidationSchema xsd = schemaFactory.createSchema(schema);
-
-      XMLInputFactory2 inputFactory = (XMLInputFactory2) XMLInputFactory.newInstance();
-      XMLStreamReader2 streamReader = inputFactory.createXMLStreamReader(inputXml);
-
-      streamReader.validateAgainst(xsd);
-      while (streamReader.hasNext()) {
-        streamReader.next();
-      }
-
-      isValid = true;
-    } catch (Exception e) {
-      logger.warn("Error while validating {} against the schema {}", inputXml.getName(),
-          schema.getName(), e);
-    }
-
-    return isValid;
-  }
+		return isValid;
+	}
 }

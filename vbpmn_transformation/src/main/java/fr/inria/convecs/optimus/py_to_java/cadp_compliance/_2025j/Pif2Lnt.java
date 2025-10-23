@@ -7,6 +7,7 @@ import fr.inria.convecs.optimus.py_to_java.PyToJavaUtils;
 import fr.inria.convecs.optimus.py_to_java.ReturnCodes;
 import fr.inria.convecs.optimus.py_to_java.cadp_compliance.generics.Pif2LntGeneric;
 import fr.inria.convecs.optimus.util.*;
+import fr.inria.convecs.optimus.validator.RuntimeValidator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
@@ -14,6 +15,8 @@ import jakarta.xml.bind.Unmarshaller;
 import org.jgrapht.alg.cycle.CycleDetector;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,6 +26,7 @@ import java.util.*;
 
 public class Pif2Lnt extends Pif2LntGeneric
 {
+	private static final Logger logger = LoggerFactory.getLogger(Pif2Lnt.class);
 	private static boolean TODO = true;
 	private static final String LTS_SUFFIX = ".bcg";
 	private static final String LNT_SUFFIX = ".lnt";
@@ -5609,9 +5613,30 @@ public class Pif2Lnt extends Pif2LntGeneric
 			try
 			{
 				commandManager.execute();
+
+				if (commandManager.returnValue() != ReturnCodes.TERMINATION_OK)
+				{
+					final String errorMessage = ErrorUtils.generateCommandErrorMessage(
+						ErrorUtils.inlineCommandAndArgs("svl", pifModelName),
+						new File(outputFolder),
+						commandManager.stdErr()
+					);
+
+					ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+					logger.error(errorMessage);
+				}
 			}
 			catch (IOException | InterruptedException e)
 			{
+				final String errorMessage = ErrorUtils.generateCommandErrorMessage(
+					ErrorUtils.inlineCommandAndArgs("svl", pifModelName),
+					new File(outputFolder),
+					e.toString()
+				);
+
+				ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+				logger.error(errorMessage);
+
 				return Triple.of(ReturnCodes.TERMINATION_ERROR, pifModelName, process.alpha());
 			}
 		}

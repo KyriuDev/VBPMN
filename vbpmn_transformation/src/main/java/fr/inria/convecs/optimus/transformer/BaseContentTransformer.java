@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 package fr.inria.convecs.optimus.transformer;
 
 import java.io.File;
@@ -26,142 +22,163 @@ import fr.inria.convecs.optimus.model.Sequence;
  * @author ajayk
  *
  */
-public class BaseContentTransformer implements ContentTransformer {
+public class BaseContentTransformer implements ContentTransformer
+{
+	private static final String PIF_PREFIX = "pif";
+	private static final Logger logger = LoggerFactory.getLogger(BaseContentTransformer.class);
+	private static final String PIF_URI = "http://www.example.org/PIF";
+	private static final String XSI_URI = "http://www.w3.org/2001/XMLSchema-instance";
+	private final Process process;
+	private final File output;
 
-  private static final String PIF_PREFIX = "pif";
+	public BaseContentTransformer(final Process process,
+								  final File output)
+	{
+		this.process = process;
+		this.output = output;
+	}
 
-  static final Logger logger = LoggerFactory.getLogger(BaseContentTransformer.class);
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see fr.inria.convecs.optimus.transformer.ContentTransformer#transform()
+	 */
+	@Override
+	public void transform()
+	{
+		XMLStreamWriter2 xmlStreamWriter = null;
 
-  private static final String PIF_URI = "http://www.example.org/PIF";
-  private static final String XSI_URI = "http://www.w3.org/2001/XMLSchema-instance";
-  private final Process process;
-  private final File output;
+		try
+		{
+			final XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) XMLOutputFactory.newFactory();
+			xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory.createXMLStreamWriter(new FileWriter(output));
+			xmlStreamWriter.writeStartDocument("utf-8", "1.0");
+			xmlStreamWriter.setPrefix(PIF_PREFIX, PIF_URI);
+			xmlStreamWriter.setPrefix("xsi", XSI_URI);
+			xmlStreamWriter.writeStartElement(PIF_URI, "Process");
+			xmlStreamWriter.writeNamespace(PIF_PREFIX, PIF_URI);
+			xmlStreamWriter.writeNamespace("xsi", XSI_URI);
+			this.writeElements(xmlStreamWriter);
+			xmlStreamWriter.writeEndElement();
+			xmlStreamWriter.writeEndDocument();
+			xmlStreamWriter.closeCompletely();
+		}
+		catch (XMLStreamException | IOException ioe)
+		{
+			output.delete();
 
-  public BaseContentTransformer(Process process, File output) {
-    this.process = process;
-    this.output = output;
+			if (xmlStreamWriter != null)
+			{
+				try
+				{
+					xmlStreamWriter.closeCompletely();
+				}
+				catch (XMLStreamException e)
+				{
+					throw new RuntimeException(e);
+				}
+			}
 
-  }
+			logger.error("Error transforming the input", ioe);
+			throw new RuntimeException(ioe);
+		}
+	}
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see fr.inria.convecs.optimus.transformer.ContentTransformer#transform()
-   */
-  @Override
-  public void transform() {
-    try {
-      XMLOutputFactory2 xmlOutputFactory = (XMLOutputFactory2) XMLOutputFactory.newFactory();
-      XMLStreamWriter2 xmlStreamWriter = (XMLStreamWriter2) xmlOutputFactory
-          .createXMLStreamWriter(new FileWriter(output));
-      xmlStreamWriter.writeStartDocument("utf-8", "1.0");
-      xmlStreamWriter.setPrefix(PIF_PREFIX, PIF_URI);
-      xmlStreamWriter.setPrefix("xsi", XSI_URI);
-      xmlStreamWriter.writeStartElement(PIF_URI, "Process");
-      xmlStreamWriter.writeNamespace(PIF_PREFIX, PIF_URI);
-      xmlStreamWriter.writeNamespace("xsi", XSI_URI);
+	private void writeElements(final XMLStreamWriter2 xmlStreamWriter) throws XMLStreamException
+	{
+		xmlStreamWriter.writeStartElement(PIF_URI, "name");
+		xmlStreamWriter.writeCharacters(this.process.getId());
+		xmlStreamWriter.writeEndElement();
 
-      writeElements(xmlStreamWriter);
+		// TODO: Handle the documentation
+		xmlStreamWriter.writeStartElement(PIF_URI, "documentation");
+		xmlStreamWriter.writeCharacters("Dummy text for documentation");
+		xmlStreamWriter.writeEndElement();
+		xmlStreamWriter.writeStartElement(PIF_URI, "behaviour");
 
-      xmlStreamWriter.writeEndElement();
-      xmlStreamWriter.writeEndDocument();
+		this.writeNodes(xmlStreamWriter);
+		this.writeSequenceFlows(xmlStreamWriter);
 
-    } catch (XMLStreamException | IOException ioe) {
-      output.delete();
-      logger.error("Error transforming the input", ioe);
-      throw new RuntimeException(ioe);
-    }
+		// InitialNode
+		for (final Node node : this.process.getNodes(NodeType.INITIAL_EVENT))
+		{
+			xmlStreamWriter.writeStartElement(PIF_URI, "initialNode");
+			xmlStreamWriter.writeCharacters(node.getId());
+			xmlStreamWriter.writeEndElement();
+		}
 
-  }
+		for (final Node node : this.process.getNodes(NodeType.END_EVENT))
+		{
+			xmlStreamWriter.writeStartElement(PIF_URI, "finalNodes");
+			xmlStreamWriter.writeCharacters(node.getId());
+			xmlStreamWriter.writeEndElement();
+		}
 
-  private void writeElements(XMLStreamWriter2 xmlStreamWriter) throws XMLStreamException {
-    xmlStreamWriter.writeStartElement(PIF_URI, "name");
-    xmlStreamWriter.writeCharacters(this.process.getId());
-    xmlStreamWriter.writeEndElement();
+		xmlStreamWriter.writeEndElement();
+	}
 
-    // TODO: Handle the documentation
-    xmlStreamWriter.writeStartElement(PIF_URI, "documentation");
-    xmlStreamWriter.writeCharacters("Dummy text for documentation");
-    xmlStreamWriter.writeEndElement();
+	private void writeSequenceFlows(final XMLStreamWriter2 xmlStreamWriter) throws XMLStreamException
+	{
+		final List<Sequence> sequenceList = this.process.getSequences();
 
-    xmlStreamWriter.writeStartElement(PIF_URI, "behaviour");
+		for (final Sequence sequence : sequenceList)
+		{
+			xmlStreamWriter.writeStartElement(PIF_URI, "sequenceFlows");
+			xmlStreamWriter.writeAttribute("id", sequence.getId());
+			xmlStreamWriter.writeAttribute("source", sequence.getSource());
+			xmlStreamWriter.writeAttribute("target", sequence.getTarget());
+			xmlStreamWriter.writeEndElement();
+		}
+	}
 
-    writeNodes(xmlStreamWriter);
+	private void writeNodes(final XMLStreamWriter2 xmlStreamWriter) throws XMLStreamException
+	{
+		final List<Node> nodeList = this.process.getNodes();
 
-    writeSequenceFlows(xmlStreamWriter);
+		for (final Node node : nodeList)
+		{
+			xmlStreamWriter.writeStartElement(PIF_URI, "nodes");
+			xmlStreamWriter.writeAttribute("id", node.getId());
+			xmlStreamWriter.writeAttribute(XSI_URI, "type", PIF_PREFIX + ":" + node.getType().toString());
 
-    // InitialNode
-    for (Node node : process.getNodes(NodeType.INITIAL_EVENT)) {
-      xmlStreamWriter.writeStartElement(PIF_URI, "initialNode");
-      xmlStreamWriter.writeCharacters(node.getId());
-      xmlStreamWriter.writeEndElement();
-    }
+			// incoming flows
+			final List<String> incomingFlows = node.getIncomingFlows();
 
-    for (Node node : process.getNodes(NodeType.END_EVENT)) {
-      xmlStreamWriter.writeStartElement(PIF_URI, "finalNodes");
-      xmlStreamWriter.writeCharacters(node.getId());
-      xmlStreamWriter.writeEndElement();
-    }
+			if (incomingFlows != null)
+			{
+				for (final String flow : incomingFlows)
+				{
+					xmlStreamWriter.writeStartElement(PIF_URI, "incomingFlows");
+					xmlStreamWriter.writeCharacters(flow);
+					xmlStreamWriter.writeEndElement();
+				}
+			}
 
-    xmlStreamWriter.writeEndElement();
+			// outgoing flows
+			final List<String> outgoingFlows = node.getOutgoingFlows();
 
-  }
+			if (outgoingFlows != null)
+			{
+				for (final String flow : outgoingFlows)
+				{
+					xmlStreamWriter.writeStartElement(PIF_URI, "outgoingFlows");
+					xmlStreamWriter.writeCharacters(flow);
+					xmlStreamWriter.writeEndElement();
+				}
+			}
 
-  private void writeSequenceFlows(XMLStreamWriter2 xmlStreamWriter) throws XMLStreamException {
+			xmlStreamWriter.writeEndElement();
+		}
+	}
 
-    List<Sequence> sequenceList = process.getSequences();
-
-    for (Sequence sequence : sequenceList) {
-      xmlStreamWriter.writeStartElement(PIF_URI, "sequenceFlows");
-      xmlStreamWriter.writeAttribute("id", sequence.getId());
-      xmlStreamWriter.writeAttribute("source", sequence.getSource());
-      xmlStreamWriter.writeAttribute("target", sequence.getTarget());
-      xmlStreamWriter.writeEndElement();
-    }
-
-  }
-
-  private void writeNodes(XMLStreamWriter2 xmlStreamWriter) throws XMLStreamException {
-    List<Node> nodeList = process.getNodes();
-
-    for (Node node : nodeList) {
-      xmlStreamWriter.writeStartElement(PIF_URI, "nodes");
-      xmlStreamWriter.writeAttribute("id", node.getId());
-      xmlStreamWriter.writeAttribute(XSI_URI, "type", PIF_PREFIX + ":" + node.getType().toString());
-
-      // incoming flows
-      List<String> incomingFlows = node.getIncomingFlows();
-      if (null != incomingFlows) {
-        for (String flow : incomingFlows) {
-          xmlStreamWriter.writeStartElement(PIF_URI, "incomingFlows");
-          xmlStreamWriter.writeCharacters(flow);
-          xmlStreamWriter.writeEndElement();
-        }
-      }
-
-      // outgoing flows
-      List<String> outgoingFlows = node.getOutgoingFlows();
-      if (null != outgoingFlows) {
-        for (String flow : outgoingFlows) {
-          xmlStreamWriter.writeStartElement(PIF_URI, "outgoingFlows");
-          xmlStreamWriter.writeCharacters(flow);
-          xmlStreamWriter.writeEndElement();
-        }
-      }
-
-      xmlStreamWriter.writeEndElement();
-    }
-
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see fr.inria.convecs.optimus.transformer.ContentTransformer#generateOutput()
-   */
-  @Override
-  public void generateOutput() {
-    //TODO: implement handling of any specific type of output
-  }
-
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see fr.inria.convecs.optimus.transformer.ContentTransformer#generateOutput()
+	 */
+	@Override
+	public void generateOutput()
+	{
+		//TODO: implement handling of any specific type of output
+	}
 }

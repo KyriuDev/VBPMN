@@ -50,57 +50,78 @@ public class TransformationService {
 	@Context
 	ServletContext servletContext;
 
+	/**
+	 * Internal stuff, not called by the web interface.
+	 * According to the name, it should be for transforming PIF files back to BPMN files?
+	 *
+	 * @param fileStream1
+	 * @param fileInfo1
+	 * @param formData
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces("text/plain")
 	@Path("/pif2bpmn")
-	public Response validateVbpmn(@FormDataParam("file1") InputStream fileStream1,
-								  @FormDataParam("file1") FormDataContentDisposition fileInfo1, FormDataMultiPart formData) {
+	public Response validateVbpmn(@FormDataParam("file1") final InputStream fileStream1,
+								  @FormDataParam("file1") final FormDataContentDisposition fileInfo1,
+								  final FormDataMultiPart formData)
+	{
+		final Response httpResponse;
 
-		Response httpResponse = null;
-		try {      
+		try
+		{
+			final String outputDir = Files.createTempDirectory(Paths.get(OUTPUT_PATH), "vbpmn_").toAbsolutePath().toString();
+			final File pifInput = new File(outputDir + File.separator + fileInfo1.getFileName());
 
-			String outputDir = Files.createTempDirectory(Paths.get(OUTPUT_PATH), "vbpmn_")
-					.toAbsolutePath().toString();
-
-			File pifInput = new File(outputDir + File.separator + fileInfo1.getFileName());
 			Files.copy(fileStream1, pifInput.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			
-			File bpmnOutput = new File(outputDir + File.separator + fileInfo1.getFileName()+".bpmn");
-			
-			ContentTransformer pifContentTransformer = new PifContentTransformer(pifInput, bpmnOutput);
+			final File bpmnOutput = new File(outputDir + File.separator + fileInfo1.getFileName() + ".bpmn");
+			final ContentTransformer pifContentTransformer = new PifContentTransformer(pifInput, bpmnOutput);
 			pifContentTransformer.transform();
-			
-			String bpmnResult = IOUtils.toString(new FileInputStream(bpmnOutput), StandardCharsets.UTF_8);
-			
+
+			final InputStream fileInputStream = Files.newInputStream(bpmnOutput.toPath());
+			final String bpmnResult = IOUtils.toString(fileInputStream, StandardCharsets.UTF_8);
+			fileInputStream.close();
+
 			httpResponse = Response.status(Response.Status.OK).entity(bpmnResult).build();
 			
 			return httpResponse;
-
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			logger.error("Error processing request: ", e);
 			throw VbpmnExceptionMapper.createWebAppException(e);
 		}
 	}
-	
+
+	/**
+	 * Internal stuff, not called by the web interface.
+	 * I suspect that this is called by the API when invoked for generating the layout of a given process.
+	 *
+	 * @param inputBpmn
+	 * @return
+	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.APPLICATION_XML)
 	@Path("/bpmn")
-	public Response generateBpmnLayout(String inputBpmn) {
+	public Response generateBpmnLayout(final String inputBpmn)
+	{
+		final Response httpResponse;
 
-		Response httpResponse = null;
-		try {      
-			
+		try
+		{
 			logger.info("bpmn xml {}", inputBpmn);
-			BpmnContentTransformer transformer = new BpmnContentTransformer(inputBpmn);
+			final BpmnContentTransformer transformer = new BpmnContentTransformer(inputBpmn);
 			transformer.transform();
-			String bpmnResult = transformer.getBpmnLayout();
+			final String bpmnResult = transformer.getBpmnLayout();
 			httpResponse = Response.status(Response.Status.OK).entity(bpmnResult).build();
 			
 			return httpResponse;
-
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			logger.error("Error processing request: ", e);
 			throw VbpmnExceptionMapper.createWebAppException(e);
 		}

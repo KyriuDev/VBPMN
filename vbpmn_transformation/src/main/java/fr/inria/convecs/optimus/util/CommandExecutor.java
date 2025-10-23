@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 package fr.inria.convecs.optimus.util;
 
 import java.io.File;
@@ -19,55 +15,64 @@ import org.slf4j.LoggerFactory;
  *     Utility class to execute system commands. 
  *     Internally uses ProcessBuilder
  */
-public class CommandExecutor {
+public class CommandExecutor
+{
+	private static final Logger logger = LoggerFactory.getLogger(CommandExecutor.class);
+	private final List<String> command;
+	private final File directory;
+	private String stdOut;
+	private String stdError;
 
-  private static final Logger logger = LoggerFactory.getLogger(CommandExecutor.class);
+	/**
+	 *
+	 * @param command Command and list of options
+	 * @param directory The directory context where command will be executed.
+	 */
+	public CommandExecutor(final List<String> command,
+						   final File directory)
+	{
+		this.command = command;
+		this.directory = directory;
+	}
 
-  private String stdOut;
-  private String stdError;
-  private List<String> command;
-  private File directory;
+	public int executeCommand()
+	{
+		final int returnValue;
 
-  /**
-   * 
-   * @param command Command and list of options
-   * @param directory The directory context where command will be executed.
-   */
-  public CommandExecutor(List<String> command, File directory) {
-    this.command = command;
-    this.directory = directory;
-  }
+		try
+		{
+			final ProcessBuilder processBuilder = new ProcessBuilder(this.command);
+			processBuilder.directory(this.directory);
+			final Process process = processBuilder.start();
+			final InputStream output = process.getInputStream();
+			final InputStream error = process.getErrorStream();
 
-  public int executeCommand() {
-    int intValue = -99;
-    try {
-      ProcessBuilder processBuilder = new ProcessBuilder(command);
-      processBuilder.directory(directory);
-      Process process = processBuilder.start();
+			this.stdOut = IOUtils.toString(output, StandardCharsets.UTF_8);
+			this.stdError = IOUtils.toString(error, StandardCharsets.UTF_8);
 
-      InputStream output = process.getInputStream();
-      InputStream error = process.getErrorStream();
+			returnValue = process.waitFor();
+		}
+		catch (IOException ioe)
+		{
+			logger.warn("Execption executing the system command", ioe);
+			throw new RuntimeException(ioe);
+		}
+		catch (InterruptedException ie)
+		{
+			logger.warn("InterruptedException - Unable to get the exit value", ie);
+			throw new RuntimeException(ie);
+		}
 
-      stdOut = IOUtils.toString(output, StandardCharsets.UTF_8);
-      stdError = IOUtils.toString(error, StandardCharsets.UTF_8);
+		return returnValue;
+	}
 
-      intValue = process.waitFor();
-    } catch (IOException ioe) {
-      logger.warn("Execption executing the system command", ioe);
-      throw new RuntimeException(ioe);
+	public String getErrors()
+	{
+		return stdError;
+	}
 
-    } catch (InterruptedException ie) {
-      logger.warn("InterruptedException - Unable to get the exit value", ie);
-      throw new RuntimeException(ie);
-    }
-    return intValue;
-  }
-
-  public String getErrors() {
-    return stdError;
-  }
-
-  public String getOutput() {
-    return stdOut;
-  }
+	public String getOutput()
+	{
+		return stdOut;
+	}
 }

@@ -24,7 +24,7 @@ import java.util.*;
 
 public class Vbpmn
 {
-	private final Logger logger = LoggerFactory.getLogger(Vbpmn.class);
+	private static final Logger logger = LoggerFactory.getLogger(Vbpmn.class);
 
 	/*
 	 	Command to call SVL.
@@ -417,17 +417,17 @@ public class Vbpmn
 	{
 		final String errorMessage;
 
-		if (triple.getLeft() != ReturnCodes.TERMINATION_UNBALANCED_INCLUSIVE_CYCLE)
+		if (triple.getLeft() == ReturnCodes.TERMINATION_UNBALANCED_INCLUSIVE_CYCLE)
+		{
+			errorMessage = "Unbalanced inclusive gateways inside loops are not supported by the current version of " +
+					"VBPMN, but model \"" + pifProcess.getAbsolutePath() + "\" contains some. Please check your " +
+					"BPMN process to correct this issue, or try with another model.";
+		}
+		else
 		{
 			errorMessage = "Error while loading model \"" + pifProcess.getAbsolutePath() + "\". Please verify " +
 					"that your input model is correct (in particular, BPMN objects and flows should not contain the" +
 					" \"-\" symbol in their \"id\" attribute).";
-
-		}
-		else
-		{
-			errorMessage = "Unbalanced inclusive gateways inside loops are not supported by the current version of" +
-					" VBPMN, but model \"" + pifProcess.getAbsolutePath() + "\" contains some.";
 		}
 
 		return errorMessage;
@@ -524,22 +524,38 @@ public class Vbpmn
 
 			if (System.getenv("CADP") == null)
 			{
-				logger.error("Environment variable $CADP is not set! Please fix this error and retry.");
-				throw new RuntimeException("Environment variable $CADP is not set! Please fix this error and retry.");
+				final String errorMessage = "Environment variable $CADP is not set! Please fix this error and retry.";
+				ErrorUtils.writeErrorFile(new File(this.outputFolder), errorMessage);
+				logger.error(errorMessage);
+				throw new RuntimeException(errorMessage);
 			}
 
 			if (System.getenv("PATH") != null
 				&& !System.getenv("PATH").contains("cadp"))
 			{
-				logger.error("Environment variable $PATH exists but does not contain \"cadp\" ({})", System.getenv("PATH"));
-				throw new RuntimeException("Environment variable $PATH exists but does not contain \"cadp\" (" +
-						System.getenv("PATH") + ")");
+				final String errorMessage = "Environment variable $PATH exists but does not contain \"cadp\" (" + System.getenv("PATH") + ")";
+				ErrorUtils.writeErrorFile(new File(this.outputFolder), errorMessage);
+				logger.error(errorMessage);
+				throw new RuntimeException(errorMessage);
 			}
 
 			//logger.debug("CADP dir: \"{}\".", System.getenv("CADP"));
 
 			final CommandManager commandManager = new CommandManager("cadp_lib", new File(outputFolder), "-1");
-			commandManager.execute();
+			final int returnValue = commandManager.execute();
+
+			if (returnValue != ReturnCodes.TERMINATION_OK)
+			{
+				final String errorMessage = ErrorUtils.generateCommandErrorMessage(
+					"cadp_lib -1",
+					new File(this.outputFolder),
+					commandManager.stdErr()
+				);
+
+				ErrorUtils.writeErrorFile(new File(this.outputFolder), errorMessage);
+				logger.error(errorMessage);
+				throw new RuntimeException(errorMessage);
+			}
 
 			//Split answer by spaces
 			final String[] splitAnswer = commandManager.stdOut().split("\\s+");
@@ -549,6 +565,8 @@ public class Vbpmn
 		}
 		catch (IOException | InterruptedException e)
 		{
+			ErrorUtils.writeErrorFile(new File(this.outputFolder), e.toString());
+			logger.error(e.toString());
 			throw new RuntimeException(e);
 		}
 
@@ -583,6 +601,7 @@ public class Vbpmn
 					" email to the staff. Otherwise, please reinstall the latest version of VBPMN.";
 			System.out.println(errorMessage);
 			logger.error(errorMessage);
+			ErrorUtils.writeErrorFile(new File(this.outputFolder), errorMessage + "\n\nError:\n\n" + e);
 			throw new RuntimeException(errorMessage, e);
 		}
 
@@ -617,6 +636,7 @@ public class Vbpmn
 					" send an email to the staff. Otherwise, please reinstall the latest version of VBPMN.";
 			System.out.println(errorMessage);
 			logger.error(errorMessage);
+			ErrorUtils.writeErrorFile(new File(this.outputFolder), errorMessage + "\n\nError:\n\n" + e);
 			throw new RuntimeException(errorMessage, e);
 		}
 
@@ -699,15 +719,19 @@ public class Vbpmn
 			if (!OPERATIONS.contains(operation)
 				|| operation.equals(HIDING_OPERATION))
 			{
-				logger.error("Operation should be in {} and \"_\" is only for hiding. Received \"{}\".", OPERATIONS, operation);
-				throw new RuntimeException("Operation should be in " + OPERATIONS + " and \"_\" is only for hiding. " +
-						"Received \"" + operation + "\".");
+				final String errorMessage = "Operation should be in " + OPERATIONS + " and \"_\" is only for hiding. " +
+						"Received \"" + operation + "\".";
+				logger.error(errorMessage);
+				ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+				throw new RuntimeException(errorMessage);
 			}
 
 			if (!SELECTIONS.contains(renamed))
 			{
-				logger.error("Selection should be in {}. Received \"{}\".", SELECTIONS, renamed);
-				throw new RuntimeException("Selection should be in " + SELECTIONS + ". Received \"" + renamed + "\".");
+				final String errorMessage = "Selection should be in " + SELECTIONS + ". Received \"" + renamed + "\".";
+				logger.error(errorMessage);
+				ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+				throw new RuntimeException(errorMessage);
 			}
 
 			this.operation = operation;
@@ -812,9 +836,11 @@ public class Vbpmn
 
 					default:
 						//Should never happen
-						logger.error("The list of elements to rename is not empty but the selectionis \"{}\"!", this.renamed);
-						throw new IllegalStateException("The list of elements to rename is not empty but the selection" +
-								"is \"" + this.renamed + "\"!");
+						final String errorMessage = "The list of elements to rename is not empty but the selection" +
+								"is \"" + this.renamed + "\"!";
+						logger.error(errorMessage);
+						ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+						throw new IllegalStateException(errorMessage);
 				}
 			}
 
@@ -846,6 +872,7 @@ public class Vbpmn
 			}
 
 			printStream.print(template);
+			printStream.flush();
 			printStream.close();
 		}
 
@@ -864,20 +891,25 @@ public class Vbpmn
 			{
 				//TODO CHECK FUNCTIONING + REVERIF
 				final String command = "svl";
-				final String[] args = {Checker.CHECKER_FILE, "->", Checker.DIAGNOSTIC_FILE};
+				final String[] args = {
+					Checker.CHECKER_FILE,
+					"->",
+					Checker.DIAGNOSTIC_FILE
+				};
 				final CommandManager commandManager = new CommandManager(command, new File(outputFolder), args);
 				commandManager.execute();
 
 				if (commandManager.returnValue() != ReturnCodes.TERMINATION_OK)
 				{
-					throw new RuntimeException("An error occurred during the execution of the SVL script:\n\n" + commandManager.stdErr());
-				}
+					final String errorMessage = ErrorUtils.generateCommandErrorMessage(
+						ErrorUtils.inlineCommandAndArgs(command, Arrays.asList(args)),
+						new File(outputFolder),
+						commandManager.stdErr()
+					);
 
-				if (!commandManager.stdOut().contains("TRUE")
-						&& !commandManager.stdOut().contains("FALSE"))
-				{
-					throw new RuntimeException("An error occurred during the execution of the SVL script. See the" +
-							".log file for more information.");
+					ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+					logger.error(errorMessage);
+					throw new RuntimeException(errorMessage);
 				}
 
 				final File resFile = new File(outputFolder + File.separator + DIAGNOSTIC_FILE);
@@ -895,6 +927,22 @@ public class Vbpmn
 				printWriter.println(commandManager.stdOut());
 				printWriter.flush();
 				printWriter.close();
+
+				if (!commandManager.stdOut().contains("TRUE")
+					&& !commandManager.stdOut().contains("FALSE"))
+				{
+					final String errorMessage = ErrorUtils.generateCommandErrorMessage(
+						ErrorUtils.inlineCommandAndArgs(command, Arrays.asList(args)),
+						new File(outputFolder),
+						"The verdict file \"" + Checker.DIAGNOSTIC_FILE + "\" does not contain \"TRUE\" nor " +
+						"\"FALSE\", although the verification ended without error. Please refer to the corresponding " +
+						"\".log\" file for more explanation of the issue."
+					);
+
+					ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+					logger.error(errorMessage);
+					throw new RuntimeException(errorMessage);
+				}
 
 				return commandManager.stdOut().contains("TRUE");
 			}
@@ -961,6 +1009,7 @@ public class Vbpmn
 			}
 
 			printStream.print(template);
+			printStream.flush();
 			printStream.close();
 		}
 
@@ -996,20 +1045,25 @@ public class Vbpmn
 			try
 			{
 				final String command = "svl";
-				final String[] args = {Checker.CHECKER_FILE, "->", Checker.DIAGNOSTIC_FILE};
+				final String[] args = {
+					Checker.CHECKER_FILE,
+					"->",
+					Checker.DIAGNOSTIC_FILE
+				};
 				final CommandManager commandManager = new CommandManager(command, new File(outputFolder), args);
 				commandManager.execute();
 
 				if (commandManager.returnValue() != ReturnCodes.TERMINATION_OK)
 				{
-					throw new RuntimeException("An error occurred during the execution of the SVL script:\n\n" + commandManager.stdErr());
-				}
+					final String errorMessage = ErrorUtils.generateCommandErrorMessage(
+						ErrorUtils.inlineCommandAndArgs(command, Arrays.asList(args)),
+						new File(outputFolder),
+						commandManager.stdErr()
+					);
 
-				if (!commandManager.stdOut().contains("TRUE")
-					&& !commandManager.stdOut().contains("FALSE"))
-				{
-					throw new RuntimeException("An error occurred during the execution of the SVL script. See the .log" +
-							" file for more information.");
+					ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+					logger.error(errorMessage);
+					throw new RuntimeException(errorMessage);
 				}
 
 				final File resFile = new File(outputFolder + File.separator + DIAGNOSTIC_FILE);
@@ -1027,6 +1081,22 @@ public class Vbpmn
 				printWriter.println(commandManager.stdOut());
 				printWriter.flush();
 				printWriter.close();
+
+				if (!commandManager.stdOut().contains("TRUE")
+					&& !commandManager.stdOut().contains("FALSE"))
+				{
+					final String errorMessage = ErrorUtils.generateCommandErrorMessage(
+						ErrorUtils.inlineCommandAndArgs(command, Arrays.asList(args)),
+						new File(outputFolder),
+						"The verdict file \"" + Checker.DIAGNOSTIC_FILE + "\" does not contain \"TRUE\" nor " +
+						"\"FALSE\", although the verification ended without error. Please refer to the corresponding " +
+						"\".log\" file for more explanation of the issue."
+					);
+
+					ErrorUtils.writeErrorFile(new File(outputFolder), errorMessage);
+					logger.error(errorMessage);
+					throw new RuntimeException(errorMessage);
+				}
 
 				return commandManager.stdOut().contains("TRUE");
 			}

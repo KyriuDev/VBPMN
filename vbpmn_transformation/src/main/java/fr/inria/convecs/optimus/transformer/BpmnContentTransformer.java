@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.inria.convecs.optimus.transformer;
 
 import java.io.IOException;
@@ -20,47 +17,59 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author ajayk
- *
  */
-public class BpmnContentTransformer implements ContentTransformer {
-
-	static final Logger logger = LoggerFactory.getLogger(BpmnContentTransformer.class);
-
-	private String input;
+public class BpmnContentTransformer implements ContentTransformer
+{
+	private static final Logger logger = LoggerFactory.getLogger(BpmnContentTransformer.class);
+	private final String input;
 	private String output;
 
-	public BpmnContentTransformer(String input) {
+	public BpmnContentTransformer(final String input)
+	{
 		this.input = input;
 	}
 
 	@Override
-	public void transform() {
+	public void transform()
+	{
+		InputStream inputstream = null;
 
-		InputStream inputstream;
-		try {
-			inputstream = IOUtils.toInputStream(input, StandardCharsets.UTF_8.name());
-			BpmnXMLConverter converter = new BpmnXMLConverter();
-			XMLInputFactory factory = XMLInputFactory.newInstance();
-			XMLStreamReader reader = factory.createXMLStreamReader(inputstream);
-			BpmnModel model = converter.convertToBpmnModel(reader);
+		try
+		{
+			inputstream = IOUtils.toInputStream(this.input, StandardCharsets.UTF_8.name());
+			final BpmnXMLConverter converter = new BpmnXMLConverter();
+			final XMLInputFactory factory = XMLInputFactory.newInstance();
+			final XMLStreamReader reader = factory.createXMLStreamReader(inputstream);
+			final BpmnModel model = converter.convertToBpmnModel(reader);
 			new BpmnAutoLayout(model).execute();
-			byte[] bpmnXml = new BpmnXMLConverter().convertToXML(model);
-			output = new String(bpmnXml);
-		} catch (XMLStreamException ioe) {
+			final byte[] bpmnXml = new BpmnXMLConverter().convertToXML(model);
+			this.output = new String(bpmnXml);
+			inputstream.close();
+		}
+		catch (XMLStreamException | IOException ioe)
+		{
+			try
+			{
+				inputstream.close();
+			}
+			catch (IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+
 			logger.error("Error transforming the input", ioe);
 			throw new RuntimeException(ioe);
 		}
-
 	}
 
 	@Override
-	public void generateOutput() {
+	public void generateOutput()
+	{
 		// TODO Auto-generated method stub
-
 	}
 	
-	public String getBpmnLayout() {
+	public String getBpmnLayout()
+	{
 		return output;
 	}
-
 }

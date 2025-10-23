@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.inria.convecs.optimus.transformer;
 
 import java.io.File;
@@ -36,14 +33,15 @@ import fr.inria.convecs.optimus.util.BpmnBuilder;
 /**
  * @author ajayk Transforms PIF to BPMN
  */
-public class PifContentTransformer implements ContentTransformer {
+public class PifContentTransformer implements ContentTransformer
+{
+	private static final Logger logger = LoggerFactory.getLogger(PifContentTransformer.class);
+	private final File pifInput;
+	private final File bpmnOutput;
 
-	static final Logger logger = LoggerFactory.getLogger(PifContentTransformer.class);
-
-	private File pifInput;
-	private File bpmnOutput;
-
-	public PifContentTransformer(File pifInput, File bpmnOutput) {
+	public PifContentTransformer(final File pifInput,
+								 final File bpmnOutput)
+	{
 		this.pifInput = pifInput;
 		this.bpmnOutput = bpmnOutput;
 	}
@@ -53,91 +51,97 @@ public class PifContentTransformer implements ContentTransformer {
 	 * implementation - refine
 	 */
 	@Override
-	public void transform() {
-		JAXBContext jaxbContext;
-		try {
+	public void transform()
+	{
+		final JAXBContext jaxbContext;
+
+		try
+		{
 			jaxbContext = JAXBContext.newInstance(Process.class);
-
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			Process pifProcess = (Process) jaxbUnmarshaller.unmarshal(pifInput);
-
-			BpmnModel model = new BpmnModel();
-			org.activiti.bpmn.model.Process bpmProcess = new org.activiti.bpmn.model.Process();
-			BpmnBuilder modelBuilder = new BpmnBuilder();
-
+			final Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			final Process pifProcess = (Process) jaxbUnmarshaller.unmarshal(this.pifInput);
+			final BpmnModel model = new BpmnModel();
+			final org.activiti.bpmn.model.Process bpmProcess = new org.activiti.bpmn.model.Process();
+			final BpmnBuilder modelBuilder = new BpmnBuilder();
 			bpmProcess.setId(pifProcess.getName());
 			bpmProcess.setName(pifProcess.getName());
 
-			InitialEvent startNode = pifProcess.getBehaviour().getInitialNode();
-			List<JAXBElement<Object>> endNodes = pifProcess.getBehaviour().getFinalNodes();
-
+			final InitialEvent startNode = pifProcess.getBehaviour().getInitialNode();
 			bpmProcess.addFlowElement(modelBuilder.createStartEvent(startNode.getId()));
 
-			for (JAXBElement<Object> node : endNodes) {
-				EndEvent event = (EndEvent) node.getValue();
-				bpmProcess.addFlowElement(modelBuilder.createEndEvent(event.getId()));
+			final List<JAXBElement<Object>> endNodes = pifProcess.getBehaviour().getFinalNodes();
 
+			for (final JAXBElement<Object> node : endNodes)
+			{
+				final EndEvent event = (EndEvent) node.getValue();
+				bpmProcess.addFlowElement(modelBuilder.createEndEvent(event.getId()));
 			}
 
-			List<WorkflowNode> pifNodes = pifProcess.getBehaviour().getNodes();
+			final List<WorkflowNode> pifNodes = pifProcess.getBehaviour().getNodes();
 
-			for (WorkflowNode wfNode : pifNodes) {
-				if (wfNode instanceof Task) {
-					Task task = (Task) wfNode;
+			for (final WorkflowNode wfNode : pifNodes)
+			{
+				if (wfNode instanceof Task)
+				{
+					final Task task = (Task) wfNode;
 					bpmProcess.addFlowElement(modelBuilder.createUserTask(task.getId(), task.getId()));
-				} else if (wfNode instanceof AndJoinGateway) {
-					AndJoinGateway gateway = (AndJoinGateway) wfNode;
-					bpmProcess
-							.addFlowElement(modelBuilder.createParallelGateway(gateway.getId(), gateway.getId(), null));
-
-				} else if (wfNode instanceof AndSplitGateway) {
-					AndSplitGateway gateway = (AndSplitGateway) wfNode;
-					bpmProcess
-							.addFlowElement(modelBuilder.createParallelGateway(gateway.getId(), gateway.getId(), null));
-
-				} else if (wfNode instanceof XOrJoinGateway) {
-					XOrJoinGateway gateway = (XOrJoinGateway) wfNode;
-					bpmProcess.addFlowElement(
-							modelBuilder.createExclusiveGateway(gateway.getId(), gateway.getId(), null));
-
-				} else if (wfNode instanceof XOrSplitGateway) {
-					XOrSplitGateway gateway = (XOrSplitGateway) wfNode;
-					bpmProcess.addFlowElement(
-							modelBuilder.createExclusiveGateway(gateway.getId(), gateway.getId(), null));
-
-				} else if (wfNode instanceof OrJoinGateway) {
-					OrJoinGateway gateway = (OrJoinGateway) wfNode;
-					bpmProcess.addFlowElement(
-							modelBuilder.createInclusiveGateway(gateway.getId(), gateway.getId(), null));
-				} else if (wfNode instanceof OrSplitGateway) {
-					OrSplitGateway gateway = (OrSplitGateway) wfNode;
-					bpmProcess.addFlowElement(
-							modelBuilder.createInclusiveGateway(gateway.getId(), gateway.getId(), null));
-
-				} else {
-					logger.error("Unable to determine the PIF node instance - {}: {}", wfNode.getId(),
-							wfNode.getClass().getName());
+				}
+				else if (wfNode instanceof AndJoinGateway)
+				{
+					final AndJoinGateway gateway = (AndJoinGateway) wfNode;
+					bpmProcess.addFlowElement(modelBuilder.createParallelGateway(gateway.getId(), gateway.getId(), null));
+				}
+				else if (wfNode instanceof AndSplitGateway)
+				{
+					final AndSplitGateway gateway = (AndSplitGateway) wfNode;
+					bpmProcess.addFlowElement(modelBuilder.createParallelGateway(gateway.getId(), gateway.getId(), null));
+				}
+				else if (wfNode instanceof XOrJoinGateway)
+				{
+					final XOrJoinGateway gateway = (XOrJoinGateway) wfNode;
+					bpmProcess.addFlowElement(modelBuilder.createExclusiveGateway(gateway.getId(), gateway.getId(), null));
+				}
+				else if (wfNode instanceof XOrSplitGateway)
+				{
+					final XOrSplitGateway gateway = (XOrSplitGateway) wfNode;
+					bpmProcess.addFlowElement(modelBuilder.createExclusiveGateway(gateway.getId(), gateway.getId(), null));
+				}
+				else if (wfNode instanceof OrJoinGateway)
+				{
+					final OrJoinGateway gateway = (OrJoinGateway) wfNode;
+					bpmProcess.addFlowElement(modelBuilder.createInclusiveGateway(gateway.getId(), gateway.getId(), null));
+				}
+				else if (wfNode instanceof OrSplitGateway)
+				{
+					final OrSplitGateway gateway = (OrSplitGateway) wfNode;
+					bpmProcess.addFlowElement(modelBuilder.createInclusiveGateway(gateway.getId(), gateway.getId(), null));
+				}
+				else
+				{
+					logger.error("Unable to determine the PIF node instance - {}: {}", wfNode.getId(), wfNode.getClass().getName());
 				}
 			}
 
-			List<SequenceFlow> flows = pifProcess.getBehaviour().getSequenceFlows();
+			final List<SequenceFlow> flows = pifProcess.getBehaviour().getSequenceFlows();
 
-			// List<org.activiti.bpmn.model.SequenceFlow> bpmFlows = new
-			// ArrayList<>();
-			for (SequenceFlow flow : flows) {
-				org.activiti.bpmn.model.SequenceFlow bpmFlow = modelBuilder.createSequenceFlow(flow.getSource().getId(),
-						flow.getTarget().getId());
+			for (final SequenceFlow flow : flows)
+			{
+				final org.activiti.bpmn.model.SequenceFlow bpmFlow = modelBuilder.createSequenceFlow(
+					flow.getSource().getId(),
+					flow.getTarget().getId()
+				);
 				bpmProcess.addFlowElement(bpmFlow);
 			}
 
 			model.addProcess(bpmProcess);
 			new BpmnAutoLayout(model).execute();
-			byte[] bpmnXml = new BpmnXMLConverter().convertToXML(model);
-
-			FileOutputStream fileOutputStream = new FileOutputStream(bpmnOutput);
+			final byte[] bpmnXml = new BpmnXMLConverter().convertToXML(model);
+			final FileOutputStream fileOutputStream = new FileOutputStream(bpmnOutput);
 			IOUtils.write(bpmnXml, fileOutputStream);
-
-		} catch (JAXBException | IOException e) {
+			fileOutputStream.close();
+		}
+		catch (JAXBException | IOException e)
+		{
 			bpmnOutput.delete();
 			logger.error("Error transforming the input", e);
 			throw new RuntimeException(e);
@@ -151,9 +155,8 @@ public class PifContentTransformer implements ContentTransformer {
 	 * fr.inria.convecs.optimus.transformer.ContentTransformer#generateOutput()
 	 */
 	@Override
-	public void generateOutput() {
+	public void generateOutput()
+	{
 		// TODO Auto-generated method stub
-
 	}
-
 }
