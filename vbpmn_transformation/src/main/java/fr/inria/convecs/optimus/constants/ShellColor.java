@@ -1,4 +1,4 @@
-package fr.inria.convecs.optimus.py_to_java;
+package fr.inria.convecs.optimus.constants;
 
 public class ShellColor
 {

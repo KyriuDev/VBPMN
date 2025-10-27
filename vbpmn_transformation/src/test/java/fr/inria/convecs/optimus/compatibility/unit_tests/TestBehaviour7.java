@@ -1,7 +1,7 @@
 package fr.inria.convecs.optimus.compatibility.unit_tests;
 
 import fr.inria.convecs.optimus.compatibility.GenericTest;
-import fr.inria.convecs.optimus.py_to_java.ShellColor;
+import fr.inria.convecs.optimus.constants.ShellColor;
 import fr.inria.convecs.optimus.py_to_java.Vbpmn;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;

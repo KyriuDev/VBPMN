@@ -1,14 +1,12 @@
 package fr.inria.convecs.optimus.compatibility;
 
-import fr.inria.convecs.optimus.py_to_java.ReturnCodes;
-import fr.inria.convecs.optimus.py_to_java.ShellColor;
+import fr.inria.convecs.optimus.constants.ReturnCode;
+import fr.inria.convecs.optimus.constants.ShellColor;
 import fr.inria.convecs.optimus.util.CommandManager;
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Paths;
@@ -74,7 +72,7 @@ public class FullTests
 			final CommandManager commandManager = new CommandManager(command, workingDirectory, args);
 			commandManager.execute();
 
-			if (commandManager.returnValue() != ReturnCodes.TERMINATION_OK)
+			if (commandManager.returnValue() != ReturnCode.TERMINATION_OK)
 			{
 				throw new RuntimeException("An error occurred during the execution of the \"cadp_lib -1\" command: " +
 						commandManager.stdErr());

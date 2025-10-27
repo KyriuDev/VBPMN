@@ -5,7 +5,7 @@ import fr.inria.convecs.optimus.pif.SequenceFlow;
 import fr.inria.convecs.optimus.pif.WorkflowNode;
 import fr.inria.convecs.optimus.py_to_java.cadp_compliance.generics.Pif2LntGeneric;
 import fr.inria.convecs.optimus.py_to_java.PyToJavaUtils;
-import fr.inria.convecs.optimus.py_to_java.ReturnCodes;
+import fr.inria.convecs.optimus.constants.ReturnCode;
 import fr.inria.convecs.optimus.util.CommandManager;
 import fr.inria.convecs.optimus.util.NotImplementedException;
 import fr.inria.convecs.optimus.util.Pair;
@@ -4031,7 +4031,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			if (cycleExists)
 			{
-				return Triple.of(ReturnCodes.TERMINATION_UNBALANCED_INCLUSIVE_CYCLE, pifModelName, process.alpha());
+				return Triple.of(ReturnCode.TERMINATION_UNBALANCED_INCLUSIVE_CYCLE, pifModelName, process.alpha());
 			}
 		}
 
@@ -4048,11 +4048,11 @@ public class Pif2Lnt extends Pif2LntGeneric
 			}
 			catch (IOException | InterruptedException e)
 			{
-				return Triple.of(ReturnCodes.TERMINATION_ERROR, pifModelName, process.alpha());
+				return Triple.of(ReturnCode.TERMINATION_ERROR, pifModelName, process.alpha());
 			}
 		}
 
-		return Triple.of(ReturnCodes.TERMINATION_OK, pifModelName, process.alpha()); //TODO use return value from SVL call
+		return Triple.of(ReturnCode.TERMINATION_OK, pifModelName, process.alpha()); //TODO use return value from SVL call
 	}
 
 	/**
@@ -4081,7 +4081,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 		}
 		else
 		{
-			return Triple.of(ReturnCodes.TERMINATION_OK, pifModelName, process.alpha());
+			return Triple.of(ReturnCode.TERMINATION_OK, pifModelName, process.alpha());
 		}
 	}
 }
