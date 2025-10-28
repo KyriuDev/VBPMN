@@ -1,5 +1,8 @@
 package fr.inria.convecs.optimus.util;
 
+import fr.inria.convecs.optimus.constants.Constant;
+import fr.inria.convecs.optimus.constants.Lnt;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -23,7 +26,7 @@ public class Utils
 
 		for (int i = 0; i < nbIndent; i++)
 		{
-			builder.append("   ");
+			builder.append(Lnt.BASE_INDENT);
 		}
 
 		return builder.toString();
@@ -35,7 +38,7 @@ public class Utils
 
 		for (int i = 0; i < nbIndent; i++)
 		{
-			builder.append(" ");
+			builder.append(Constant.SPACE);
 		}
 
 		return builder.toString();

@@ -892,7 +892,7 @@ public class Vbpmn
 			final StringBuilder svlCommands = new StringBuilder(PyToJavaUtils.parametrize(
 				Template.SVL_FORMULA_CHECKING,
 				this.model1,
-				Constant.MCL_FORMULA
+				Constant.MCL_FORMULA_FILENAME
 			));
 
 			if (!this.model1.equals(this.model2))
@@ -900,7 +900,7 @@ public class Vbpmn
 				svlCommands.append(PyToJavaUtils.parametrize(
 					Template.SVL_FORMULA_CHECKING,
 					this.model2,
-					Constant.MCL_FORMULA
+					Constant.MCL_FORMULA_FILENAME
 				));
 			}
 
