@@ -342,7 +342,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		//Returns the source node
@@ -467,7 +468,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		/**
@@ -537,7 +539,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.SPACE)
 					.append(Bpmn.END_EVENT)
 					.append(Constant.SPACE_AND_LEFT_SQUARE_BRACKET)
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.FINISH)
 					.append(Constant.COLON_AND_SPACE)
@@ -558,7 +560,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Lnt.IN)
 						.append(Constant.LINE_FEED)
 						.append(Utils.indentLNT(2))
-						.append(Bpmn.INCOMING_FLOW)
+						.append(Bpmn.INCOMING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 						.append(Lnt.OUT_PARAMETER)
 						.append(Bpmn.IDENT_VARIABLE)
@@ -590,7 +592,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Lnt.LOOP)
 						.append(Constant.LINE_FEED)
 						.append(Utils.indentLNT(3))
-						.append(Bpmn.INCOMING_FLOW)
+						.append(Bpmn.INCOMING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 						.append(Lnt.OUT_PARAMETER)
 						.append(Bpmn.IDENT_VARIABLE)
@@ -610,7 +612,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			stringBuilder.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		/**
@@ -752,7 +755,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.SPACE)
 					.append(Bpmn.INTERACTION)
 					.append(Constant.SPACE_AND_LEFT_SQUARE_BRACKET)
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.INTER)
 					.append(Constant.COMA_AND_SPACE)
@@ -772,7 +775,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.LOOP)
 					.append(Constant.LINE_FEED)
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -894,7 +897,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.SPACE)
 					.append(Bpmn.MESSAGE_SENDING)
 					.append(Constant.SPACE_AND_LEFT_SQUARE_BRACKET)
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.MESSAGE)
 					.append(Constant.COMA_AND_SPACE)
@@ -912,7 +915,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SPACED_IN)
 					.append(Lnt.LOOP)
 					.append(Constant.LINE_FEED)
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -993,7 +996,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.SPACE)
 					.append(Bpmn.MESSAGE_RECEPTION)
 					.append(Constant.SPACE_AND_LEFT_SQUARE_BRACKET)
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.MESSAGE)
 					.append(Constant.COMA_AND_SPACE)
@@ -1011,7 +1014,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SPACED_IN)
 					.append(Lnt.LOOP)
 					.append(Constant.LINE_FEED)
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -1197,7 +1200,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			if (nbInc == 1)
 			{
-				stringBuilder.append(Bpmn.INCOMING_FLOW)
+				stringBuilder.append(Bpmn.INCOMING_FLOW_VARIABLE)
 						.append(Constant.COMA_AND_SPACE);
 
 				nbCharCurrentLine = processPreamble.length() + 6;
@@ -1208,7 +1211,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 				while (incCounter < nbInc)
 				{
-					final String flowId = Bpmn.INCOMING_FLOW + incCounter;
+					final String flowId = Bpmn.INCOMING_FLOW_VARIABLE + incCounter;
 
 					if (nbCharCurrentLine + flowId.length() + 1 > Lnt.MAX_CHAR_PER_LINE)
 					{
@@ -1307,7 +1310,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			if (nbInc == 1)
 			{
-				final String flowId = Bpmn.INCOMING_FLOW + Constant.SPACE_AND_LEFT_PARENTHESIS +
+				final String flowId = Bpmn.INCOMING_FLOW_VARIABLE + Constant.SPACE_AND_LEFT_PARENTHESIS +
 						Lnt.OUT_PARAMETER + Bpmn.IDENT_VARIABLE + Lnt.SPACED_OF + Bpmn.ID_LNT_TYPE +
 						Constant.RIGHT_PARENTHESIS + Lnt.SEQUENTIAL_COMPOSITION_OPERATOR;
 
@@ -1323,7 +1326,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 				while (incCounter < nbInc)
 				{
-					stringBuilder.append(Bpmn.INCOMING_FLOW)
+					stringBuilder.append(Bpmn.INCOMING_FLOW_VARIABLE)
 							.append(incCounter)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 							.append(Lnt.OUT_PARAMETER)
@@ -1414,7 +1417,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		@Override
@@ -1857,7 +1861,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			final String processPreamble = Lnt.PROCESS + Constant.SPACE + Bpmn.INCLUSIVE_SPLIT_GATEWAY +
 					Constant.UNDERSCORE + this.identifier + Constant.SPACE_AND_LEFT_SQUARE_BRACKET +
-					Bpmn.INCOMING_FLOW + Constant.COMA_AND_SPACE;
+					Bpmn.INCOMING_FLOW_VARIABLE + Constant.COMA_AND_SPACE;
 			stringBuilder.append(processPreamble);
 
 			//We dump the process alphabet (flows + synchronization points if necessary)
@@ -2006,7 +2010,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.LOOP)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(4))
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -2128,7 +2132,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		/**
@@ -2374,7 +2379,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			boolean lineJumped = false;
 			final String processIdentifier = Lnt.PROCESS + Constant.SPACE + Bpmn.EXCLUSIVE_SPLIT_GATEWAY +
 					Constant.UNDERSCORE + this.identifier + Constant.SPACE_AND_LEFT_SQUARE_BRACKET +
-					Bpmn.INCOMING_FLOW + Constant.COMA_AND_SPACE;
+					Bpmn.INCOMING_FLOW_VARIABLE + Constant.COMA_AND_SPACE;
 			stringBuilder.append(processIdentifier);
 			int nb = 1;
 			int nbCharCurrentLine = processIdentifier.length();
@@ -2424,7 +2429,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.LOOP)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(3))
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -2475,7 +2480,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		void writeMainLnt(final StringBuilder stringBuilder,
@@ -2526,7 +2532,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			boolean lineJumped = false;
 			final String processIdentifier = Lnt.PROCESS + Constant.SPACE + Bpmn.PARALLEL_SPLIT_GATEWAY +
 					Constant.UNDERSCORE + this.identifier + Constant.SPACE_AND_LEFT_SQUARE_BRACKET +
-					Bpmn.INCOMING_FLOW + Constant.COMA_AND_SPACE;
+					Bpmn.INCOMING_FLOW_VARIABLE + Constant.COMA_AND_SPACE;
 			stringBuilder.append(processIdentifier);
 			int nb = 1;
 
@@ -2642,7 +2648,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.LOOP)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(4))
-					.append(Bpmn.INCOMING_FLOW)
+					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -2699,7 +2705,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		void writeMainLnt(final StringBuilder stringBuilder,
@@ -2848,7 +2855,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 				while (incomingFlowNumericalIdentifier <= this.incomingFlows.size())
 				{
-					final String incomingFlowIdentifier = Bpmn.INCOMING_FLOW + Constant.UNDERSCORE +
+					final String incomingFlowIdentifier = Bpmn.INCOMING_FLOW_VARIABLE + Constant.UNDERSCORE +
 							incomingFlowNumericalIdentifier;
 					incomingFlowsAlphabet.add(incomingFlowIdentifier);
 					incomingFlowNumericalIdentifier++;
@@ -2864,7 +2871,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 				while (incomingFlowNumericalIdentifier <= this.incomingFlows.size())
 				{
-					final String incomingFlowIdentifier = Bpmn.INCOMING_FLOW + Constant.UNDERSCORE +
+					final String incomingFlowIdentifier = Bpmn.INCOMING_FLOW_VARIABLE + Constant.UNDERSCORE +
 							incomingFlowNumericalIdentifier + Constant.COMA_AND_SPACE;
 
 					if (incomingFlowNumericalIdentifier == 1)
@@ -3088,7 +3095,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 								.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 								.append(Lnt.OUT_PARAMETER)
 								.append(Bpmn.IDENT_VARIABLE)
-								.append(Lnt.OF)
+								.append(Lnt.SPACED_OF)
 								.append(Bpmn.ID_LNT_TYPE)
 								.append(Constant.RIGHT_PARENTHESIS);
 					}
@@ -3128,7 +3135,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			}
 			else
 			{
-				final String processIdentifier = Lnt.PROCESS + Bpmn.INCLUSIVE_MERGE_GATEWAY +
+				final String processIdentifier = Lnt.PROCESS + Constant.SPACE + Bpmn.INCLUSIVE_MERGE_GATEWAY +
 						Constant.UNDERSCORE + this.identifier + Constant.SPACE_AND_LEFT_SQUARE_BRACKET;
 				stringBuilder.append(processIdentifier);
 				int nb = 1;
@@ -3137,7 +3144,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 				while (nb <= this.incomingFlows.size())
 				{
-					final String incFlowIdentifier = Bpmn.INCOMING_FLOW + Constant.UNDERSCORE + nb +
+					final String incFlowIdentifier = Bpmn.INCOMING_FLOW_VARIABLE + Constant.UNDERSCORE + nb +
 							Constant.COMA_AND_SPACE;
 
 					if (nb == 1)
@@ -3250,7 +3257,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				while (nb <= this.incomingFlows.size())
 				{
 					stringBuilder.append(Utils.indentLNT(5))
-							.append(Bpmn.INCOMING_FLOW)
+							.append(Bpmn.INCOMING_FLOW_VARIABLE)
 							.append(Constant.UNDERSCORE)
 							.append(nb)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
@@ -3280,6 +3287,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Bpmn.MOVE_ON_FLOW)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 						.append(Bpmn.MERGE_ID_VARIABLE)
+						.append(Constant.RIGHT_PARENTHESIS)
 						.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
 						.append(Constant.LINE_FEED)
 						.append(Utils.indentLNT(5))
@@ -3313,7 +3321,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		//Generates process instantiation for main LNT process
@@ -3329,7 +3338,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 					while (nb <= this.incomingFlows.size())
 					{
-						incomingFlowsAlphabet.add(Bpmn.INCOMING_FLOW + Constant.UNDERSCORE + nb);
+						incomingFlowsAlphabet.add(Bpmn.INCOMING_FLOW_VARIABLE + Constant.UNDERSCORE + nb);
 						nb++;
 					}
 
@@ -3604,15 +3613,15 @@ public class Pif2Lnt extends Pif2LntGeneric
 					  final int baseIndent)
 		{
 			boolean lineJumped = false;
-			final String processIdentifier = Lnt.PROCESS + Bpmn.EXCLUSIVE_MERGE_GATEWAY + Constant.UNDERSCORE +
-					this.identifier + Constant.SPACE_AND_LEFT_SQUARE_BRACKET;
+			final String processIdentifier = Lnt.PROCESS + Constant.SPACE + Bpmn.EXCLUSIVE_MERGE_GATEWAY +
+					Constant.UNDERSCORE + this.identifier + Constant.SPACE_AND_LEFT_SQUARE_BRACKET;
 			stringBuilder.append(processIdentifier);
 			int nbCharCurrentLine = processIdentifier.length();
 			int nb = 1;
 
 			while (nb <= this.incomingFlows.size())
 			{
-				final String incFlowIdentifier = Bpmn.INCOMING_FLOW + Constant.UNDERSCORE + nb + Constant.COMA_AND_SPACE;
+				final String incFlowIdentifier = Bpmn.INCOMING_FLOW_VARIABLE + Constant.UNDERSCORE + nb + Constant.COMA_AND_SPACE;
 
 				if (nb == 1)
 				{
@@ -3672,7 +3681,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			while (nb <= this.incomingFlows.size())
 			{
 				stringBuilder.append(Utils.indentLNT(4))
-						.append(Bpmn.INCOMING_FLOW)
+						.append(Bpmn.INCOMING_FLOW_VARIABLE)
 						.append(Constant.UNDERSCORE)
 						.append(nb)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
@@ -3715,7 +3724,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		void writeMainLnt(final StringBuilder stringBuilder,
@@ -3764,8 +3774,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					  final int baseIndent)
 		{
 			boolean lineJumped = false;
-			final String toWrite = Lnt.PROCESS + Bpmn.PARALLEL_MERGE_GATEWAY + Constant.UNDERSCORE + this.identifier +
-					Constant.SPACE_AND_LEFT_SQUARE_BRACKET;
+			final String toWrite = Lnt.PROCESS + Constant.SPACE + Bpmn.PARALLEL_MERGE_GATEWAY + Constant.UNDERSCORE +
+					this.identifier + Constant.SPACE_AND_LEFT_SQUARE_BRACKET;
 			stringBuilder.append(toWrite);
 			int nb = 1;
 
@@ -3773,7 +3783,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			while (nb <= this.incomingFlows.size())
 			{
-				final String flowName = Bpmn.INCOMING_FLOW + Constant.UNDERSCORE + nb + Constant.COMA_AND_SPACE;
+				final String flowName = Bpmn.INCOMING_FLOW_VARIABLE + Constant.UNDERSCORE + nb + Constant.COMA_AND_SPACE;
 
 				if (nbCharCurrentLine + flowName.length() > Lnt.MAX_CHAR_PER_LINE)
 				{
@@ -3895,7 +3905,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			while (nb <= this.incomingFlows.size())
 			{
 				stringBuilder.append(Utils.indentLNT(5))
-						.append(Bpmn.INCOMING_FLOW)
+						.append(Bpmn.INCOMING_FLOW_VARIABLE)
 						.append(Constant.UNDERSCORE)
 						.append(nb)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
@@ -3944,7 +3954,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		void writeMainLnt(final StringBuilder stringBuilder,
@@ -4371,7 +4382,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Lnt.END_FUNCTION)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		//TODO A vérifier : passage de networkx à JGraphT
@@ -4449,12 +4461,13 @@ public class Pif2Lnt extends Pif2LntGeneric
 			stringBuilder.append(Bpmn.MOVE_ON_FLOW)
 					.append(Constant.COLON_AND_SPACE)
 					.append(Lnt.ANY)
+					.append(Constant.RIGHT_SQUARE_BRACKET)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indent(processIdentifier.length() - 1))
 					.append(Constant.LEFT_PARENTHESIS)
 					.append(Bpmn.ACTIVE_FLOWS_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
-					.append(Bpmn.IDS_LNT_TYPE)
+					.append(Bpmn.SET_OF_IDS_LNT_TYPE)
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.BPMN_PROCESS_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
@@ -4462,17 +4475,17 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.SYNC_STORE_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
-					.append(Bpmn.IDS_LNT_TYPE)
+					.append(Bpmn.SET_OF_IDS_LNT_TYPE)
 					.append(Constant.COMA)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indent(processIdentifier.length()))
 					.append(Bpmn.MERGE_STORE_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
-					.append(Bpmn.IDS_LNT_TYPE)
+					.append(Bpmn.SET_OF_IDS_LNT_TYPE)
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.PAR_STORE_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
-					.append(Bpmn.IDS_LNT_TYPE)
+					.append(Bpmn.SET_OF_IDS_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
 					.append(Constant.LINE_FEED)
 					.append(Lnt.IS)
@@ -4493,7 +4506,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				if (node instanceof Task)
 				{
 					nodeBuilder.append(Utils.indent(nodeMinIndent))
-							.append(Lnt.OPEN_COMMENTARY)
+							.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 							.append(Constant.COMMENTS_DASHES)
 							.append(Constant.SPACE)
 							.append("Task of ID")
@@ -4501,7 +4514,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(node.identifier())
 							.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
 							.append(Constant.COMMENTS_DASHES)
-							.append(Lnt.CLOSE_COMMENTARY)
+							.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 							.append(Constant.LINE_FEED)
 							.append(Utils.indent(nodeMinIndent));
 
@@ -4533,7 +4546,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				else if (node instanceof XOrSplitGateway)
 				{
 					nodeBuilder.append(Utils.indent(nodeMinIndent))
-							.append(Lnt.OPEN_COMMENTARY)
+							.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 							.append(Constant.COMMENTS_DASHES)
 							.append(Constant.SPACE)
 							.append("Exclusive split gateway of ID")
@@ -4541,7 +4554,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(node.identifier())
 							.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
 							.append(Constant.COMMENTS_DASHES)
-							.append(Lnt.CLOSE_COMMENTARY)
+							.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 							.append(Constant.LINE_FEED)
 							.append(Utils.indent(nodeMinIndent))
 							.append(node.firstIncomingFlow().identifier())
@@ -4614,7 +4627,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				else if (node instanceof XOrJoinGateway)
 				{
 					nodeBuilder.append(Utils.indent(nodeMinIndent))
-							.append(Lnt.OPEN_COMMENTARY)
+							.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 							.append(Constant.COMMENTS_DASHES)
 							.append(Constant.SPACE)
 							.append("XOrJoinGateway of ID")
@@ -4622,7 +4635,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(node.identifier())
 							.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
 							.append(Constant.COMMENTS_DASHES)
-							.append(Lnt.CLOSE_COMMENTARY)
+							.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 							.append(Constant.LINE_FEED)
 							.append(Utils.indent(nodeMinIndent))
 							.append(Lnt.ALT)
@@ -4689,7 +4702,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				else if (node instanceof AndSplitGateway)
 				{
 					nodeBuilder.append(Utils.indent(nodeMinIndent))
-							.append(Lnt.OPEN_COMMENTARY)
+							.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 							.append(Constant.COMMENTS_DASHES)
 							.append(Constant.SPACE)
 							.append("AndSplitGateway of ID")
@@ -4697,7 +4710,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(node.identifier())
 							.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
 							.append(Constant.COMMENTS_DASHES)
-							.append(Lnt.CLOSE_COMMENTARY)
+							.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 							.append(Constant.LINE_FEED)
 							.append(Utils.indent(nodeMinIndent))
 							.append(node.firstIncomingFlow().identifier())
@@ -4769,7 +4782,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				else if (node instanceof AndJoinGateway)
 				{
 					nodeBuilder.append(Utils.indent(nodeMinIndent))
-							.append(Lnt.OPEN_COMMENTARY)
+							.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 							.append(Constant.COMMENTS_DASHES)
 							.append(Constant.SPACE)
 							.append("AndJoinGateway of ID")
@@ -4777,7 +4790,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(node.identifier())
 							.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
 							.append(Constant.COMMENTS_DASHES)
-							.append(Lnt.CLOSE_COMMENTARY)
+							.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 							.append(Constant.LINE_FEED)
 							.append(Utils.indent(nodeMinIndent))
 							.append(Lnt.ALT)
@@ -4921,6 +4934,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Bpmn.SYNC_STORE_VARIABLE)
 							.append(Constant.COMA_AND_SPACE)
 							.append(Bpmn.MERGE_ID_VARIABLE)
+							.append(Constant.RIGHT_PARENTHESIS)
 							.append(Constant.COMA)
 							.append(Constant.LINE_FEED)
 							.append(Utils.indent(minIndent))
@@ -4940,7 +4954,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				else if (node instanceof OrSplitGateway)
 				{
 					nodeBuilder.append(Utils.indent(nodeMinIndent))
-							.append(Lnt.OPEN_COMMENTARY)
+							.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 							.append(Constant.COMMENTS_DASHES)
 							.append(Constant.SPACE)
 							.append("OrSplitGateway of ID")
@@ -4948,7 +4962,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(node.identifier())
 							.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
 							.append(Constant.COMMENTS_DASHES)
-							.append(Lnt.CLOSE_COMMENTARY)
+							.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 							.append(Constant.LINE_FEED)
 							.append(Utils.indent(nodeMinIndent))
 							.append(node.firstIncomingFlow().identifier())
@@ -5093,7 +5107,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				else if (node instanceof OrJoinGateway)
 				{
 					nodeBuilder.append(Utils.indent(nodeMinIndent))
-							.append(Lnt.OPEN_COMMENTARY)
+							.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 							.append(Constant.COMMENTS_DASHES)
 							.append(Constant.SPACE)
 							.append("OrJoinGateway of ID")
@@ -5101,7 +5115,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(node.identifier())
 							.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
 							.append(Constant.COMMENTS_DASHES)
-							.append(Lnt.CLOSE_COMMENTARY)
+							.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 							.append(Constant.LINE_FEED)
 							.append(Utils.indent(nodeMinIndent))
 							.append(Lnt.ALT)
@@ -5269,7 +5283,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				else
 				{
 					nodeBuilder.append(Utils.indent(nodeMinIndent))
-							.append(Lnt.OPEN_COMMENTARY)
+							.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 							.append(Constant.COMMENTS_DASHES)
 							.append(Constant.SPACE)
 							.append("ERROR: Unable to select element of ID")
@@ -5277,7 +5291,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(node.identifier())
 							.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
 							.append(Constant.COMMENTS_DASHES)
-							.append(Lnt.CLOSE_COMMENTARY)
+							.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 							.append(Constant.LINE_FEED);
 				}
 
@@ -5350,13 +5364,13 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			//Handle initial node
 			stringBuilder.append(Utils.indent(nodeMinIndent))
-					.append(Lnt.OPEN_COMMENTARY)
+					.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 					.append(Constant.COMMENTS_DASHES)
 					.append(Constant.SPACE)
 					.append("Initial node")
 					.append(Constant.SPACE)
 					.append(Constant.COMMENTS_DASHES)
-					.append(Lnt.CLOSE_COMMENTARY)
+					.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indent(nodeMinIndent))
 					.append(this.initial.firstOutgoingFlow().identifier())
@@ -5395,13 +5409,13 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			//Handle final node
 			stringBuilder.append(Utils.indent(nodeMinIndent))
-					.append(Lnt.OPEN_COMMENTARY)
+					.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 					.append(Constant.COMMENTS_DASHES)
 					.append(Constant.SPACE)
 					.append("Final node")
 					.append(Constant.SPACE)
 					.append(Constant.COMMENTS_DASHES)
-					.append(Lnt.CLOSE_COMMENTARY)
+					.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indent(nodeMinIndent))
 					.append(this.finals.get(0).firstIncomingFlow().identifier())
@@ -5712,7 +5726,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.END_PROCESS)
 					.append(Constant.DOUBLE_LINE_FEED)
 					.append(Lnt.STANDARD_SEPARATOR)
-			;
+					.append(Constant.DOUBLE_LINE_FEED);
 		}
 
 		String getSchedulerString(final List<String> incIds,
@@ -5909,11 +5923,11 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.IS)
 					.append(natBits)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.OPEN_COMMENTARY)
+					.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 					.append(Constant.SPACE)
 					.append("Data type for identifiers, useful for scheduling purposes")
 					.append(Constant.SPACE)
-					.append(Lnt.CLOSE_COMMENTARY)
+					.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 					.append(Constant.LINE_FEED)
 					.append(Lnt.TYPE)
 					.append(Constant.SPACE)
@@ -5986,7 +6000,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				this.generateIdFile();
 			}
 
-			final String fileName = this.name + Constant.LNT_SUFFIX;
+			final String fileName = this.name + Lnt.FILE_EXTENSION;
 			final File file = new File(outputFolder + File.separator + fileName);
 			final StringBuilder lntBuilder = new StringBuilder();
 			final String natBits = isBalanced ? computeRequiredNatBits(this.flows.size()) : Constant.EMPTY_STRING;
@@ -5994,7 +6008,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			lntBuilder.append(Lnt.MODULE)
 					.append(Constant.SPACE)
 					.append(this.name)
-					.append(isBalanced ? Constant.EMPTY_STRING : Constant.LEFT_PARENTHESIS + Bpmn.BPMN_TYPES + Constant.RIGHT_PARENTHESIS)
+					.append(isBalanced ? Constant.EMPTY_STRING : Constant.LEFT_PARENTHESIS + Bpmn.TYPES_LNT_MODULE + Constant.RIGHT_PARENTHESIS)
 					.append(Constant.SPACE)
 					.append(Lnt.WITH)
 					.append(Constant.SPACE)
@@ -6007,16 +6021,17 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.IS)
 					.append(natBits)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append(Lnt.STANDARD_SEPARATOR);
+					.append(Lnt.STANDARD_SEPARATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 
 			if (isBalanced)
 			{
 				//Generates an ID type for all flow identifiers
-				lntBuilder.append(Lnt.OPEN_COMMENTARY)
+				lntBuilder.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 						.append(Constant.SPACE)
 						.append("Data type for flow identifiers, useful for scheduling purposes")
 						.append(Constant.SPACE)
-						.append(Lnt.CLOSE_COMMENTARY)
+						.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 						.append(Constant.LINE_FEED)
 						.append(Lnt.TYPE)
 						.append(Constant.SPACE)
@@ -6051,7 +6066,8 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Constant.LINE_FEED)
 						.append(Lnt.END_TYPE)
 						.append(Constant.DOUBLE_LINE_FEED)
-						.append(Lnt.STANDARD_SEPARATOR);
+						.append(Lnt.STANDARD_SEPARATOR)
+						.append(Constant.DOUBLE_LINE_FEED);
 			}
 
 			if (this.initial != null)
@@ -6378,14 +6394,14 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Lnt.IN)
 						.append(Constant.LINE_FEED)
 						.append(Utils.indentLNT(3))
-						.append(Lnt.OPEN_COMMENTARY)
+						.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 						.append(Constant.SPACE)
 						.append("we first generate the scheduler, necessary for keeping")
 						.append(Constant.LINE_FEED)
 						.append(Utils.indentLNT(3))
 						.append("track of tokens, and triggering inclusive merge gateways")
 						.append(Constant.SPACE)
-						.append(Lnt.CLOSE_COMMENTARY)
+						.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 						.append(Constant.DOUBLE_LINE_FEED)
 						.append(Utils.indentLNT(3))
 						.append(Bpmn.SCHEDULER_IDENTIFIER)
@@ -6412,11 +6428,11 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Utils.indentLNT(3))
 						.append(Lnt.PAR)
 						.append(Constant.SPACE)
-						.append(Lnt.OPEN_COMMENTARY)
+						.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 						.append(Constant.SPACE)
 						.append("synchronizations on all begin/finish flow messages")
 						.append(Constant.SPACE)
-						.append(Lnt.CLOSE_COMMENTARY)
+						.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 						.append(Constant.LINE_FEED);
 
 				//Synchronizations on all begin/finish flows
@@ -6438,11 +6454,11 @@ public class Pif2Lnt extends Pif2LntGeneric
 			//Interleaving of all flow processes
 			lntBuilder.append(Lnt.PAR)
 					.append(Constant.SPACE)
-					.append(Lnt.OPEN_COMMENTARY)
+					.append(Lnt.OPEN_MULTILINE_COMMENTARY)
 					.append(Constant.SPACE)
 					.append("we then generate interleaving of all flow processes")
 					.append(Constant.SPACE)
-					.append(Lnt.CLOSE_COMMENTARY)
+					.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 					.append(Constant.LINE_FEED);
 
 			int cter = 1;
@@ -6456,15 +6472,16 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Bpmn.FLOW)
 						.append(Constant.SPACE_AND_LEFT_SQUARE_BRACKET);
 
-				final String beginIdentifier = flow.identifier() + "_begin, ";
-				final String finishIdentifier = flow.identifier() + "_finish]";
+				final String beginIdentifier = flow.identifier() + Constant.UNDERSCORE + Bpmn.BEGIN + Constant.COMA_AND_SPACE;
+				final String finishIdentifier = flow.identifier() + Constant.UNDERSCORE + Bpmn.FINISH + Constant.RIGHT_SQUARE_BRACKET;
 
 				lntBuilder.append(beginIdentifier);
 				nbCharCurrentLine += beginIdentifier.length();
 
 				if (nbCharCurrentLine + finishIdentifier.length() > Lnt.MAX_CHAR_PER_LINE)
 				{
-					lntBuilder.append(Constant.LINE_FEED).append(Utils.indent(18 + indentBase));
+					lntBuilder.append(Constant.LINE_FEED)
+							.append(Utils.indent(18 + indentBase));
 					nbCharCurrentLine = 18 + indentBase + finishIdentifier.length();
 				}
 				else
@@ -6474,122 +6491,160 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 				lntBuilder.append(finishIdentifier);
 
-				final String paramIdentifier = " (" + flow.identifier() + ")";
+				//final String paramIdentifier = " (" + flow.identifier() + ")";
 
-				if (nbCharCurrentLine + paramIdentifier.length() > Lnt.MAX_CHAR_PER_LINE)
+				if (nbCharCurrentLine + flow.identifier().length() + 3 > Lnt.MAX_CHAR_PER_LINE)
 				{
-					lntBuilder.append(Constant.LINE_FEED).append(Utils.indent(16 + indentBase));
+					lntBuilder.append(Constant.LINE_FEED)
+							.append(Utils.indent(16 + indentBase));
 				}
 
-				lntBuilder.append(paramIdentifier);
+				lntBuilder.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+						.append(flow.identifier())
+						.append(Constant.RIGHT_PARENTHESIS);
 				cter++;
 
 				if (cter <= this.flows.size())
 				{
-					lntBuilder.append(Constant.LINE_FEED);
-					lntBuilder.append(Utils.indentLNT(3));
-					lntBuilder.append(Utils.indent(indentBase));
-					lntBuilder.append("||\n");
-				}
-			}
-
-			lntBuilder.append(Constant.LINE_FEED);
-			lntBuilder.append(Utils.indentLNT(3));
-			lntBuilder.append(Utils.indent(indentBase));
-			lntBuilder.append("end par\n");
-			lntBuilder.append(Utils.indentLNT(2));
-			lntBuilder.append(Utils.indent(indentBase));
-			lntBuilder.append("||\n");
-
-			//Interleaving of all node processes
-			lntBuilder.append(Utils.indentLNT(3));
-			lntBuilder.append(Utils.indent(indentBase));
-			lntBuilder.append("par (* we finally generate interleaving of all node processes *)\n");
-			lntBuilder.append(Utils.indentLNT(4));
-			lntBuilder.append(Utils.indent(indentBase));
-
-			//Process instantiation for initial node
-			final String beginIdentifier = this.initial.outgoingFlows().get(0).identifier() + "_begin]";
-			lntBuilder.append("init [begin, "); //We assume a single output flow
-
-			nbCharCurrentLine = 25 + indentBase;
-
-			if (nbCharCurrentLine + beginIdentifier.length() > Lnt.MAX_CHAR_PER_LINE)
-			{
-				lntBuilder.append(Constant.LINE_FEED).append(Utils.indent(18 + indentBase));
-			}
-
-			lntBuilder.append(beginIdentifier);
-			lntBuilder.append(Constant.LINE_FEED);
-			lntBuilder.append(Utils.indentLNT(3));
-			lntBuilder.append(Utils.indent(indentBase));
-			lntBuilder.append("||\n");
-
-			cter = 1;
-
-			//Processes instantiations for final nodes
-			for (Node n : this.finals)
-			{
-				lntBuilder.append(Utils.indentLNT(4));
-				lntBuilder.append(Utils.indent(indentBase));
-
-				final String finalNodeWithIdentifier = "final [" + n.incomingFlows().get(0).identifier() + "_finish, ";
-				lntBuilder.append(finalNodeWithIdentifier);
-				nbCharCurrentLine = finalNodeWithIdentifier.length() + 12 + indentBase;
-
-				if (nbCharCurrentLine + 7 > Lnt.MAX_CHAR_PER_LINE)
-				{
-					lntBuilder.append(Constant.LINE_FEED).append(Utils.indent(24));
-					lntBuilder.append(Utils.indent(indentBase));
-				}
-
-				lntBuilder.append("finish]"); //We assume a single incoming flow
-				cter++;
-
-				if (cter <= this.flows.size())
-				{
-					lntBuilder.append(Constant.LINE_FEED);
-					lntBuilder.append(Utils.indentLNT(3));
-					lntBuilder.append(Utils.indent(indentBase));
-					lntBuilder.append("||\n");
-				}
-			}
-
-			//Processes instantiations for all other nodes
-			final int nbNodes = this.nodes.size();
-			cter = 1;
-
-			for (Node n : this.nodes)
-			{
-				lntBuilder.append(Utils.indentLNT(4));
-				lntBuilder.append(Utils.indent(indentBase));
-				n.writeMainLnt(lntBuilder, 12 + indentBase);
-				cter++;
-
-				if (cter <= nbNodes)
-				{
-					lntBuilder.append(Constant.LINE_FEED);
-					lntBuilder.append(Utils.indentLNT(3));
-					lntBuilder.append(Utils.indent(indentBase));
-					lntBuilder.append("||\n");
+					lntBuilder.append(Constant.LINE_FEED)
+							.append(Utils.indentLNT(3))
+							.append(Utils.indent(indentBase))
+							.append(Lnt.PAR_OPERATOR)
+							.append(Constant.LINE_FEED);
 				}
 			}
 
 			lntBuilder.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(3))
 					.append(Utils.indent(indentBase))
-					.append("end par\n")
+					.append(Lnt.END_PAR)
+					.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(2))
 					.append(Utils.indent(indentBase))
-					.append("end par\n")
-					.append(isBalanced ? "" : Utils.indentLNT(2))
-					.append(isBalanced ? "" : "end par\n")
-					.append(Utils.indentLNT(1))
-					.append("end hide\n")
-					.append("end process\n\n")
+					.append(Lnt.PAR_OPERATOR)
+					.append(Constant.LINE_FEED);
+
+			//Interleaving of all node processes
+			lntBuilder.append(Utils.indentLNT(3))
+					.append(Utils.indent(indentBase))
+					.append(Lnt.PAR)
+					.append(Constant.SPACE)
+					.append(Lnt.OPEN_MULTILINE_COMMENTARY)
+					.append(Constant.SPACE)
+					.append("we finally generate interleaving of all node processes")
+					.append(Constant.SPACE)
+					.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+					.append(Constant.LINE_FEED)
+					.append(Utils.indentLNT(4))
+					.append(Utils.indent(indentBase));
+
+			//Process instantiation for initial node
+			final String beginIdentifier = this.initial.outgoingFlows().get(0).identifier() + Constant.UNDERSCORE +
+					Bpmn.BEGIN + Constant.RIGHT_SQUARE_BRACKET;
+
+			lntBuilder.append(Bpmn.INITIAL_EVENT)
+					.append(Constant.SPACE_AND_LEFT_SQUARE_BRACKET)
+					.append(Bpmn.BEGIN)
+					.append(Constant.COMA_AND_SPACE); //We assume a single output flow
+
+			nbCharCurrentLine = 25 + indentBase;
+
+			if (nbCharCurrentLine + beginIdentifier.length() > Lnt.MAX_CHAR_PER_LINE)
+			{
+				lntBuilder.append(Constant.LINE_FEED)
+						.append(Utils.indent(18 + indentBase));
+			}
+
+			lntBuilder.append(beginIdentifier)
+					.append(Constant.LINE_FEED)
+					.append(Utils.indentLNT(3))
+					.append(Utils.indent(indentBase))
+					.append(Lnt.PAR_OPERATOR)
+					.append(Constant.LINE_FEED);
+
+			cter = 1;
+
+			//Processes instantiations for final nodes
+			for (final Node finalNode : this.finals)
+			{
+				final String finalNodeWithIdentifier = Bpmn.END_EVENT + Constant.SPACE_AND_LEFT_SQUARE_BRACKET +
+						finalNode.incomingFlows().get(0).identifier() + Constant.UNDERSCORE + Bpmn.FINISH +
+						Constant.COMA_AND_SPACE;
+
+				lntBuilder.append(Utils.indentLNT(4))
+						.append(Utils.indent(indentBase))
+						.append(finalNodeWithIdentifier);
+
+				nbCharCurrentLine = finalNodeWithIdentifier.length() + 12 + indentBase;
+
+				if (nbCharCurrentLine + 7 > Lnt.MAX_CHAR_PER_LINE)
+				{
+					lntBuilder.append(Constant.LINE_FEED)
+							.append(Utils.indent(24))
+							.append(Utils.indent(indentBase));
+				}
+
+				lntBuilder.append(Bpmn.FINISH)
+						.append(Constant.RIGHT_SQUARE_BRACKET); //We assume a single incoming flow
+
+				cter++;
+
+				if (cter <= this.flows.size())
+				{
+					lntBuilder.append(Constant.LINE_FEED)
+							.append(Utils.indentLNT(3))
+							.append(Utils.indent(indentBase))
+							.append(Lnt.PAR_OPERATOR)
+							.append(Constant.LINE_FEED);
+				}
+			}
+
+			//Processes instantiations for all other nodes
+			cter = 1;
+
+			for (final Node node : this.nodes)
+			{
+				lntBuilder.append(Utils.indentLNT(4))
+						.append(Utils.indent(indentBase));
+				node.writeMainLnt(lntBuilder, 12 + indentBase);
+				cter++;
+
+				if (cter <= this.nodes.size())
+				{
+					lntBuilder.append(Constant.LINE_FEED)
+							.append(Utils.indentLNT(3))
+							.append(Utils.indent(indentBase))
+							.append(Lnt.PAR_OPERATOR)
+							.append(Constant.LINE_FEED);
+				}
+			}
+
+			lntBuilder.append(Constant.LINE_FEED)
+					.append(Utils.indentLNT(3))
+					.append(Utils.indent(indentBase))
+					.append(Lnt.END_PAR)
+					.append(Constant.LINE_FEED)
+					.append(Utils.indentLNT(2))
+					.append(Utils.indent(indentBase))
+					.append(Lnt.END_PAR)
+					.append(Constant.LINE_FEED);
+
+			if (!isBalanced)
+			{
+				lntBuilder.append(Utils.indentLNT(2))
+						.append(Lnt.END_PAR)
+						.append(Constant.LINE_FEED);
+			}
+
+			lntBuilder.append(Utils.indentLNT(1))
+					.append(Lnt.END_HIDE)
+					.append(Constant.LINE_FEED)
+					.append(Lnt.END_PROCESS)
+					.append(Constant.DOUBLE_LINE_FEED)
 					.append(Lnt.STANDARD_SEPARATOR)
-					.append("end module\n")
-			;
+					.append(Constant.DOUBLE_LINE_FEED)
+					.append(Lnt.END_MODULE)
+					.append(Constant.LINE_FEED);
 
 			final PrintWriter printWriter;
 
@@ -6611,29 +6666,75 @@ public class Pif2Lnt extends Pif2LntGeneric
 		 */
 		void genSVL()
 		{
-			final String fileName = this.name + ".svl";
-			final StringBuilder svlCommandBuilder = new StringBuilder();
-
-			svlCommandBuilder.append("% CAESAR_OPEN_OPTIONS=\"-silent -warning\"")
+			final String fileName = this.name + Svl.FILE_EXTENSION;
+			final StringBuilder svlCommandBuilder = new StringBuilder()
+					.append(Svl.SHELL_LINE_STARTING_SYMBOL)
+					.append(Constant.SPACE)
+					.append(Svl.CAESAR_OPEN_OPTIONS)
+					.append(Constant.EQUALS)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
+					.append(CaesarOpenOption.SILENT)
+					.append(Constant.SPACE)
+					.append(CaesarOpenOption.WARNING)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
 					.append(Constant.LINE_FEED)
-					.append(isBalanced ? "% CAESAR_OPTIONS=\"-more cat\"" : "% CAESAR_OPTIONS=\"-more cat -gc\"")
+					.append(Svl.SHELL_LINE_STARTING_SYMBOL)
+					.append(Constant.SPACE)
+					.append(Svl.CAESAR_OPTIONS)
+					.append(Constant.EQUALS)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
+					.append(CaesarOption.MORE)
+					.append(Constant.SPACE)
+					.append(CaesarOption.CAT)
+					.append(Constant.SPACE)
+					.append(CaesarOption.GARBAGE_COLLECTION)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
 					.append(Constant.DOUBLE_LINE_FEED)
-					.append("% DEFAULT_PROCESS_FILE=\"")
+					.append(Svl.SHELL_LINE_STARTING_SYMBOL)
+					.append(Constant.SPACE)
+					.append(Svl.DEFAULT_PROCESS_FILE)
+					.append(Constant.EQUALS)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
 					.append(this.name)
-					.append(".lnt\"\n\n")
-					.append("\"")
+					.append(Lnt.FILE_EXTENSION)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
+					.append(Constant.DOUBLE_LINE_FEED)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
 					.append(this.name)
-					.append("_raw.bcg\" = generation of \"MAIN");
+					.append(Constant.UNDERSCORE)
+					.append(Constant.RAW)
+					.append(Bcg.FILE_EXTENSION)
+					.append(Constant.DOUBLE_QUOTATION_MARK_AND_SPACE)
+					.append(Constant.EQUALS)
+					.append(Constant.SPACE)
+					.append(Svl.GENERATION)
+					.append(Svl.SPACED_OF)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
+					.append(Lnt.MAIN);
 
-			final ArrayList<String> alpha = this.getProcessAlphabet();
-			dumpAlphabet(alpha, svlCommandBuilder, false);
+			final ArrayList<String> processAlphabet = this.getProcessAlphabet();
+			dumpAlphabet(processAlphabet, svlCommandBuilder, false);
 
-			svlCommandBuilder.append("\";\n\n")
-					.append("\"")
+			svlCommandBuilder.append(Constant.DOUBLE_QUOTATION_MARK)
+					.append(Svl.SEQUENTIAL_COMPOSITION_OPERATOR)
+					.append(Constant.DOUBLE_LINE_FEED)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
 					.append(this.name)
-					.append(".bcg\" = branching reduction of \"")
+					.append(Bcg.FILE_EXTENSION)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
+					.append(Constant.SPACE)
+					.append(Constant.EQUALS)
+					.append(Constant.SPACE)
+					.append(Svl.BRANCHING_REDUCTION)
+					.append(Svl.SPACED_OF)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
 					.append(this.name)
-					.append("_raw.bcg\";\n\n");
+					.append(Constant.UNDERSCORE)
+					.append(Constant.RAW)
+					.append(Bcg.FILE_EXTENSION)
+					.append(Constant.DOUBLE_QUOTATION_MARK)
+					.append(Svl.SEQUENTIAL_COMPOSITION_OPERATOR)
+					.append(Constant.DOUBLE_LINE_FEED);
 
 			final File svlFile = new File(outputFolder + File.separator + fileName);
 
@@ -6687,136 +6788,136 @@ public class Pif2Lnt extends Pif2LntGeneric
 			this.name = process.getName();
 
 			//We first create all nodes without incoming/outgoing flows
-			for (WorkflowNode n : process.getBehaviour().getNodes())
+			for (final WorkflowNode workflowNode : process.getBehaviour().getNodes())
 			{
 				//Initial and final events
-				if (n instanceof fr.inria.convecs.optimus.pif.InitialEvent)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.InitialEvent)
 				{
 					this.initial = new InitialEvent(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>()
 					);
 				}
-				if (n instanceof fr.inria.convecs.optimus.pif.EndEvent)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.EndEvent)
 				{
 					this.finals.add(new EndEvent(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>())
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>())
 					);
 				}
 
 				//Tasks / Emissions / Receptions / Interactions
-				if (n instanceof fr.inria.convecs.optimus.pif.Task)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.Task)
 				{
 					this.nodes.add(new Task(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>())
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>())
 					);
 				}
-				if (n instanceof fr.inria.convecs.optimus.pif.MessageSending
-						&& isBalanced)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.MessageSending
+					&& isBalanced)
 				{
 					this.nodes.add(new MessageSending(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>(),
-							((fr.inria.convecs.optimus.pif.MessageSending) n).getMessage().getId()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>(),
+						((fr.inria.convecs.optimus.pif.MessageSending) workflowNode).getMessage().getId()
 					));
 				}
-				if (n instanceof fr.inria.convecs.optimus.pif.MessageReception
-						&& isBalanced)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.MessageReception
+					&& isBalanced)
 				{
 					this.nodes.add(new MessageReception(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>(),
-							((fr.inria.convecs.optimus.pif.MessageReception) n).getMessage().getId()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>(),
+						((fr.inria.convecs.optimus.pif.MessageReception) workflowNode).getMessage().getId()
 					));
 				}
-				if (n instanceof fr.inria.convecs.optimus.pif.Interaction
-						&& isBalanced)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.Interaction
+					&& isBalanced)
 				{
 					final ArrayList<String> receivingPeers = new ArrayList<>();
 
-					for (JAXBElement<Object> JAXBObject : ((fr.inria.convecs.optimus.pif.Interaction) n).getReceivingPeers())
+					for (JAXBElement<Object> JAXBObject : ((fr.inria.convecs.optimus.pif.Interaction) workflowNode).getReceivingPeers())
 					{
 						final Peer peer = (Peer) JAXBObject.getValue();
 						receivingPeers.add(peer.getId());
 					}
 
 					this.nodes.add(new Interaction(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>(),
-							((fr.inria.convecs.optimus.pif.Interaction) n).getMessage().getId(),
-							((fr.inria.convecs.optimus.pif.Interaction) n).getInitiatingPeer().getId(),
-							receivingPeers
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>(),
+						((fr.inria.convecs.optimus.pif.Interaction) workflowNode).getMessage().getId(),
+						((fr.inria.convecs.optimus.pif.Interaction) workflowNode).getInitiatingPeer().getId(),
+						receivingPeers
 					));
 				}
 
 				//Split gateways
-				if (n instanceof fr.inria.convecs.optimus.pif.AndSplitGateway)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.AndSplitGateway)
 				{
 					this.nodes.add(new AndSplitGateway(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>()
 					));
 				}
-				if (n instanceof fr.inria.convecs.optimus.pif.OrSplitGateway)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.OrSplitGateway)
 				{
 					this.nodes.add(new OrSplitGateway(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>()
 					));
 				}
-				if (n instanceof fr.inria.convecs.optimus.pif.XOrSplitGateway)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.XOrSplitGateway)
 				{
 					this.nodes.add(new XOrSplitGateway(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>()
 					));
 				}
 
 				//Join gateways
-				if (n instanceof fr.inria.convecs.optimus.pif.AndJoinGateway)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.AndJoinGateway)
 				{
 					this.nodes.add(new AndJoinGateway(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>()
 					));
 				}
-				if (n instanceof fr.inria.convecs.optimus.pif.OrJoinGateway)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.OrJoinGateway)
 				{
 					this.nodes.add(new OrJoinGateway(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>()
 					));
 				}
-				if (n instanceof fr.inria.convecs.optimus.pif.XOrJoinGateway)
+				if (workflowNode instanceof fr.inria.convecs.optimus.pif.XOrJoinGateway)
 				{
 					this.nodes.add(new XOrJoinGateway(
-							n.getId(),
-							new ArrayList<>(),
-							new ArrayList<>()
+						workflowNode.getId(),
+						new ArrayList<>(),
+						new ArrayList<>()
 					));
 				}
 			}
 
 			//Creation of flow objects
-			for (SequenceFlow sequenceFlow : process.getBehaviour().getSequenceFlows())
+			for (final SequenceFlow sequenceFlow : process.getBehaviour().getSequenceFlows())
 			{
 				final Flow flow = new Flow(
-						sequenceFlow.getId(),
-						this.getNode(sequenceFlow.getSource().getId()),
-						this.getNode(sequenceFlow.getTarget().getId())
+					sequenceFlow.getId(),
+					this.getNode(sequenceFlow.getSource().getId()),
+					this.getNode(sequenceFlow.getTarget().getId())
 				);
 				this.flows.add(flow);
 				this.addFlow(flow);
@@ -6936,7 +7037,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 		final Process process = new Process();
 		process.buildProcessFromFile(pifFileName);
 		final String pifModelName = process.name();
-		final String ltsFileName = process.name() + Constant.LTS_SUFFIX;
+		final String ltsFileName = process.name() + Bcg.FILE_EXTENSION;
 
 		if (this.needsRebuild(pifFileName, ltsFileName))
 		{

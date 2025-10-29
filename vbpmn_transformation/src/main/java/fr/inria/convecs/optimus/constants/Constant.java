@@ -15,14 +15,14 @@ public class Constant
 	public static final String DOUBLE_QUOTATION_MARK = "\"";
 	public static final String DOUBLE_QUOTATION_MARK_AND_SPACE = "\" ";
 	public static final String EMPTY_STRING = "";
+	public static final String EQUALS = "=";
 	public static final String ID_FILENAME = "id.lnt";
 	public static final String LEFT_CURVY_BRACKET = "{";
 	public static final String LEFT_PARENTHESIS = "(";
 	public static final String LEFT_SQUARE_BRACKET = "[";
 	public static final String LINE_FEED = "\n";
-	public static final String LNT_SUFFIX = ".lnt";
-	public static final String LTS_SUFFIX = ".bcg";
 	public static final String MCL_FORMULA_FILENAME = "formula.mcl";
+	public static final String RAW = "raw";
 	public static final String RIGHT_ARROW = "->";
 	public static final String RIGHT_CURVY_BRACKET = "}";
 	public static final String RIGHT_CURVY_BRACKET_AND_SPACE = "} ";

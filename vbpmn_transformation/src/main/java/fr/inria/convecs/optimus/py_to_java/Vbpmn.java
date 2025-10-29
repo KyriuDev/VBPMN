@@ -676,11 +676,11 @@ public class Vbpmn
 
 				if (this.exposeMode)
 				{
-					hideMode = Constant.HIDE_ALL_BUT;
+					hideMode = Svl.HIDE_ALL_BUT;
 				}
 				else
 				{
-					hideMode = Constant.HIDE;
+					hideMode = Svl.HIDE;
 				}
 
 				svlCommands.append(PyToJavaUtils.parametrize(

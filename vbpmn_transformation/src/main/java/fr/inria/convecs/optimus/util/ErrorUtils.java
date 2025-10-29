@@ -1,8 +1,11 @@
 package fr.inria.convecs.optimus.util;
 
+import fr.inria.convecs.optimus.constants.Constant;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,9 +35,10 @@ public class ErrorUtils
 			throw new RuntimeException("There should be at least the command in the list!");
 		}
 
-		final String command = commandAndArgs.remove(0);
+		final ArrayList<String> commandsAndArgsArrayList = new ArrayList<>(commandAndArgs);
+		final String command = commandsAndArgsArrayList.remove(0);
 
-		return ErrorUtils.inlineCommandAndArgs(command, commandAndArgs);
+		return ErrorUtils.inlineCommandAndArgs(command, commandsAndArgsArrayList);
 	}
 
 	public static String inlineCommandAndArgs(final String... commandAndArgs)
@@ -49,7 +53,7 @@ public class ErrorUtils
 
 		for (final String arg : args)
 		{
-			builder.append(" ")
+			builder.append(Constant.SPACE)
 					.append(arg);
 		}
 
@@ -65,7 +69,7 @@ public class ErrorUtils
 
 		while (errorFile.exists())
 		{
-			errorFileName = ERROR_FILE_BASE_NAME + "_" + errorFileIndex++ + ERROR_FILE_EXTENSION;
+			errorFileName = ERROR_FILE_BASE_NAME + Constant.UNDERSCORE + errorFileIndex++ + ERROR_FILE_EXTENSION;
 			errorFile = new File(errorFileName);
 		}
 
