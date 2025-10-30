@@ -1,6 +1,7 @@
 package fr.inria.convecs.optimus.compatibility;
 
 import fr.inria.convecs.optimus.py_to_java.Vbpmn;
+import fr.inria.convecs.optimus.util.Balancement;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -74,5 +76,32 @@ public abstract class GenericTest
 	{
 		final String[] nonNullArgs = Arrays.stream(args).filter(Objects::nonNull).toArray(String[]::new);
 		return new Vbpmn(nonNullArgs, tmpDir);
+	}
+
+	public Vbpmn getVbpmnInstance(final String tmpDir,
+								  final Balancement balancement,
+								  final String... args)
+	{
+		final String[] nonNullArgs = Arrays.stream(args).filter(Objects::nonNull).toArray(String[]::new);
+		return new Vbpmn(nonNullArgs, tmpDir, balancement);
+	}
+
+	public Vbpmn getVbpmnInstance(final String tmpDir,
+								  final Collection<String> process1Alphabet,
+								  final Collection<String> process2Alphabet,
+								  final String... args)
+	{
+		final String[] nonNullArgs = Arrays.stream(args).filter(Objects::nonNull).toArray(String[]::new);
+		return new Vbpmn(nonNullArgs, tmpDir, true, process1Alphabet, process2Alphabet);
+	}
+
+	public Vbpmn getVbpmnInstance(final String tmpDir,
+								  final Collection<String> process1Alphabet,
+								  final Collection<String> process2Alphabet,
+								  final Balancement balancement,
+								  final String... args)
+	{
+		final String[] nonNullArgs = Arrays.stream(args).filter(Objects::nonNull).toArray(String[]::new);
+		return new Vbpmn(nonNullArgs, tmpDir, true, process1Alphabet, process2Alphabet, balancement);
 	}
 }

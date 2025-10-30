@@ -1,23 +1,18 @@
-/**
- * 
- */
-
 package fr.inria.convecs.optimus.transformer;
 
 /**
  * @author ajayk
  *
  */
-public interface ContentTransformer {
+public interface ContentTransformer
+{
+	/**
+	 * Transforms the object representation into PIF xml.
+	 */
+	void transform();
 
-  /**
-   * Transforms the object representation into PIF xml.
-   */
-  public void transform();
-
-  /**
-   * Generates the PIF xml in specified format.
-   */
-  public void generateOutput();
-
+	/**
+	 * Generates the PIF xml in specified format.
+	 */
+	void generateOutput();
 }

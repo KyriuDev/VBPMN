@@ -1,5 +1,8 @@
 package fr.inria.convecs.optimus.util;
 
+import fr.inria.convecs.optimus.constants.Constant;
+import fr.inria.convecs.optimus.constants.Lnt;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
@@ -17,6 +20,30 @@ public class Utils
 
 	}
 
+	public static String indentLNT(final int nbIndent)
+	{
+		final StringBuilder builder = new StringBuilder();
+
+		for (int i = 0; i < nbIndent; i++)
+		{
+			builder.append(Lnt.BASE_INDENT);
+		}
+
+		return builder.toString();
+	}
+
+	public static String indent(final int nbIndent)
+	{
+		final StringBuilder builder = new StringBuilder();
+
+		for (int i = 0; i < nbIndent; i++)
+		{
+			builder.append(Constant.SPACE);
+		}
+
+		return builder.toString();
+	}
+
 	/**
 	 * Java 8 version of String.trim()
 	 *
@@ -32,9 +59,9 @@ public class Utils
 		for (char c : chars)
 		{
 			if (c == 0x20
-					|| c == 0x09
-					|| c == 0x0D
-					|| c == 0x0A)
+				|| c == 0x09
+				|| c == 0x0D
+				|| c == 0x0A)
 			{
 				//Spaces (whitespace, tab, carriage return, line feed)
 				if (!builder.toString().isEmpty())

@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 package fr.inria.convecs.optimus.validator;
 
 import java.io.File;
@@ -22,17 +18,16 @@ import fr.inria.convecs.optimus.util.PifUtil;
  * @author silverquick
  *
  */
-public class RuntimeValidator implements ModelValidator {
-
-	private Logger logger = LoggerFactory.getLogger(ModelValidator.class);
-
-	private String scriptsFolder;
-
-	private String outputFolder;
-
+public class RuntimeValidator implements ModelValidator
+{
+	private static final Logger logger = LoggerFactory.getLogger(RuntimeValidator.class);
+	private final String scriptsFolder;
+	private final String outputFolder;
 	private String result;
 
-	public RuntimeValidator(String scriptsFolder, String outputFolder) {
+	public RuntimeValidator(final String scriptsFolder,
+							final String outputFolder)
+	{
 		this.scriptsFolder = scriptsFolder;
 		this.outputFolder = outputFolder;
 	}
@@ -43,11 +38,17 @@ public class RuntimeValidator implements ModelValidator {
 	 * @see fr.inria.convecs.optimus.validator.ModelValidator#validate(java.io.File, java.lang.String)
 	 */
 	@Override
-	public void validateV2(final File modelFile, final List<String> options) {
+	public void validateV2(final File modelFile,
+						   final List<String> options)
+	{
 
-		if (true) throw new IllegalStateException(); //TODO USED TO VERIFY THAT IT IS NOT USED
-		validateV2(modelFile, modelFile, options);
+		if (true)
+		{
+			//TODO USED TO VERIFY THAT IT IS NOT USED
+			throw new UnsupportedOperationException();
+		}
 
+		this.validateV2(modelFile, modelFile, options);
 	}
 
 	/*
@@ -57,57 +58,71 @@ public class RuntimeValidator implements ModelValidator {
 	 * java.lang.String)
 	 */
 	@Override
-	public void validateV2(final File modelFile1, final File modelFile2, final List<String> options) {
-		Boolean isBalanced = false;
-		isBalanced = PifUtil.isPifBalanced(modelFile1);
-		//isBalanced = isBalanced && PifUtil.isPifBalanced(modelFile2);
+	public void validateV2(final File modelFile1,
+						   final File modelFile2,
+						   final List<String> options)
+	{
+		final Boolean isBalanced = PifUtil.isPifBalanced(modelFile1);
 		logger.debug("The input isBalanced? : {}", isBalanced);
-		List<String> vbpmnCommand = new ArrayList<String>();
+
+		final List<String> vbpmnCommand = new ArrayList<>();
 		vbpmnCommand.add("python");
-		if(isBalanced)
-			vbpmnCommand.add(scriptsFolder + File.separator + "vbpmn2.py");
-		else
-			vbpmnCommand.add(scriptsFolder + File.separator + "vbpmn2.py");
+		vbpmnCommand.add(scriptsFolder + File.separator + "vbpmn2.py");
 		vbpmnCommand.add(modelFile1.getAbsolutePath());
 		vbpmnCommand.add(modelFile2.getAbsolutePath());
 		vbpmnCommand.addAll(options);
-		logger.debug("The command is: {}", vbpmnCommand.toString());
-		try {
-			File outputDirectory = new File(outputFolder);
-			Files.copy(new File(scriptsFolder+ File.separator + "bpmntypes.lnt").toPath(), 
-					new File(outputFolder+ File.separator +"bpmntypes.lnt").toPath());
-			CommandExecutor commandExecutor = new CommandExecutor(vbpmnCommand, outputDirectory);
-			int execResult = commandExecutor.executeCommand();
+		logger.debug("The command is: {}", vbpmnCommand);
 
+		try
+		{
+			final File outputDirectory = new File(outputFolder);
+			Files.copy(
+				new File(scriptsFolder + File.separator + "bpmntypes.lnt").toPath(),
+				new File(outputFolder + File.separator + "bpmntypes.lnt").toPath()
+			);
+			final CommandExecutor commandExecutor = new CommandExecutor(vbpmnCommand, outputDirectory);
+			final int execResult = commandExecutor.executeCommand();
 			logger.debug("The return value of execution of command is: {}", execResult);
 
-			String response = handleResponse(commandExecutor.getOutput().trim(),
-					commandExecutor.getErrors().trim());
+			final String response = handleResponse(commandExecutor.getOutput().trim(), commandExecutor.getErrors().trim());
+			final StringBuilder resultBuilder = new StringBuilder();
 
-			StringBuilder resultBuilder = new StringBuilder();
-			if(response.equalsIgnoreCase("TRUE") || response.equalsIgnoreCase("FALSE"))
+			if ("TRUE".equalsIgnoreCase(response)
+				|| "FALSE".equalsIgnoreCase(response))
 			{
-				resultBuilder.append(response).append("|");
-				String dotModel1 = generateautfile(modelFile1.getAbsolutePath().replace(".pif", ".bcg"));
-				//String dotModel2 = generateautfile(modelFile2.getAbsolutePath().replace(".pif", ".bcg"));
+				resultBuilder.append(response)
+						.append("|");
+				final String dotModel1 = this.generateAutFile(modelFile1.getAbsolutePath().replace(".pif", ".bcg"));
 				resultBuilder.append(dotModel1).append("|");
-				//resultBuilder.append(dotModel2);
-				if (response.equalsIgnoreCase("FALSE")) {
-					String bcgFileName = "bisimulator.bcg";
-					if(options.contains("property-implied") || options.contains("property-and"))
+
+				if ("FALSE".equalsIgnoreCase(response))
+				{
+					final String bcgFileName;
+
+					if (options.contains("property-implied")
+						|| options.contains("property-and"))
+					{
 						bcgFileName = "evaluator.bcg";
-					File bcgFile = new File(outputFolder + File.separator + bcgFileName);
-					String autBcg = generateautfile(bcgFile.getAbsolutePath());
+					}
+					else
+					{
+						bcgFileName = "bisimulator.bcg";
+					}
+
+					final File bcgFile = new File(outputFolder + File.separator + bcgFileName);
+					final String autBcg = this.generateAutFile(bcgFile.getAbsolutePath());
 					resultBuilder.append("|").append(autBcg);
 				}
+
 				this.result = resultBuilder.toString();
 			}
 			else 
 			{
 				this.result = response;
 			}
-
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			logger.error("Failed executing the command", e);
 			throw new RuntimeException(e);
 		}
@@ -120,27 +135,33 @@ public class RuntimeValidator implements ModelValidator {
 	 * @see fr.inria.convecs.optimus.validator.ModelValidator#getResult()
 	 */
 	@Override
-	public String getResult() {
+	public String getResult()
+	{
 		return this.result;
 	}
 
 	/**
 	 * 
-	 * @param commandExecutor
+	 * @param
 	 * @return
 	 */
-	private String handleResponse(final String stdOut, final String stdErr) {
-		StringBuilder responseBuilder = new StringBuilder();
+	private String handleResponse(final String stdOut,
+								  final String stdErr)
+	{
+		final StringBuilder responseBuilder = new StringBuilder();
 
-		if (null != stdErr && !stdErr.isEmpty()) 
+		if (stdErr != null
+			&& !stdErr.isEmpty())
 		{
 			logger.debug("The stderr of command execution: {}", stdErr);
-			responseBuilder.append("Std error executing the command: ").append(stdErr);
-
+			responseBuilder.append("Std error executing the command: ")
+					.append(stdErr);
 		} 
-		else if (null != stdOut && !stdOut.isEmpty()) 
+		else if (stdOut != null
+				&& !stdOut.isEmpty())
 		{
 			logger.debug("The stdout of command execution: {}", stdOut);
+
 			// TODO: crude method -cleaner approach required
 			if (stdOut.contains("ERROR")) 
 			{
@@ -148,9 +169,8 @@ public class RuntimeValidator implements ModelValidator {
 			} 
 			else 
 			{
-				List<String> resp = Arrays.asList(stdOut.split("\n"));
-				List<String> respLastLines = new ArrayList<String>(resp.subList(Math.max(0, resp.size() - 3), resp.size()));
-
+				final List<String> resp = Arrays.asList(stdOut.split("\n"));
+				final List<String> respLastLines = new ArrayList<>(resp.subList(Math.max(0, resp.size() - 3), resp.size()));
 				responseBuilder.append(respLastLines);
 			}
 		} 
@@ -162,27 +182,28 @@ public class RuntimeValidator implements ModelValidator {
 		return responseBuilder.toString();
 	}
 
-	private String generateautfile(String absolutePath) throws IOException, InterruptedException {
-		String autfile = absolutePath.replace(".bcg", ".aut");
+	private String generateAutFile(final String absolutePath) throws IOException
+	{
+		final String autfile = absolutePath.replace(".bcg", ".aut");
 		logger.debug("aut file: {}", autfile);
-		List<String> command = new ArrayList<String>();
+
+		final List<String> command = new ArrayList<>();
 		command.add("bcg_io");
 		command.add(absolutePath);
 		command.add(autfile);
 
-		CommandExecutor commandExecutor = new CommandExecutor(command, new File(outputFolder));
-		int execResult = commandExecutor.executeCommand();
+		final CommandExecutor commandExecutor = new CommandExecutor(command, new File(this.outputFolder));
+		final int execResult = commandExecutor.executeCommand();
 
 		logger.debug("The exec result of command [ {} ] is {}", command, execResult);
 
-		if (execResult != 0) {
+		if (execResult != 0)
+		{
 			throw new RuntimeException("Erorr executing BCG draw - " + commandExecutor.getErrors());
 		}
 
-		File outputFile = new File(autfile);
-
-		String dotOutput = FileUtils.readFileToString(outputFile, "UTF-8");
-		dotOutput = dotOutput.replaceAll("\\R", " "); // Java 8 carriage return replace
+		final File outputFile = new File(autfile);
+		final String dotOutput = FileUtils.readFileToString(outputFile, "UTF-8").replaceAll("\\R", " "); // Java 8 carriage return replace
 
 		return dotOutput.trim();
 	}

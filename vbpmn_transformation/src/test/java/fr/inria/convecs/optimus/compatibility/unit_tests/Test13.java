@@ -1,18 +1,12 @@
 package fr.inria.convecs.optimus.compatibility.unit_tests;
 
 import fr.inria.convecs.optimus.compatibility.GenericTest;
-import fr.inria.convecs.optimus.py_to_java.ShellColor;
+import fr.inria.convecs.optimus.constants.ShellColor;
 import fr.inria.convecs.optimus.py_to_java.Vbpmn;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Test13 extends GenericTest
 {
@@ -40,13 +34,13 @@ public class Test13 extends GenericTest
 
 		//Start VBPMN.
 		final Vbpmn vbpmn = this.getVbpmnInstance(
-				tmpDir,
-				filePaths.getLeft(),
-				filePaths.getRight(),
-				COMPARISON_MODE,
-				PROPERTY_MODE,
-				FORMULA_ARG,
-				FORMULA
+			tmpDir,
+			filePaths.getLeft(),
+			filePaths.getRight(),
+			COMPARISON_MODE,
+			PROPERTY_MODE,
+			FORMULA_ARG,
+			FORMULA
 		);
 		final boolean result = vbpmn.execute();
 

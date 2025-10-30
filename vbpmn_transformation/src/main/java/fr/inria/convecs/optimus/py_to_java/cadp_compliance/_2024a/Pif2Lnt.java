@@ -5,19 +5,19 @@ import fr.inria.convecs.optimus.pif.SequenceFlow;
 import fr.inria.convecs.optimus.pif.WorkflowNode;
 import fr.inria.convecs.optimus.py_to_java.cadp_compliance.generics.Pif2LntGeneric;
 import fr.inria.convecs.optimus.py_to_java.PyToJavaUtils;
-import fr.inria.convecs.optimus.py_to_java.ReturnCodes;
+import fr.inria.convecs.optimus.constants.ReturnCode;
 import fr.inria.convecs.optimus.util.CommandManager;
-import org.apache.commons.lang3.NotImplementedException;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-import org.jgrapht.alg.CycleDetector;
+import fr.inria.convecs.optimus.util.NotImplementedException;
+import fr.inria.convecs.optimus.util.Pair;
+import fr.inria.convecs.optimus.util.Triple;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import org.jgrapht.alg.cycle.CycleDetector;
 import org.jgrapht.graph.DefaultDirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -3830,24 +3830,23 @@ public class Pif2Lnt extends Pif2LntGeneric
 		/**
 		 * This method takes as input a file.pif and generates a PIF Python object
 		 *
-		 * @param filename
+		 * @param file
 		 */
-		void buildProcessFromFile(final String filename)
+		void buildProcessFromFile(final File file)
 		{
-			this.buildProcessFromFile(filename, false);
+			this.buildProcessFromFile(file, false);
 		}
 
 		/**
 		 * This method takes as input a file.pif and generates a PIF Python object
 		 *
-		 * @param filename
+		 * @param file
 		 * @param debug
 		 */
-		void buildProcessFromFile(final String filename,
+		void buildProcessFromFile(final File file,
 								  final boolean debug)
 		{
 			//Open XML document specified in the filename
-			final File file = new File(filename);
 			final fr.inria.convecs.optimus.pif.Process process;
 
 			try
@@ -3858,7 +3857,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			}
 			catch (JAXBException e)
 			{
-				System.out.println("An error occured while parsing xml document \"" + filename + "\".");
+				System.out.println("An error occured while parsing xml document \"" + file.getName() + "\".");
 				System.out.println("Unrecognized element, the message was \"" + e.getMessage() + "\".");
 				throw new RuntimeException(e);
 			}
@@ -4006,33 +4005,6 @@ public class Pif2Lnt extends Pif2LntGeneric
 	/**
 	 * Computes the LTS model (BCG file) for a PIF model.
 	 *
-	 * @param pifFileName is the name of the PIF file
-	 * @return (Integer, String, Collection<String>), return code, name of the model
-	 * (can be different from the filename) and its alphabet
-	 */
-	@Override
-	public Triple<Integer, String, Collection<String>> generate(final String pifFileName)
-	{
-		return this.generate(pifFileName, true,true, !isBalanced);
-	}
-
-	/**
-	 * Computes the LTS model (BCG file) for a PIF model.
-	 *
-	 * @param pifFileName is the name of the PIF file
-	 * @return (Integer, String, Collection<String>), return code, name of the model
-	 * (can be different from the filename) and its alphabet
-	 */
-	@Override
-	public Triple<Integer, String, Collection<String>> generate(final String pifFileName,
-																final boolean generateLTS)
-	{
-		return this.generate(pifFileName, generateLTS,true, !isBalanced);
-	}
-
-	/**
-	 * Computes the LTS model (BCG file) for a PIF model.
-	 *
 	 * @param pifFileName is the name of the PIF file.
 	 * @param smartReduction is true if a smart reduction is done on the LTS when loading it, false otherwise.
 	 * @param debug is true if debug information are displayed, false otherwise.
@@ -4040,7 +4012,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 	 * (can be different from the filename) and its alphabet.
 	 */
 	@Override
-	public Triple<Integer, String, Collection<String>> generate(final String pifFileName,
+	public Triple<Integer, String, Collection<String>> generate(final File pifFileName,
 																final boolean generateLTS,
 																final boolean smartReduction,
 																final boolean debug)
@@ -4059,7 +4031,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			if (cycleExists)
 			{
-				return Triple.of(ReturnCodes.TERMINATION_UNBALANCED_INCLUSIVE_CYCLE, pifModelName, process.alpha());
+				return Triple.of(ReturnCode.TERMINATION_UNBALANCED_INCLUSIVE_CYCLE, pifModelName, process.alpha());
 			}
 		}
 
@@ -4077,38 +4049,11 @@ public class Pif2Lnt extends Pif2LntGeneric
 			}
 			catch (IOException | InterruptedException e)
 			{
-				return Triple.of(ReturnCodes.TERMINATION_ERROR, pifModelName, process.alpha());
+				return Triple.of(ReturnCode.TERMINATION_ERROR, pifModelName, process.alpha());
 			}
 		}
 
-		return Triple.of(ReturnCodes.TERMINATION_OK, pifModelName, process.alpha()); //TODO use return value from SVL call
-	}
-
-	/**
-	 * Gets the name and the alphabet of the LTS for the PIF model.
-	 *
-	 * @param pifFileName is the name of the PIF file
-	 * @return (Integer, String, Collection < String >), return code, name of the model
-	 * (can be different from the filename) and its alphabet
-	 */
-	@Override
-	public Triple<Integer, String, Collection<String>> load(final String pifFileName)
-	{
-		return this.load(pifFileName, true, true, false);
-	}
-
-	/**
-	 * Gets the name and the alphabet of the LTS for the PIF model.
-	 *
-	 * @param pifFileName is the name of the PIF file
-	 * @return (Integer, String, Collection < String >), return code, name of the model
-	 * (can be different from the filename) and its alphabet
-	 */
-	@Override
-	public Triple<Integer, String, Collection<String>> load(final String pifFileName,
-															final boolean generateLTS)
-	{
-		return this.load(pifFileName, generateLTS,true, false);
+		return Triple.of(ReturnCode.TERMINATION_OK, pifModelName, process.alpha()); //TODO use return value from SVL call
 	}
 
 	/**
@@ -4121,7 +4066,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 	 * (can be different from the filename) and its alphabet.
 	 */
 	@Override
-	public Triple<Integer, String, Collection<String>> load(final String pifFileName,
+	public Triple<Integer, String, Collection<String>> load(final File pifFileName,
 															final boolean generateLTS,
 															final boolean smartReduction,
 															final boolean debug)
@@ -4137,30 +4082,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 		}
 		else
 		{
-			return Triple.of(ReturnCodes.TERMINATION_OK, pifModelName, process.alpha());
+			return Triple.of(ReturnCode.TERMINATION_OK, pifModelName, process.alpha());
 		}
-	}
-
-	/**
-	 * Decides if the LTS for the pifFileName has to be recomputed.
-	 *
-	 * @param pifFileName is the name of the PIF file
-	 * @param ltsFileName is the name of the LTS file
-	 * @return true if the LTS must be rebuilt from the PIF file, false otherwise
-	 */
-	boolean needsRebuild(final String pifFileName,
-						 final String ltsFileName)
-	{
-		final File pifFile = new File(pifFileName);
-		final File ltsFile = new File(ltsFileName);
-
-		//If the LTS file does not exist -> rebuilt
-		if (!ltsFile.exists())
-		{
-			return true;
-		}
-
-		//If the timestamp of the LTS file is older than the timestamp of the PIF file -> rebuild
-		return ltsFile.lastModified() < pifFile.lastModified();
 	}
 }

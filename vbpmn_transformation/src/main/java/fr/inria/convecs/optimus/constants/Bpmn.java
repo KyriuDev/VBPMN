@@ -1,0 +1,117 @@
+package fr.inria.convecs.optimus.constants;
+
+public class Bpmn
+{
+	public static final String ACTIVE_FLOWS_VARIABLE = "activeflows";
+	public static final String ACTIVE_MERGE_VARIABLE = "active_merge";
+	public static final String BEGIN = "begin";
+	public static final String BPMN_PROCESS_LNT_TYPE = "BPROCESS";
+	public static final String BPMN_PROCESS_VARIABLE = "bpmn";
+	public static final String TYPES_LNT_MODULE = "bpmntypes";
+	public static final String DUMMY_ID = "DummyId";
+	public static final String EMITTED_MESSAGE_SUFFIX = "EM";
+	public static final String END_EVENT = "final";
+	public static final String END_EVENT_LNT_TYPE = "FINAL";
+	public static final String EXCLUSIVE_MERGE_GATEWAY = "xorjoin";
+	public static final String EXCLUSIVE_SPLIT_GATEWAY = "xorsplit";
+	public static final String EXCLUSIVE_TYPE = "xor";
+	public static final String FINAL = "final";
+	public static final String FINALS = "finals";
+	public static final String FINAL_NODES_IDENTIFIER = "f";
+	public static final String FIND_ACTIVE_TOKENS_LNT_FUNCTION = "find_active_tokens";
+	public static final String FIND_INCOMING_FLOWS_LNT_FUNCTION = "find_incf";
+	public static final String FIND_INCOMING_FLOWS_NODES_LNT_FUNCTION = "find_incf_nodes";
+	public static final String FINISH = "finish";
+	public static final String FLOW = "flow";
+	public static final String FLOW_LNT_TYPE = "FLOW";
+	public static final String FLOWS_VARIABLE = "flows";
+	public static final String GATEWAY = "gateway";
+	public static final String GATEWAY_LNT_TYPE = "GATEWAY";
+	public static final String GATEWAY_PATTERN_LNT_TYPE = "GPATTERN";
+	public static final String GATEWAY_TYPE_LNT_TYPE = "GSORT";
+	public static final String GATEWAYS = "gateways";
+	public static final String GATEWAYS_IDENTIFIER = "g";
+	public static final String ID_LNT_TYPE = "ID";
+	public static final String ID_MODULE_NAME = "id";
+	public static final String IDENT_VARIABLE = "ident";
+	public static final String INCLUSIVE_MERGE_GATEWAY = "orjoin";
+	public static final String INCLUSIVE_SPLIT_GATEWAY = "orsplit";
+	public static final String INCLUSIVE_TYPE = "or";
+	public static final String INCOMING_FLOW_VARIABLE = "incf";
+	public static final String INITIAL = "initial";
+	public static final String INITIAL_EVENT = "init";
+	public static final String INITIAL_EVENT_LNT_TYPE = "INITIAL";
+	public static final String INITIAL_NODES_IDENTIFIER = "i";
+	public static final String INSERT_LNT_FUNCTION = "insert";
+	public static final String INTER = "inter";
+	public static final String INTERACTION = "interaction";
+	public static final String IS_MERGE_POSSIBLE_LNT_FUNCTION = "is_merge_possible";
+	public static final String IS_MERGE_POSSIBLE_PAR_LNT_FUNCTION = "is_merge_possible_par";
+	public static final String IS_MERGE_POSSIBLE_V2_LNT_FUNCTION = "is_merge_possible_v2";
+	public static final String IS_SYNCHRONISATION_DONE_LNT_FUNCTION = "is_sync_done";
+	public static final String MAIN_FUNCTION_IDENTIFIER = "p1";
+	public static final String MAIN_LNT_PROCESS_IDENTIFIER = "MAIN";
+	public static final String MEMBER_LNT_FUNCTION = "member";
+	public static final String MERGE_ID_VARIABLE = "mergeid";
+	public static final String MERGE_STATUS_VARIABLE = "mergestatus";
+	public static final String MERGE_STORE_VARIABLE = "mergestore";
+	public static final String MERGE_TYPE = "merge";
+	public static final String MESSAGE = "msg";
+	public static final String MESSAGE_RECEPTION = "messagereception";
+	public static final String MESSAGE_SENDING = "messagesending";
+	public static final String MOVE_ON_FLOW = "MoveOn";
+	public static final String NAME_VARIABLE = "name";
+	public static final String NODE_LNT_TYPE = "NODE";
+	public static final String NODES_VARIABLE = "nodes";
+	public static final String OUTGOING_FLOW = "outf";
+	public static final String PAR_STORE_VARIABLE = "parstore";
+	public static final String PARALLEL_MERGE_GATEWAY = "andjoin";
+	public static final String PARALLEL_SPLIT_GATEWAY = "andsplit";
+	public static final String PARALLEL_TYPE = "and";
+	public static final String PATTERN = "pattern";
+	public static final String PROCESS_IDENTIFIER = "proc";
+	public static final String PROCESS_VARIABLE = "p";
+	public static final String RECEIVED_MESSAGE_SUFFIX = "REC";
+	public static final String REMOVE_LNT_FUNCTION = "remove";
+	public static final String REMOVE_IDS_FROM_SET_LNT_FUNCTION = "remove_ids_from_set";
+	public static final String REMOVE_INCOMING_FLOWS_LNT_FUNCTION = "remove_incf";
+	public static final String REMOVE_SYNC_LNT_FUNCTON = "remove_sync";
+	public static final String SCHEDULER_IDENTIFIER = "scheduler";
+	public static final String SET_OF_END_EVENTS_LNT_TYPE = "FINALS";
+	public static final String SET_OF_FLOWS_LNT_TYPE = "FLOWS";
+	public static final String SET_OF_GATEWAYS_LNT_TYPE = "GATEWAYS";
+	public static final String SET_OF_IDS_LNT_TYPE = "IDS";
+	public static final String SET_OF_NODES_LNT_TYPE = "NODES";
+	public static final String SET_OF_TASKS_LNT_TYPE = "TASKS";
+	public static final String SORT = "sort";
+	public static final String SOURCE = "source";
+	public static final String SPLIT_TYPE = "split";
+	public static final String STATUS_VARIABLE = "status";
+	public static final String SYNC_STORE_VARIABLE = "syncstore";
+	public static final String TARGET = "target";
+	public static final String TASK = "task";
+	public static final String TASK_LNT_TYPE = "TASK";
+	public static final String TASKS = "tasks";
+	public static final String TASKS_IDENTIFIER = "t";
+	public static final String TYPES_FILENAME = "bpmntypes.lnt";
+	public static final String UNION_LNT_FUNCTION = "union";
+
+	public static final int BPMN_PROCESS_LNT_TYPE_CARDINAL = 100;
+	public static final int END_EVENT_LNT_TYPE_CARDINAL = 100;
+	public static final int FLOW_LNT_TYPE_CARDINAL = 100;
+	public static final int GATEWAY_LNT_TYPE_CARDINAL = 100;
+	public static final int INITIAL_EVENT_LNT_TYPE_CARDINAL = 100;
+	public static final int NODE_LNT_TYPE_CARDINAL = 100;
+	public static final int SET_OF_END_EVENTS_LNT_TYPE_CARDINAL = 100;
+	public static final int SET_OF_FLOWS_LNT_TYPE_CARDINAL = 100;
+	public static final int SET_OF_GATEWAYS_LNT_TYPE_CARDINAL = 100;
+	public static final int SET_OF_IDS_LNT_TYPE_CARDINAL = 48000;
+	public static final int SET_OF_NODES_LNT_TYPE_CARDINAL = 100;
+	public static final int SET_OF_TASKS_LNT_TYPE_CARDINAL = 100;
+	public static final int TASK_LNT_TYPE_CARDINAL = 100;
+
+	private Bpmn()
+	{
+
+	}
+}
