@@ -433,7 +433,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.SPACE_AND_LEFT_SQUARE_BRACKET)
 					.append(Bpmn.BEGIN)
 					.append(Constant.COMA_AND_SPACE)
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
 					.append(Lnt.ANY)
 					.append(Constant.RIGHT_SQUARE_BRACKET_AND_SPACE)
@@ -453,7 +453,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(2))
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -494,16 +494,16 @@ public class Pif2Lnt extends Pif2LntGeneric
 		void processLnt(final StringBuilder stringBuilder)
 		{
 			stringBuilder
-					.append(Bpmn.INITIAL)
+					.append(Bpmn.INITIAL_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(this.identifier)
 					.append(Constant.COMA_AND_SPACE);
 
-			if (21 + this.identifier.length() + Bpmn.INITIAL.length() + 5 +
+			if (21 + this.identifier.length() + Bpmn.INITIAL_VARIABLE.length() + 5 +
 				this.outgoingFlows.get(0).identifier().length() > Lnt.MAX_CHAR_PER_LINE)
 			{
 				stringBuilder.append(Constant.LINE_FEED)
-						.append(Utils.indent(23 + Bpmn.INITIAL.length()));
+						.append(Utils.indent(23 + Bpmn.INITIAL_VARIABLE.length()));
 			}
 
 			stringBuilder.append(this.outgoingFlows.get(0).identifier())
@@ -759,7 +759,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.INTER)
 					.append(Constant.COMA_AND_SPACE)
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
 					.append(Lnt.ANY)
 					.append(Constant.RIGHT_SQUARE_BRACKET_AND_SPACE)
@@ -785,7 +785,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
 					.append(Bpmn.INTER)
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -901,7 +901,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.MESSAGE)
 					.append(Constant.COMA_AND_SPACE)
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
 					.append(Lnt.ANY)
 					.append(Constant.RIGHT_SQUARE_BRACKET_AND_SPACE)
@@ -925,7 +925,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
 					.append(Bpmn.MESSAGE)
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -1000,7 +1000,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.MESSAGE)
 					.append(Constant.COMA_AND_SPACE)
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.COLON_AND_SPACE)
 					.append(Lnt.ANY)
 					.append(Constant.RIGHT_SQUARE_BRACKET_AND_SPACE)
@@ -1024,7 +1024,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
 					.append(Bpmn.MESSAGE)
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -1255,7 +1255,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Utils.indent(Constant.PROCESS_INDENT_LENGTH));
 				}
 
-				stringBuilder.append(Bpmn.OUTGOING_FLOW);
+				stringBuilder.append(Bpmn.OUTGOING_FLOW_VARIABLE);
 			}
 			else
 			{
@@ -1263,7 +1263,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 				while (outCounter < nbOut)
 				{
-					final String flowId = Bpmn.OUTGOING_FLOW + outCounter;
+					final String flowId = Bpmn.OUTGOING_FLOW_VARIABLE + outCounter;
 
 					if (nbCharCurrentLine + flowId.length() + 1 > Lnt.MAX_CHAR_PER_LINE)
 					{
@@ -1361,7 +1361,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			if (nbOut == 1)
 			{
-				stringBuilder.append(Bpmn.OUTGOING_FLOW)
+				stringBuilder.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 						.append(Lnt.OUT_PARAMETER)
 						.append(Bpmn.IDENT_VARIABLE)
@@ -1382,7 +1382,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				while (outCounter < nbOut)
 				{
 					stringBuilder.append(Utils.indentLNT(4))
-							.append(Bpmn.OUTGOING_FLOW)
+							.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 							.append(outCounter)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 							.append(Lnt.OUT_PARAMETER)
@@ -1852,7 +1852,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			while (nb <= nbOut)
 			{
-				outgoingFlowsAlphabet.add(Bpmn.OUTGOING_FLOW + Constant.UNDERSCORE + nb);
+				outgoingFlowsAlphabet.add(Bpmn.OUTGOING_FLOW_VARIABLE + Constant.UNDERSCORE + nb);
 				nb++;
 			}
 
@@ -1871,7 +1871,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			while (nbg <= nbOut)
 			{
-				final String outgoingFlowIdentifier = Bpmn.OUTGOING_FLOW + Constant.UNDERSCORE + nbg;
+				final String outgoingFlowIdentifier = Bpmn.OUTGOING_FLOW_VARIABLE + Constant.UNDERSCORE + nbg;
 
 				if (nbCharCurrentLine + outgoingFlowIdentifier.length() > Lnt.MAX_CHAR_PER_LINE)
 				{
@@ -2152,7 +2152,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 				while (nb <= this.outgoingFlows.size())
 				{
-					outgoingFlowsAlphabet.add(Bpmn.OUTGOING_FLOW + Constant.UNDERSCORE + nb);
+					outgoingFlowsAlphabet.add(Bpmn.OUTGOING_FLOW_VARIABLE + Constant.UNDERSCORE + nb);
 					nb++;
 				}
 
@@ -2386,7 +2386,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			while (nb <= this.outgoingFlows.size())
 			{
-				final String outFlowIdentifier = Bpmn.OUTGOING_FLOW + Constant.UNDERSCORE + nb;
+				final String outFlowIdentifier = Bpmn.OUTGOING_FLOW_VARIABLE + Constant.UNDERSCORE + nb;
 
 				if (nbCharCurrentLine + outFlowIdentifier.length() > Lnt.MAX_CHAR_PER_LINE)
 				{
@@ -2447,7 +2447,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			while (nb <= this.outgoingFlows.size())
 			{
 				stringBuilder.append(Utils.indentLNT(4))
-						.append(Bpmn.OUTGOING_FLOW)
+						.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.UNDERSCORE)
 						.append(nb)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
@@ -2540,7 +2540,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 			while (nb <= this.outgoingFlows.size())
 			{
-				final String flowIdentifier = Bpmn.OUTGOING_FLOW + Constant.UNDERSCORE + nb;
+				final String flowIdentifier = Bpmn.OUTGOING_FLOW_VARIABLE + Constant.UNDERSCORE + nb;
 
 				if (nbCharCurrentLine + flowIdentifier.length() + 1 > Lnt.MAX_CHAR_PER_LINE)
 				{
@@ -2667,7 +2667,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			while (nb <= this.outgoingFlows.size())
 			{
 				stringBuilder.append(Utils.indentLNT(5))
-						.append(Bpmn.OUTGOING_FLOW)
+						.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.UNDERSCORE)
 						.append(nb)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
@@ -2908,7 +2908,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					nbCharCurrentLine += 4;
 				}
 
-				stringBuilder.append(Bpmn.OUTGOING_FLOW);
+				stringBuilder.append(Bpmn.OUTGOING_FLOW_VARIABLE);
 
 				//we add to the alphabet potential additional synchronization points
 				if (!allIncomingFlowsCombinations.isEmpty()
@@ -3118,7 +3118,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
 						.append(Constant.LINE_FEED)
 						.append(Utils.indentLNT(4))
-						.append(Bpmn.OUTGOING_FLOW)
+						.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 						.append(Lnt.OUT_PARAMETER)
 						.append(Bpmn.IDENT_VARIABLE)
@@ -3182,7 +3182,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					nbCharCurrentLine += 5;
 				}
 
-				stringBuilder.append(Bpmn.OUTGOING_FLOW)
+				stringBuilder.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.COMA_AND_SPACE);
 
 				if (nbCharCurrentLine + 12 > Lnt.MAX_CHAR_PER_LINE)
@@ -3303,7 +3303,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
 						.append(Constant.LINE_FEED)
 						.append(Utils.indentLNT(3))
-						.append(Bpmn.OUTGOING_FLOW)
+						.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 						.append(Lnt.OUT_PARAMETER)
 						.append(Bpmn.IDENT_VARIABLE)
@@ -3646,7 +3646,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				nb++;
 			}
 
-			final String outFlowIdentifier = Bpmn.OUTGOING_FLOW + Constant.COLON_AND_SPACE + Lnt.ANY +
+			final String outFlowIdentifier = Bpmn.OUTGOING_FLOW_VARIABLE + Constant.COLON_AND_SPACE + Lnt.ANY +
 					Constant.RIGHT_SQUARE_BRACKET;
 			final int nbCharToConsider = lineJumped ? outFlowIdentifier.length() : outFlowIdentifier.length() + 3;
 
@@ -3708,7 +3708,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(3))
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -3801,7 +3801,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				nb++;
 			}
 
-			final String outFlowName = Bpmn.OUTGOING_FLOW + Constant.COLON_AND_SPACE + Lnt.ANY +
+			final String outFlowName = Bpmn.OUTGOING_FLOW_VARIABLE + Constant.COLON_AND_SPACE + Lnt.ANY +
 					Constant.RIGHT_SQUARE_BRACKET;
 			final int nbCharToConsider = lineJumped ? outFlowName.length() : outFlowName.length() + 3;
 
@@ -3935,7 +3935,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(4))
-					.append(Bpmn.OUTGOING_FLOW)
+					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Lnt.OUT_PARAMETER)
 					.append(Bpmn.IDENT_VARIABLE)
@@ -4130,7 +4130,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 
 					while (nb <= node.outgoingFlows().size())
 					{
-						outgoingFlowsAlphabet.add(Bpmn.OUTGOING_FLOW + Constant.UNDERSCORE + nb);
+						outgoingFlowsAlphabet.add(Bpmn.OUTGOING_FLOW_VARIABLE + Constant.UNDERSCORE + nb);
 						nb++;
 					}
 

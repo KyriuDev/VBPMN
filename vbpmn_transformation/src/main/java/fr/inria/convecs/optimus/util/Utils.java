@@ -20,6 +20,18 @@ public class Utils
 
 	}
 
+    public static String getDashesStringOfSize(final int nbDashes)
+    {
+        final StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < nbDashes; i++)
+        {
+            builder.append(Constant.DASH);
+        }
+
+        return builder.toString();
+    }
+
 	public static String indentLNT(final int nbIndent)
 	{
 		final StringBuilder builder = new StringBuilder();

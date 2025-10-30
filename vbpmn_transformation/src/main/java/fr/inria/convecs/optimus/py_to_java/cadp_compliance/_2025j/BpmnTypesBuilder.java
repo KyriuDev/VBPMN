@@ -1052,7 +1052,15 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 		this.writeBpmnProcessLntType(bpmnTypesBuilder);
 		this.writeIsMergePossibleLntFunction(bpmnTypesBuilder);
 		this.writeFindIncfLntFunction(bpmnTypesBuilder);
-
+        this.writeFindIncfNodesLntFunction(bpmnTypesBuilder);
+        this.writeFindIncfGatewaysLntFunction(bpmnTypesBuilder);
+        this.writeFindActiveTokensLntFunction(bpmnTypesBuilder);
+        this.writeIsMergePossibleV2LntFunction(bpmnTypesBuilder);
+        this.writeIsSyncDoneLntFunction(bpmnTypesBuilder);
+        this.writeIsMergePossibleParLntFunction(bpmnTypesBuilder);
+        this.writeCheckAfUpstreamLntFunction(bpmnTypesBuilder);
+        this.writeFindFlowSourceLntFunction(bpmnTypesBuilder);
+        
 		final File bpmnTypesFile = new File(this.outputDirectory + File.separator + Bpmn.TYPES_FILENAME);
 		final PrintWriter printWriter;
 
@@ -1124,11 +1132,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("Set of BPMN Identifiers LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1186,11 +1194,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Sequence Flow LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1210,9 +1218,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 				.append(Bpmn.IDENT_VARIABLE)
 				.append(Constant.COMA_AND_SPACE)
-				.append(Bpmn.SOURCE)
+				.append(Bpmn.SOURCE_LNT_VARIABLE)
 				.append(Constant.COMA_AND_SPACE)
-				.append(Bpmn.TARGET)
+				.append(Bpmn.TARGET_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.ID_LNT_TYPE)
 				.append(Constant.RIGHT_PARENTHESIS)
@@ -1228,11 +1236,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder	//First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Set of Sequence Flows LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1263,11 +1271,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Task LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1291,7 +1299,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Constant.COMA_AND_SPACE)
 				.append(Bpmn.INCOMING_FLOW_VARIABLE)
 				.append(Constant.COMA_AND_SPACE)
-				.append(Bpmn.OUTGOING_FLOW)
+				.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.SET_OF_IDS_LNT_TYPE)
 				.append(Constant.RIGHT_PARENTHESIS)
@@ -1307,11 +1315,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Set of Tasks LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1342,11 +1350,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Initial Event LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1362,20 +1370,20 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 
 				//Third line
 				.append(Utils.indentLNT(1))
-				.append(Bpmn.INITIAL)
+				.append(Bpmn.INITIAL_VARIABLE)
 				.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 				.append(Bpmn.IDENT_VARIABLE)
 				.append(Constant.COMA_AND_SPACE)
-				.append(Bpmn.OUTGOING_FLOW)
+				.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.ID_LNT_TYPE)
 				.append(Utils.indent(2))
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("Several outgoing flows (?)")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.LINE_FEED)
 
@@ -1389,11 +1397,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN End Event LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1420,11 +1428,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Bpmn.SET_OF_IDS_LNT_TYPE)
 				.append(Utils.indent(2))
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("Several incoming flows (?)")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.LINE_FEED)
 
@@ -1438,11 +1446,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Set of End Events LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1473,11 +1481,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Gateway Type LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1508,11 +1516,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Gateway Pattern LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1541,11 +1549,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Gateway LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1568,17 +1576,17 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.ID_LNT_TYPE)
 				.append(Constant.COMA_AND_SPACE)
-				.append(Bpmn.PATTERN)
+				.append(Bpmn.PATTERN_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.GATEWAY_PATTERN_LNT_TYPE)
 				.append(Constant.COMA_AND_SPACE)
-				.append(Bpmn.SORT)
+				.append(Bpmn.SORT_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.GATEWAY_TYPE_LNT_TYPE)
 				.append(Constant.COMA_AND_SPACE)
 				.append(Bpmn.INCOMING_FLOW_VARIABLE)
 				.append(Constant.COMA_AND_SPACE)
-				.append(Bpmn.OUTGOING_FLOW)
+				.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.SET_OF_IDS_LNT_TYPE)
 				.append(Constant.RIGHT_PARENTHESIS)
@@ -1594,11 +1602,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Set of Gateways LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1629,11 +1637,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Generic Node LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1647,11 +1655,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Bpmn.NODE_LNT_TYPE_CARDINAL)
 				.append(Utils.indent(10))
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("Could it be simpler?")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.LINE_FEED)
 
@@ -1659,7 +1667,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Bpmn.INITIAL_NODES_IDENTIFIER)
 				.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-				.append(Bpmn.INITIAL)
+				.append(Bpmn.INITIAL_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.INITIAL_EVENT_LNT_TYPE)
 				.append(Constant.RIGHT_PARENTHESIS)
@@ -1670,7 +1678,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Bpmn.FINAL_NODES_IDENTIFIER)
 				.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-				.append(Bpmn.FINALS)
+				.append(Bpmn.FINALS_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.SET_OF_END_EVENTS_LNT_TYPE)
 				.append(Constant.RIGHT_PARENTHESIS)
@@ -1681,7 +1689,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Bpmn.GATEWAYS_IDENTIFIER)
 				.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-				.append(Bpmn.GATEWAYS)
+				.append(Bpmn.GATEWAYS_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.SET_OF_GATEWAYS_LNT_TYPE)
 				.append(Constant.RIGHT_PARENTHESIS)
@@ -1692,7 +1700,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Bpmn.TASKS_IDENTIFIER)
 				.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-				.append(Bpmn.TASKS)
+				.append(Bpmn.TASKS_VARIABLE)
 				.append(Constant.COLON_AND_SPACE)
 				.append(Bpmn.SET_OF_TASKS_LNT_TYPE)
 				.append(Constant.RIGHT_PARENTHESIS)
@@ -1710,11 +1718,11 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Set of Generic Nodes LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1745,21 +1753,21 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("BPMN Process LNT Type")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.LINE_FEED)
 
 				//Second line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append("Not the most optimized encoding for traversals")
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1803,13 +1811,13 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append(Constant.DOUBLE_QUOTATION_MARK)
 				.append("is_merge_possible() LNT Function")
 				.append(Constant.DOUBLE_QUOTATION_MARK)
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -1944,13 +1952,13 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append(Constant.DOUBLE_QUOTATION_MARK)
 				.append("find_incf() LNT Function")
 				.append(Constant.DOUBLE_QUOTATION_MARK)
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -2033,13 +2041,13 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 	{
 		builder //First line
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Constant.SPACE)
 				.append(Constant.DOUBLE_QUOTATION_MARK)
 				.append("find_incf_nodes() LNT Function")
 				.append(Constant.DOUBLE_QUOTATION_MARK)
 				.append(Constant.SPACE)
-				.append(Constant.COMMENTS_DASHES)
+				.append(Utils.getDashesStringOfSize(5))
 				.append(Lnt.CLOSE_MULTILINE_COMMENTARY)
 				.append(Constant.DOUBLE_LINE_FEED)
 
@@ -2062,11 +2070,1575 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Lnt.IS)
 				.append(Constant.LINE_FEED)
 
+                //Third line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.CASE)
+                .append(Constant.SPACE)
+                .append(Bpmn.NODES_VARIABLE)
+                .append(Constant.LINE_FEED)
 
+                //Fourth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.VAR)
+                .append(Constant.LINE_FEED)
 
-				//N-th line
+                //Fifth line
+                .append(Utils.indentLNT(3))
+                .append(Bpmn.GATEWAYS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_GATEWAYS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INITIAL_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_NODES_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.FINALS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_END_EVENTS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TASKS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_TASKS_LNT_TYPE)
+                .append(Constant.COMA)
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(3))
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_NODES_LNT_TYPE)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Eighth line
+                .append(Utils.indentLNT(2))
+                .append(Utils.indent(2))
+                .append(Lnt.CONS)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.GATEWAYS_IDENTIFIER)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.GATEWAYS_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Lnt.SPACED_PATTERN_MATCHING_OPERATOR)
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Bpmn.FIND_INCOMING_FLOWS_GATEWAYS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.GATEWAYS_VARIABLE)
+                .append(Constant.COMA)
+                .append(Constant.LINE_FEED)
+
+                //Ninth line
+                .append(Utils.indent(62))
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.LINE_FEED)
+
+                //Tenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.CASE_OPERATOR)
+                .append(Constant.SPACE)
+                .append(Lnt.CONS)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.INITIAL_NODES_IDENTIFIER)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.INITIAL_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.LINE_FEED)
+
+                //Eleventh line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.CASE_OPERATOR)
+                .append(Constant.SPACE)
+                .append(Lnt.CONS)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.FINAL_NODES_IDENTIFIER)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.FINALS_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.LINE_FEED)
+
+                //Twelfth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.CASE_OPERATOR)
+                .append(Constant.SPACE)
+                .append(Lnt.CONS)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.TASKS_IDENTIFIER)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.TASKS_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Lnt.SPACED_PATTERN_MATCHING_OPERATOR)
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Bpmn.FIND_INCOMING_FLOWS_NODES_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.LINE_FEED)
+
+                //Thirteenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.CASE_OPERATOR)
+                .append(Lnt.EMPTY_LIST)
+                .append(Lnt.SPACED_PATTERN_MATCHING_OPERATOR)
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.EMPTY_LIST)
+                .append(Constant.LINE_FEED)
+
+                //Fourteenth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_CASE)
+                .append(Constant.LINE_FEED)
+
+				//Fifteenth line
 				.append(Lnt.END_FUNCTION);
 
 		this.writeLntSeparation(builder);
 	}
+
+    private void writeFindIncfGatewaysLntFunction(final StringBuilder builder)
+    {
+        builder //First line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append("find_incf_gateways() LNT Function")
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Second line
+                .append(Lnt.FUNCTION)
+                .append(Constant.SPACE)
+                .append(Bpmn.FIND_INCOMING_FLOWS_GATEWAYS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.GATEWAYS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_GATEWAYS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IS)
+                .append(Constant.LINE_FEED)
+
+                //Third line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.CASE)
+                .append(Constant.SPACE)
+                .append(Bpmn.GATEWAYS_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Fourth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.VAR)
+                .append(Constant.LINE_FEED)
+
+                //Fifth line
+                .append(Utils.indentLNT(3))
+                .append(Bpmn.IDENT_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.PATTERN_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.GATEWAY_PATTERN_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SORT_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.GATEWAY_TYPE_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.OUTGOING_FLOW_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.COMA)
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(3))
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_GATEWAYS_LNT_TYPE)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Eighth line
+                .append(Utils.indentLNT(2))
+                .append(Utils.indent(2))
+                .append(Lnt.CONS)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.GATEWAY)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.IDENT_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.PATTERN_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SORT_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.OUTGOING_FLOW_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.PATTERN_MATCHING_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Ninth line
+                .append(Utils.indentLNT(3))
+                .append(Utils.indent(2))
+                .append(Lnt.IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.IDENT_VARIABLE)
+                .append(Lnt.SPACED_EQUALS_OPERATOR)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                //Tenth line
+                .append(Utils.indentLNT(4))
+                .append(Utils.indent(2))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Eleventh line
+                .append(Utils.indentLNT(3))
+                .append(Utils.indent(2))
+                .append(Lnt.ELSE)
+                .append(Constant.LINE_FEED)
+
+                //Twelfth line
+                .append(Utils.indentLNT(4))
+                .append(Utils.indent(2))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Bpmn.FIND_INCOMING_FLOWS_GATEWAYS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Thirteenth line
+                .append(Utils.indentLNT(3))
+                .append(Utils.indent(2))
+                .append(Lnt.END_IF)
+                .append(Constant.LINE_FEED)
+
+                //Fourteenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.CASE_OPERATOR)
+                .append(Constant.SPACE)
+                .append(Lnt.EMPTY_LIST)
+                .append(Lnt.SPACED_PATTERN_MATCHING_OPERATOR)
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.EMPTY_LIST)
+                .append(Constant.LINE_FEED)
+
+                //Fifteenth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_CASE)
+
+                //Sixteenth line
+                .append(Lnt.END_FUNCTION);
+
+        this.writeLntSeparation(builder);
+    }
+
+    private void writeFindActiveTokensLntFunction(final StringBuilder builder)
+    {
+        builder //First line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append("find_active_tokens() LNT Function")
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Second line
+                .append(Lnt.FUNCTION)
+                .append(Constant.SPACE)
+                .append(Bpmn.FIND_ACTIVE_TOKENS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.NATURAL_NUMBER_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IS)
+                .append(Constant.LINE_FEED)
+
+                //Third line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.VAR)
+                .append(Constant.SPACE)
+                .append(Bpmn.TOKENS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.COUNT_LNT_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.NATURAL_NUMBER_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Fourth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.TOKENS_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Lnt.PREDEFINED_FUNCTION_INTERSECTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Fifth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.COUNT_LNT_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Lnt.PREDEFINED_FUNCTION_CARDINAL)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.TOKENS_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Bpmn.COUNT_LNT_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_VAR)
+
+                //Eighth line
+                .append(Lnt.END_FUNCTION);
+
+        this.writeLntSeparation(builder);
+    }
+
+    private void writeIsMergePossibleV2LntFunction(final StringBuilder builder)
+    {
+        builder //First line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append("is_merge_possible_v2() LNT Function")
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Second line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Lnt.MAX_DASHES_IN_MULTILINE_COMMENTARY)
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.LINE_FEED)
+
+                //Third line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(16))
+                .append(Constant.SPACE)
+                .append("Check for merge with BPMN 1.x semantics")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(16))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.LINE_FEED)
+
+                //Fourth line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Lnt.MAX_DASHES_IN_MULTILINE_COMMENTARY)
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Fifth line
+                .append(Lnt.FUNCTION)
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(1))
+                .append(Bpmn.IS_MERGE_POSSIBLE_V2_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.BPMN_PROCESS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.BOOLEAN_TYPE)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Lnt.IS)
+                .append(Constant.LINE_FEED)
+
+                //Eighth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.VAR)
+                .append(Constant.LINE_FEED)
+
+                //Ninth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.ACTIVE_MERGE_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.NATURAL_NUMBER_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INACTIVE_INCOMING_FLOW_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.VISITED_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.COMA)
+                .append(Constant.LINE_FEED)
+
+                //Tenth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.RESULT_1_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.BOOLEAN_TYPE)
+                .append(Constant.LINE_FEED)
+
+                //Eleventh line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Twelfth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.VISITED_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Lnt.EMPTY_LIST)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Thirteenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append("just iterate through gateways instead of all nodes")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.LINE_FEED)
+
+                //Fourteenth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.FIND_INCOMING_FLOWS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Fifteenth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.ACTIVE_MERGE_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.FIND_ACTIVE_TOKENS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Sixteenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append("check if all the incf have tokens")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.LINE_FEED)
+
+                //Seventeenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_MERGE_VARIABLE)
+                .append(Lnt.SPACED_EQUALS_OPERATOR)
+                .append(Lnt.PREDEFINED_FUNCTION_CARDINAL)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                //Eighteenth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.TRUE)
+                .append(Constant.LINE_FEED)
+
+                //Nineteenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.ELSE)
+                .append(Constant.LINE_FEED)
+
+                //Twentieth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append("first remove incoming flows with active tokens")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-first line
+                .append(Utils.indentLNT(3))
+                .append(Bpmn.INACTIVE_INCOMING_FLOW_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.REMOVE_IDS_FROM_SET_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Twenty-second line
+                .append(Constant.LINE_FEED)
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append("then check upstream for remaining flows")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-third line
+                .append(Utils.indentLNT(3))
+                .append(Bpmn.RESULT_1_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.CHECK_ALL_FLOWS_UPSTREAM_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.markAsInputOutputParameter(Bpmn.VISITED_VARIABLE))
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-fourth line
+                .append(Utils.indent(39))
+                .append(Bpmn.INACTIVE_INCOMING_FLOW_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-fifth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Bpmn.RESULT_1_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-sixth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.END_IF)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-seventh line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_VAR)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-eighth line
+                .append(Lnt.END_FUNCTION);
+
+        this.writeLntSeparation(builder);
+    }
+
+    private void writeIsSyncDoneLntFunction(final StringBuilder builder)
+    {
+        builder //First line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append("is_sync_done() LNT Function")
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Second line
+                .append(Lnt.FUNCTION)
+                .append(Constant.LINE_FEED)
+
+                //Third line
+                .append(Utils.indentLNT(1))
+                .append(Bpmn.IS_SYNCHRONISATION_DONE_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.BPMN_PROCESS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SYNC_STORE_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.BOOLEAN_TYPE)
+                .append(Constant.LINE_FEED)
+
+                //Fourth line
+                .append(Lnt.IS)
+                .append(Constant.LINE_FEED)
+
+                //Fifth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.VAR)
+                .append(Constant.SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.ACTIVE_SYNC_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append("just iterate through gateways instead of all nodes")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.FIND_INCOMING_FLOWS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Eighth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.ACTIVE_SYNC_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Lnt.PREDEFINED_FUNCTION_INTERSECTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Ninth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.PREDEFINED_FUNCTION_EMPTY)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_SYNC_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                //Tenth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.FALSE)
+                .append(Constant.LINE_FEED)
+
+                //Eleventh line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.ELSE_IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.PREDEFINED_FUNCTION_INTERSECTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_SYNC_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SYNC_STORE_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SPACED_EQUALS_OPERATOR)
+                .append(Bpmn.ACTIVE_SYNC_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                //Twelfth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.TRUE)
+                .append(Constant.LINE_FEED)
+
+                //Thirteenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.ELSE)
+                .append(Constant.LINE_FEED)
+
+                //Fourteenth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.FALSE)
+                .append(Constant.LINE_FEED)
+
+                //Fifteenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.END_IF)
+                .append(Constant.LINE_FEED)
+
+                //Sixteenth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_VAR)
+                .append(Constant.LINE_FEED)
+
+                //Seventeenth line
+                .append(Lnt.END_FUNCTION);
+
+        this.writeLntSeparation(builder);
+    }
+    
+    private void writeIsMergePossibleParLntFunction(final StringBuilder builder)
+    {
+        builder //First line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append("is_merge_possible_par() LNT Function")
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+                
+                //Second line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append("Merge check for parallel gateways")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Third line
+                .append(Lnt.FUNCTION)
+                .append(Constant.LINE_FEED)
+
+                //Fourth line
+                .append(Utils.indentLNT(1))
+                .append(Bpmn.IS_MERGE_POSSIBLE_PAR_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.BPMN_PROCESS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SYNC_STORE_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.BOOLEAN_TYPE)
+                .append(Constant.LINE_FEED)
+
+                //Fifth line
+                .append(Lnt.IS)
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.VAR)
+                .append(Constant.SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.ACTIVE_SYNC_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append("just iterate through gateways instead of all nodes")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.LINE_FEED)
+
+                //Eighth line
+                .append(Utils.indentLNT(2))
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.FIND_INCOMING_FLOWS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.MERGE_ID_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Ninth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.PREDEFINED_FUNCTION_INTERSECTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SYNC_STORE_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SPACED_EQUALS_OPERATOR)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                // line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.TRUE)
+                .append(Constant.LINE_FEED)
+
+                // line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.ELSE)
+                .append(Constant.LINE_FEED)
+
+                // line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.FALSE)
+                .append(Constant.LINE_FEED)
+
+                // line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.END_IF)
+                .append(Constant.LINE_FEED)
+
+                // line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_VAR)
+                .append(Constant.LINE_FEED)
+
+                //th line
+                .append(Lnt.END_FUNCTION);
+        
+        this.writeLntSeparation(builder);
+    }
+
+    private void writeCheckAfUpstreamLntFunction(final StringBuilder builder)
+    {
+        builder //First line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append("check_af_upstream() LNT Function")
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Second line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append("Finds all the upstream flows and checks for tokens")
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Third line
+                .append(Lnt.FUNCTION)
+                .append(Constant.LINE_FEED)
+
+                //Fourth line //TODO Checker si l'aggregation des types de paramètres a bien marché
+                .append(Utils.indentLNT(1))
+                .append(Bpmn.CHECK_ALL_FLOWS_UPSTREAM_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.PARAMETER_MODE_IN_OUT)
+                .append(Constant.SPACE)
+                .append(Bpmn.VISITED_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.BPMN_PROCESS_LNT_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.BOOLEAN_TYPE)
+                .append(Constant.LINE_FEED)
+
+                //Fifth line
+                .append(Lnt.IS)
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.VAR)
+                .append(Constant.SPACE)
+                .append(Bpmn.COUNT_LNT_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Lnt.NATURAL_NUMBER_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.RESULT_1_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.RESULT_2_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Lnt.BOOLEAN_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.CASE)
+                .append(Constant.SPACE)
+                .append(Bpmn.INCOMING_FLOW_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Eighth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.VAR)
+                .append(Constant.SPACE)
+                .append(Bpmn.HD_LNT_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SOURCE_LNT_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.UPFLOW_LNT_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_IDS_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Ninth line
+                .append(Utils.indentLNT(4))
+                .append(Lnt.CONS)
+                .append(Constant.SPACE)
+                .append(Bpmn.HD_LNT_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.PATTERN_MATCHING_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Tenth line
+                .append(Utils.indentLNT(5))
+                .append(Bpmn.SOURCE_LNT_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.FIND_FLOW_SOURCE_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.HD_LNT_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Eleventh line
+                .append(Utils.indentLNT(5))
+                .append(Lnt.IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.SOURCE_LNT_VARIABLE)
+                .append(Lnt.SPACED_EQUALS_OPERATOR)
+                .append(Bpmn.DUMMY_ID)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                //Twelfth line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.TRUE)
+                .append(Constant.LINE_FEED)
+
+                //Thirteenth line
+                .append(Utils.indentLNT(5))
+                .append(Lnt.ELSE_IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.PREDEFINED_FUNCTION_MEMBER)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.SOURCE_LNT_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.VISITED_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                //Fourteenth line
+                .append(Utils.indentLNT(6))
+                .append(Bpmn.RESULT_1_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.CHECK_ALL_FLOWS_UPSTREAM_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.markAsInputOutputParameter(Bpmn.VISITED_VARIABLE))
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA)
+                .append(Constant.LINE_FEED)
+
+                //Fifteenth line
+                .append(Utils.indent(48))
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Sixteenth line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Bpmn.RESULT_1_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Seventeenth line
+                .append(Utils.indentLNT(5))
+                .append(Lnt.ELSE)
+                .append(Constant.LINE_FEED)
+
+                //Eighteenth line
+                .append(Utils.indentLNT(6))
+                .append(Bpmn.VISITED_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Lnt.PREDEFINED_FUNCTION_INSERT)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.SOURCE_LNT_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.VISITED_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Nineteenth line
+                .append(Utils.indentLNT(6))
+                .append(Bpmn.UPFLOW_LNT_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.GET_INCOMING_FLOWS_BY_ID_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SOURCE_LNT_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Twentieth line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.UPFLOW_LNT_VARIABLE)
+                .append(Lnt.SPACED_EQUALS_OPERATOR)
+                .append(Lnt.EMPTY_LIST)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-first line
+                .append(Utils.indentLNT(7))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.TRUE)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-second line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.END_IF)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Twenty-third line
+                .append(Utils.indentLNT(6))
+                .append(Bpmn.COUNT_LNT_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.FIND_ACTIVE_TOKENS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.UPFLOW_LNT_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Twenty-fourth line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.IF)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.COUNT_LNT_VARIABLE)
+                .append(Lnt.SPACED_EQUALS_OPERATOR)
+                .append(0)
+                .append(Lnt.SPACED_OF)
+                .append(Lnt.NATURAL_NUMBER_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
+                .append(Lnt.THEN)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-fifth line
+                .append(Utils.indentLNT(7))
+                .append(Bpmn.RESULT_1_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.CHECK_ALL_FLOWS_UPSTREAM_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.markAsInputOutputParameter(Bpmn.VISITED_VARIABLE))
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-sixth line
+                .append(Utils.indent(51))
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.UPFLOW_LNT_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-seventh line
+                .append(Utils.indentLNT(7))
+                .append(Bpmn.RESULT_2_VARIABLE)
+                .append(Lnt.SPACED_VARIABLE_ASSIGNATION_OPERATOR)
+                .append(Bpmn.CHECK_ALL_FLOWS_UPSTREAM_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Lnt.markAsInputOutputParameter(Bpmn.VISITED_VARIABLE))
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.PROCESS_VARIABLE)
+                .append(Constant.COMA)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-eighth line
+                .append(Utils.indent(51))
+                .append(Bpmn.ACTIVE_FLOWS_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Twenty-ninth line
+                .append(Utils.indentLNT(7))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Bpmn.RESULT_1_VARIABLE)
+                .append(Lnt.SPACED_AND)
+                .append(Bpmn.RESULT_2_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Thirtieth line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.ELSE)
+                .append(Constant.LINE_FEED)
+
+                //Thirty-first line
+                .append(Utils.indentLNT(7))
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.FALSE)
+                .append(Constant.LINE_FEED)
+
+                //Thirty-second line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.END_IF)
+                .append(Constant.LINE_FEED)
+
+                //Thirty-third line
+                .append(Utils.indentLNT(5))
+                .append(Lnt.END_IF)
+                .append(Constant.LINE_FEED)
+
+                //Thirty-fourth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.CASE_OPERATOR)
+                .append(Constant.SPACE)
+                .append(Lnt.EMPTY_LIST)
+                .append(Lnt.SPACED_PATTERN_MATCHING_OPERATOR)
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.TRUE)
+                .append(Constant.LINE_FEED)
+
+                //Thirty-fifth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.END_CASE)
+                .append(Constant.LINE_FEED)
+
+                //Thirty-sixth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_VAR)
+                .append(Constant.LINE_FEED)
+
+                //Thirty-seventh line
+                .append(Lnt.END_FUNCTION);
+
+        this.writeLntSeparation(builder);
+    }
+
+    private void writeFindFlowSourceLntFunction(final StringBuilder builder)
+    {
+        builder //First line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append("find_flow_source() LNT Function")
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Second line
+                .append(Lnt.FUNCTION)
+                .append(Bpmn.FIND_FLOW_SOURCE_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.BPMN_PROCESS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.BPMN_PROCESS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.FLOW_ID_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IS)
+
+                //Third line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.CASE)
+                .append(Constant.SPACE)
+                .append(Bpmn.BPMN_PROCESS_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Fourth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.VAR)
+                .append(Constant.SPACE)
+                .append(Bpmn.NAME_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.NODES_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_NODES_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.FLOWS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_FLOWS_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Fifth line
+                .append(Utils.indentLNT(3))
+                .append(Bpmn.PROCESS_IDENTIFIER)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.NAME_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.NODES_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.FLOWS_VARIABLE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Lnt.SPACED_PATTERN_MATCHING_OPERATOR)
+                .append(Lnt.RETURN)
+                .append(Constant.SPACE)
+                .append(Lnt.generateFunctionCallWithArgs(
+                    Bpmn.TRAVERSE_FLOWS_LNT_FUNCTION,
+                    Bpmn.TL_VARIABLE,
+                    Bpmn.FLOW_ID_VARIABLE
+                ))
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_CASE)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Lnt.END_FUNCTION);
+
+        this.writeLntSeparation(builder);
+    }
+
+    private void writeTraverseFlowsLntFunction(final StringBuilder builder)
+    {
+        builder //First line
+                .append(Lnt.OPEN_MULTILINE_COMMENTARY)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Constant.SPACE)
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append("traverse_flows() LNT Function")
+                .append(Constant.DOUBLE_QUOTATION_MARK)
+                .append(Constant.SPACE)
+                .append(Utils.getDashesStringOfSize(5))
+                .append(Lnt.CLOSE_MULTILINE_COMMENTARY)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Second line
+                .append(Lnt.FUNCTION)
+                .append(Constant.SPACE)
+                .append(Bpmn.TRAVERSE_FLOWS_LNT_FUNCTION)
+                .append(Constant.SPACE_AND_LEFT_PARENTHESIS)
+                .append(Bpmn.FLOWS_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_FLOWS_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.FLOW_ID_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.RIGHT_PARENTHESIS)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IS)
+                .append(Constant.LINE_FEED)
+
+                //Third line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.VAR)
+                .append(Constant.SPACE)
+                .append(Bpmn.DUMMY_SOURCE_LNT_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Fourth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.generateValueToVariableAssignation(
+                    Bpmn.DUMMY_SOURCE_LNT_VARIABLE,
+                    Bpmn.DUMMY_ID
+                ))
+                .append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR)
+                .append(Constant.DOUBLE_LINE_FEED)
+
+                //Fifth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.CASE)
+                .append(Constant.SPACE)
+                .append(Bpmn.FLOWS_VARIABLE)
+                .append(Constant.LINE_FEED)
+
+                //Sixth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.VAR)
+                .append(Constant.SPACE)
+                .append(Bpmn.IDENT_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.SORT_VARIABLE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TARGET_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.ID_LNT_TYPE)
+                .append(Constant.COMA_AND_SPACE)
+                .append(Bpmn.TL_VARIABLE)
+                .append(Constant.COLON_AND_SPACE)
+                .append(Bpmn.SET_OF_FLOWS_LNT_TYPE)
+                .append(Constant.SPACE)
+                .append(Lnt.IN)
+                .append(Constant.LINE_FEED)
+
+                //Seventh line
+                .append(Utils.indentLNT(4))
+                .append(Lnt.generateObjectWithArguments(
+                    Lnt.CONS,
+                    Lnt.generateObjectWithArguments(
+                        Bpmn.FLOW,
+                        Bpmn.IDENT_VARIABLE,
+                        Bpmn.SOURCE_LNT_VARIABLE,
+                        Bpmn.TARGET_VARIABLE
+                    ),
+                    Bpmn.TL_VARIABLE
+                ))
+                .append(Constant.SPACE)
+                .append(Lnt.PATTERN_MATCHING_OPERATOR)
+                .append(Constant.LINE_FEED)
+
+                //Eighth line
+                .append(Utils.indentLNT(5))
+                .append(Lnt.generateIfStatement(
+                    Lnt.generateEqualsComparison(
+                        Bpmn.IDENT_VARIABLE,
+                        Bpmn.FLOW_ID_VARIABLE
+                    )
+                ))
+                .append(Constant.LINE_FEED)
+
+                //Ninth line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.generateReturnStatement(
+                    Bpmn.SOURCE_LNT_VARIABLE
+                ))
+                .append(Constant.LINE_FEED)
+
+                //Tenth line
+                .append(Utils.indentLNT(5))
+                .append(Lnt.ELSE)
+                .append(Constant.LINE_FEED)
+
+                //Eleventh line
+                .append(Utils.indentLNT(6))
+                .append(Lnt.generateReturnStatement(
+                    Lnt.generateFunctionCall(
+                        Bpmn.TRAVERSE_FLOWS_LNT_FUNCTION,
+                        Bpmn.TL_VARIABLE,
+                        Bpmn.FLOW_ID_VARIABLE
+                    )
+                ))
+                .append(Constant.LINE_FEED)
+
+                //Twelfth line
+                .append(Utils.indentLNT(5))
+                .append(Lnt.END_IF)
+                .append(Constant.LINE_FEED)
+
+                //Thirteenth line
+                .append(Utils.indentLNT(3))
+                .append(Lnt.CASE_OPERATOR)
+                .append(Constant.SPACE)
+                .append(Lnt.EMPTY_LIST)
+                .append(Lnt.SPACED_PATTERN_MATCHING_OPERATOR)
+                .append(Lnt.generateReturnStatement(
+                    Bpmn.DUMMY_SOURCE_LNT_VARIABLE
+                ))
+                .append(Constant.LINE_FEED)
+
+                //Fourteenth line
+                .append(Utils.indentLNT(2))
+                .append(Lnt.END_CASE)
+                .append(Constant.LINE_FEED)
+
+                //Fifteenth line
+                .append(Utils.indentLNT(1))
+                .append(Lnt.END_VAR)
+                .append(Constant.LINE_FEED)
+
+                //Sixteenth line
+                .append(Lnt.END_FUNCTION);
+
+        this.writeLntSeparation(builder);
+    }
 }

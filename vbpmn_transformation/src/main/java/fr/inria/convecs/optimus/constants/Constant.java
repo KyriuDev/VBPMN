@@ -11,6 +11,7 @@ public class Constant
 	public static final String COMA = ",";
 	public static final String COMA_AND_SPACE = ", ";
 	public static final String COMMENTS_DASHES = "-----";
+    public static final String DASH = "-";
 	public static final String DOUBLE_LINE_FEED = "\n\n";
 	public static final String DOUBLE_QUOTATION_MARK = "\"";
 	public static final String DOUBLE_QUOTATION_MARK_AND_SPACE = "\" ";
