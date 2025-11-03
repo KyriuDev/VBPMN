@@ -455,8 +455,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Utils.indentLNT(2))
 					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Constant.SPACE)
 					.append(Lnt.OF)
 					.append(Constant.SPACE)
@@ -562,8 +561,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Utils.indentLNT(2))
 						.append(Bpmn.INCOMING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(Constant.SPACE)
 						.append(Lnt.OF)
 						.append(Constant.SPACE)
@@ -594,8 +592,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Utils.indentLNT(3))
 						.append(Bpmn.INCOMING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(Lnt.SPACED_OF)
 						.append(Bpmn.ID_LNT_TYPE)
 						.append(Constant.RIGHT_PARENTHESIS)
@@ -777,8 +774,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -787,8 +783,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
 					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -917,8 +912,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -927,8 +921,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
 					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -1016,8 +1009,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.LINE_FEED)
 					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -1026,8 +1018,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Lnt.SEQUENTIAL_COMPOSITION_OPERATOR_AND_SPACE)
 					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -1311,7 +1302,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			if (nbInc == 1)
 			{
 				final String flowId = Bpmn.INCOMING_FLOW_VARIABLE + Constant.SPACE_AND_LEFT_PARENTHESIS +
-						Lnt.OUT_PARAMETER + Bpmn.IDENT_VARIABLE + Lnt.SPACED_OF + Bpmn.ID_LNT_TYPE +
+						Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE) + Lnt.SPACED_OF + Bpmn.ID_LNT_TYPE +
 						Constant.RIGHT_PARENTHESIS + Lnt.SEQUENTIAL_COMPOSITION_OPERATOR;
 
 				stringBuilder.append(flowId);
@@ -1329,8 +1320,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					stringBuilder.append(Bpmn.INCOMING_FLOW_VARIABLE)
 							.append(incCounter)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(Bpmn.IDENT_VARIABLE)
+							.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 							.append(Lnt.OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS);
@@ -1363,8 +1353,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 			{
 				stringBuilder.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(Lnt.SPACED_OF)
 						.append(Bpmn.ID_LNT_TYPE)
 						.append(Constant.RIGHT_PARENTHESIS)
@@ -1385,8 +1374,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 							.append(outCounter)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(Bpmn.IDENT_VARIABLE)
+							.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS);
@@ -2012,8 +2000,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Utils.indentLNT(4))
 					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -2055,8 +2042,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						stringBuilder.append(Utils.indentLNT(6))
 								.append(outgoingFlowIdentifier)
 								.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-								.append(Lnt.OUT_PARAMETER)
-								.append(Bpmn.IDENT_VARIABLE)
+								.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 								.append(outgoingFlowsCounter)
 								.append(Lnt.SPACED_OF)
 								.append(Bpmn.ID_LNT_TYPE)
@@ -2083,8 +2069,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 				{
 					stringBuilder.append(outgoingFlowsCombination.iterator().next())
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(Bpmn.IDENT_VARIABLE)
+							.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS);
@@ -2431,8 +2416,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Utils.indentLNT(3))
 					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -2451,8 +2435,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Constant.UNDERSCORE)
 						.append(nb)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(Lnt.SPACED_OF)
 						.append(Bpmn.ID_LNT_TYPE)
 						.append(Constant.RIGHT_PARENTHESIS);
@@ -2650,8 +2633,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Utils.indentLNT(4))
 					.append(Bpmn.INCOMING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -2671,8 +2653,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Constant.UNDERSCORE)
 						.append(nb)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(variablesCounter)
 						.append(Lnt.SPACED_OF)
 						.append(Bpmn.ID_LNT_TYPE)
@@ -3065,8 +3046,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							stringBuilder.append(Utils.indentLNT(6))
 									.append(element)
 									.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-									.append(Lnt.OUT_PARAMETER)
-									.append(Bpmn.IDENT_VARIABLE)
+									.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 									.append(variablesCounter)
 									.append(Lnt.SPACED_OF)
 									.append(Bpmn.ID_LNT_TYPE)
@@ -3093,8 +3073,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					{
 						stringBuilder.append(incomingFlowsCombination.iterator().next())
 								.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-								.append(Lnt.OUT_PARAMETER)
-								.append(Bpmn.IDENT_VARIABLE)
+								.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 								.append(Lnt.SPACED_OF)
 								.append(Bpmn.ID_LNT_TYPE)
 								.append(Constant.RIGHT_PARENTHESIS);
@@ -3120,8 +3099,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Utils.indentLNT(4))
 						.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(Lnt.SPACED_OF)
 						.append(Bpmn.ID_LNT_TYPE)
 						.append(Constant.RIGHT_PARENTHESIS)
@@ -3261,8 +3239,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Constant.UNDERSCORE)
 							.append(nb)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(Bpmn.IDENT_VARIABLE)
+							.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS);
@@ -3305,8 +3282,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Utils.indentLNT(3))
 						.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(Lnt.SPACED_OF)
 						.append(Bpmn.ID_LNT_TYPE)
 						.append(Constant.RIGHT_PARENTHESIS)
@@ -3685,8 +3661,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Constant.UNDERSCORE)
 						.append(nb)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(Lnt.SPACED_OF)
 						.append(Bpmn.ID_LNT_TYPE)
 						.append(Constant.RIGHT_PARENTHESIS);
@@ -3710,8 +3685,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Utils.indentLNT(3))
 					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -3909,8 +3883,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						.append(Constant.UNDERSCORE)
 						.append(nb)
 						.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-						.append(Lnt.OUT_PARAMETER)
-						.append(Bpmn.IDENT_VARIABLE)
+						.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 						.append(variablesCounter)
 						.append(Lnt.SPACED_OF)
 						.append(Bpmn.ID_LNT_TYPE)
@@ -3937,8 +3910,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Utils.indentLNT(4))
 					.append(Bpmn.OUTGOING_FLOW_VARIABLE)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(Bpmn.IDENT_VARIABLE)
+					.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -4239,7 +4211,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Utils.indent(argsIndent + 1));
 
 			//handle final
-			stringBuilder.append(Bpmn.FINAL_NODES_IDENTIFIER)
+			stringBuilder.append(Bpmn.END_EVENTS_IDENTIFIER)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
 					.append(Constant.LEFT_CURVY_BRACKET);
 
@@ -4519,14 +4491,14 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Utils.indent(nodeMinIndent));
 
 					final String incomingFlowIdentifier = node.incomingFlows().get(0).identifier() + Constant.UNDERSCORE +
-							Bpmn.FINISH + Constant.SPACE_AND_LEFT_PARENTHESIS + Lnt.OUT_PARAMETER + ident1 + Lnt.SPACED_OF +
-							Bpmn.ID_LNT_TYPE + Constant.RIGHT_PARENTHESIS + Lnt.SEQUENTIAL_COMPOSITION_OPERATOR +
-							Constant.LINE_FEED;
+							Bpmn.FINISH + Constant.SPACE_AND_LEFT_PARENTHESIS + Lnt.markAsOutputParameter(ident1) +
+							Lnt.SPACED_OF + Bpmn.ID_LNT_TYPE + Constant.RIGHT_PARENTHESIS +
+							Lnt.SEQUENTIAL_COMPOSITION_OPERATOR + Constant.LINE_FEED;
 
 					final String outFlowIdentifier = node.outgoingFlows().get(0).identifier() + Constant.UNDERSCORE +
-							Bpmn.BEGIN + Constant.SPACE_AND_LEFT_PARENTHESIS + Lnt.OUT_PARAMETER + ident2 + Lnt.SPACED_OF +
-							Bpmn.ID_LNT_TYPE + Constant.RIGHT_PARENTHESIS + Lnt.SEQUENTIAL_COMPOSITION_OPERATOR +
-							Constant.LINE_FEED;
+							Bpmn.BEGIN + Constant.SPACE_AND_LEFT_PARENTHESIS + Lnt.markAsOutputParameter(ident2) +
+							Lnt.SPACED_OF + Bpmn.ID_LNT_TYPE + Constant.RIGHT_PARENTHESIS +
+							Lnt.SEQUENTIAL_COMPOSITION_OPERATOR + Constant.LINE_FEED;
 
 					nodeBuilder.append(incomingFlowIdentifier)
 							.append(Utils.indent(nodeMinIndent))
@@ -4561,8 +4533,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Constant.UNDERSCORE)
 							.append(Bpmn.FINISH)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(ident1)
+							.append(Lnt.markAsOutputParameter(ident1))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS)
@@ -4600,8 +4571,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 								.append(Constant.UNDERSCORE)
 								.append(Bpmn.BEGIN)
 								.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-								.append(Lnt.OUT_PARAMETER)
-								.append(currentIdent)
+								.append(Lnt.markAsOutputParameter(currentIdent))
 								.append(Lnt.SPACED_OF)
 								.append(Bpmn.ID_LNT_TYPE)
 								.append(Constant.RIGHT_PARENTHESIS)
@@ -4663,8 +4633,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 								.append(Constant.UNDERSCORE)
 								.append(Bpmn.FINISH)
 								.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-								.append(Lnt.OUT_PARAMETER)
-								.append(ident2)
+								.append(Lnt.markAsOutputParameter(ident2))
 								.append(Lnt.SPACED_OF)
 								.append(Bpmn.ID_LNT_TYPE)
 								.append(Constant.RIGHT_PARENTHESIS);
@@ -4683,8 +4652,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Constant.UNDERSCORE)
 							.append(Bpmn.BEGIN)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(ident1)
+							.append(Lnt.markAsOutputParameter(ident1))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS)
@@ -4717,8 +4685,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Constant.UNDERSCORE)
 							.append(Bpmn.FINISH)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(ident1)
+							.append(Lnt.markAsOutputParameter(ident1))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS)
@@ -4754,8 +4721,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 								.append(Constant.UNDERSCORE)
 								.append(Bpmn.BEGIN)
 								.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-								.append(Lnt.OUT_PARAMETER)
-								.append(currentIdent)
+								.append(Lnt.markAsOutputParameter(currentIdent))
 								.append(Lnt.SPACED_OF)
 								.append(Bpmn.ID_LNT_TYPE)
 								.append(Constant.RIGHT_PARENTHESIS);
@@ -4813,11 +4779,11 @@ public class Pif2Lnt extends Pif2LntGeneric
 									.append(Constant.LINE_FEED);
 						}
 
-						final String syncString = Bpmn.INSERT_LNT_FUNCTION + Constant.SPACE_AND_LEFT_PARENTHESIS +
+						final String syncString = Lnt.PREDEFINED_FUNCTION_INSERT + Constant.SPACE_AND_LEFT_PARENTHESIS +
 								Bpmn.IDENT_VARIABLE + Constant.COMA_AND_SPACE + Bpmn.SYNC_STORE_VARIABLE +
 								Constant.RIGHT_PARENTHESIS;
 
-						final String parStoreString = Bpmn.INSERT_LNT_FUNCTION + Constant.SPACE_AND_LEFT_PARENTHESIS +
+						final String parStoreString = Lnt.PREDEFINED_FUNCTION_INSERT + Constant.SPACE_AND_LEFT_PARENTHESIS +
 								node.identifier() + Constant.COMA_AND_SPACE + Bpmn.PAR_STORE_VARIABLE +
 								Constant.RIGHT_PARENTHESIS;
 
@@ -4827,8 +4793,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 								.append(Constant.UNDERSCORE)
 								.append(Bpmn.FINISH)
 								.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-								.append(Lnt.OUT_PARAMETER)
-								.append(Bpmn.IDENT_VARIABLE)
+								.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 								.append(Lnt.SPACED_OF)
 								.append(Bpmn.ID_LNT_TYPE)
 								.append(Constant.RIGHT_PARENTHESIS)
@@ -4860,8 +4825,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Constant.UNDERSCORE)
 							.append(Bpmn.BEGIN)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(ident1)
+							.append(Lnt.markAsOutputParameter(ident1))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS)
@@ -4969,8 +4933,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Constant.UNDERSCORE)
 							.append(Bpmn.FINISH)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(ident1)
+							.append(Lnt.markAsOutputParameter(ident1))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS)
@@ -5029,8 +4992,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 										.append(Utils.indentLNT(2))
 										.append(outgoingFlowIdentifier)
 										.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-										.append(Lnt.OUT_PARAMETER)
-										.append(currentIdentifier)
+										.append(Lnt.markAsOutputParameter(currentIdentifier))
 										.append(Lnt.SPACED_OF)
 										.append(Bpmn.ID_LNT_TYPE)
 										.append(Constant.RIGHT_PARENTHESIS);
@@ -5069,8 +5031,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 						{
 							nodeBuilder.append(outgoingFlowsCombination.iterator().next())
 									.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-									.append(Lnt.OUT_PARAMETER)
-									.append(Bpmn.IDENT_VARIABLE)
+									.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 									.append(Lnt.SPACED_OF)
 									.append(Bpmn.ID_LNT_TYPE)
 									.append(Constant.RIGHT_PARENTHESIS)
@@ -5138,11 +5099,11 @@ public class Pif2Lnt extends Pif2LntGeneric
 									.append(Constant.LINE_FEED);
 						}
 
-						final String syncString = Bpmn.INSERT_LNT_FUNCTION + Constant.SPACE_AND_LEFT_PARENTHESIS +
+						final String syncString = Lnt.PREDEFINED_FUNCTION_INSERT + Constant.SPACE_AND_LEFT_PARENTHESIS +
 								Bpmn.IDENT_VARIABLE + Constant.COMA_AND_SPACE + Bpmn.SYNC_STORE_VARIABLE +
 								Constant.RIGHT_PARENTHESIS;
 
-						final String mergeStoreString = Bpmn.INSERT_LNT_FUNCTION + Constant.SPACE_AND_LEFT_PARENTHESIS +
+						final String mergeStoreString = Lnt.PREDEFINED_FUNCTION_INSERT + Constant.SPACE_AND_LEFT_PARENTHESIS +
 								node.identifier() + Constant.COMA_AND_SPACE + Bpmn.MERGE_STORE_VARIABLE +
 								Constant.RIGHT_PARENTHESIS;
 
@@ -5152,8 +5113,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 								.append(Constant.UNDERSCORE)
 								.append(Bpmn.FINISH)
 								.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-								.append(Lnt.OUT_PARAMETER)
-								.append(Bpmn.IDENT_VARIABLE)
+								.append(Lnt.markAsOutputParameter(Bpmn.IDENT_VARIABLE))
 								.append(Lnt.SPACED_OF)
 								.append(Bpmn.ID_LNT_TYPE)
 								.append(Constant.RIGHT_PARENTHESIS)
@@ -5183,8 +5143,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 							.append(Constant.UNDERSCORE)
 							.append(Bpmn.BEGIN)
 							.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-							.append(Lnt.OUT_PARAMETER)
-							.append(ident1)
+							.append(Lnt.markAsOutputParameter(ident1))
 							.append(Lnt.SPACED_OF)
 							.append(Bpmn.ID_LNT_TYPE)
 							.append(Constant.RIGHT_PARENTHESIS)
@@ -5377,8 +5336,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.UNDERSCORE)
 					.append(Bpmn.BEGIN)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(ident1)
+					.append(Lnt.markAsOutputParameter(ident1))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -5422,8 +5380,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.UNDERSCORE)
 					.append(Bpmn.FINISH)
 					.append(Constant.SPACE_AND_LEFT_PARENTHESIS)
-					.append(Lnt.OUT_PARAMETER)
-					.append(ident1)
+					.append(Lnt.markAsOutputParameter(ident1))
 					.append(Lnt.SPACED_OF)
 					.append(Bpmn.ID_LNT_TYPE)
 					.append(Constant.RIGHT_PARENTHESIS)
@@ -5469,7 +5426,7 @@ public class Pif2Lnt extends Pif2LntGeneric
 					.append(Constant.COMA_AND_SPACE)
 					.append(Bpmn.MERGE_ID_VARIABLE)
 					.append(Constant.RIGHT_PARENTHESIS_AND_SPACE)
-					.append(Lnt.AND)
+					.append(Lnt.LOGICAL_AND)
 					.append(Constant.LINE_FEED)
 					.append(Utils.indentLNT(3))
 					.append(Utils.indent(3))
