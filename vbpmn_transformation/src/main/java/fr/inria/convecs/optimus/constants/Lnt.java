@@ -178,6 +178,18 @@ public class Lnt
 				Lnt.THEN;
 	}
 
+	public static String generateWhileStatement(final String comparisonValue)
+	{
+		if (comparisonValue == null
+			|| comparisonValue.isEmpty())
+		{
+			throw new RuntimeException("Comparison value must be non-null and non-empty!");
+		}
+
+		return Lnt.WHILE + Constant.SPACE_AND_LEFT_PARENTHESIS + comparisonValue + Constant.RIGHT_PARENTHESIS_AND_SPACE +
+				Lnt.LOOP;
+	}
+
     public static String generateObjectWithArguments(final String objectIdentifier,
                                                      final String... arguments)
     {
@@ -204,12 +216,12 @@ public class Lnt
     }
 
 	public static String generateObjectConstructor(final String objectIdentifier,
-												   final ArgumentsAndType... listOfArgumentsAndTypes)
+												   final ParametersAndType... listOfParametersAndTypes)
 	{
 		if (objectIdentifier == null
 			|| objectIdentifier.isEmpty()
-			|| listOfArgumentsAndTypes == null
-			|| listOfArgumentsAndTypes.length == 0)
+			|| listOfParametersAndTypes == null
+			|| listOfParametersAndTypes.length == 0)
 		{
 			throw new RuntimeException("Object constructor should have an identifier, and a non-empty list of arguments!");
 		}
@@ -218,10 +230,10 @@ public class Lnt
 				.append(Constant.SPACE_AND_LEFT_PARENTHESIS);
 		String typeSeparator = Constant.EMPTY_STRING;
 
-		for (final ArgumentsAndType argumentsAndType : listOfArgumentsAndTypes)
+		for (final ParametersAndType parametersAndType : listOfParametersAndTypes)
 		{
-			final Collection<String> arguments = argumentsAndType.getArguments();
-			final String type = argumentsAndType.getType();
+			final Collection<String> arguments = parametersAndType.getParameters();
+			final String type = parametersAndType.getType();
 			String argumentSeparator = Constant.EMPTY_STRING;
 			builder.append(typeSeparator);
 			typeSeparator = Constant.COMA_AND_SPACE;
@@ -317,14 +329,14 @@ public class Lnt
 	public static String generateFunctionHeader(final String functionName,
 												final String returnType,
 												final boolean jumpLine,
-												final ArgumentsAndType... listOfArgumentsAndTypes)
+												final ParametersAndType... listOfParametersAndTypes)
 	{
 		if (functionName == null
 			|| functionName.isEmpty()
 			|| returnType == null
 			|| returnType.isEmpty()
-			|| listOfArgumentsAndTypes == null
-			|| listOfArgumentsAndTypes.length == 0)
+			|| listOfParametersAndTypes == null
+			|| listOfParametersAndTypes.length == 0)
 		{
 			throw new RuntimeException("Function should have a name, a return type, and a non-empty list of arguments!");
 		}
@@ -337,10 +349,10 @@ public class Lnt
 
 		String typesSeparator = Constant.EMPTY_STRING;
 
-		for (final ArgumentsAndType argumentsAndType : listOfArgumentsAndTypes)
+		for (final ParametersAndType parametersAndType : listOfParametersAndTypes)
 		{
-			final Collection<String> arguments = argumentsAndType.getArguments();
-			final String type = argumentsAndType.getType();
+			final Collection<String> arguments = parametersAndType.getParameters();
+			final String type = parametersAndType.getType();
 
 			if (arguments == null
 				|| arguments.isEmpty()
@@ -369,6 +381,98 @@ public class Lnt
 				.append(Constant.COLON_AND_SPACE)
 				.append(returnType)
 				.append(jumpLine ? Constant.LINE_FEED : Constant.SPACE)
+				.append(Lnt.IS);
+
+		return builder.toString();
+	}
+
+	public static String generateProcessHeader(final String processName,
+											   final Collection<ParametersAndType> listOfParametersAndTypes,
+											   final EventsAndType... listOfEventsAndTypes)
+	{
+		if (processName == null
+			|| processName.isEmpty()
+			|| listOfEventsAndTypes == null
+			|| listOfEventsAndTypes.length == 0)
+		{
+			throw new RuntimeException("Processes should have a name, and a non-null and non-empty list of events!");
+		}
+
+		final StringBuilder builder = new StringBuilder(Lnt.PROCESS)
+				.append(Constant.SPACE)
+				.append(processName)
+				.append(Constant.SPACE_AND_LEFT_SQUARE_BRACKET);
+
+		String typesSeparator = Constant.EMPTY_STRING;
+
+		for (final EventsAndType eventsAndType : listOfEventsAndTypes)
+		{
+			final Collection<String> events = eventsAndType.getEvents();
+			final String type = eventsAndType.getType();
+
+			if (events == null
+				|| events.isEmpty()
+				|| type == null
+				|| type.isEmpty())
+			{
+				throw new RuntimeException("There must be at least one event in each given event list, and this event must have a type!");
+			}
+
+			builder.append(typesSeparator);
+			typesSeparator = Constant.COMA_AND_SPACE;
+			String eventSeparator = Constant.EMPTY_STRING;
+
+			for (final String event : events)
+			{
+				builder.append(eventSeparator)
+						.append(event);
+				eventSeparator = Constant.COMA_AND_SPACE;
+			}
+
+			builder.append(Constant.COLON_AND_SPACE)
+					.append(type);
+		}
+
+		builder.append(Constant.RIGHT_SQUARE_BRACKET);
+
+		if (listOfParametersAndTypes != null
+			&& !listOfParametersAndTypes.isEmpty())
+		{
+			typesSeparator = Constant.EMPTY_STRING;
+			builder.append(Constant.SPACE_AND_LEFT_PARENTHESIS);
+
+			for (final ParametersAndType parametersAndType : listOfParametersAndTypes)
+			{
+				final Collection<String> parameters = parametersAndType.getParameters();
+				final String type = parametersAndType.getType();
+
+				if (parameters == null
+					|| parameters.isEmpty()
+					|| type == null
+					|| type.isEmpty())
+				{
+					throw new RuntimeException("There must be at least one parameter in each given parameter list, and this parameter must have a type!");
+				}
+
+				builder.append(typesSeparator);
+				typesSeparator = Constant.COMA_AND_SPACE;
+				String parameterSeparator = Constant.EMPTY_STRING;
+
+				for (final String parameter : parameters)
+				{
+					builder.append(parameterSeparator)
+							.append(parameter);
+					parameterSeparator = Constant.COMA_AND_SPACE;
+				}
+
+				builder.append(Constant.COLON_AND_SPACE)
+						.append(type);
+			}
+
+			builder.append(Constant.RIGHT_PARENTHESIS);
+		}
+
+		builder.append(Constant.SPACE)
 				.append(Lnt.IS);
 
 		return builder.toString();
@@ -438,31 +542,59 @@ public class Lnt
 		}
 	}
 
-	public static class ArgumentsAndType
+	public static class ParametersAndType
 	{
-		//TODO: Dirty but allows distinguishing between arguments and variables while avoiding code duplication
-		private final VariablesAndType variablesAndType;
+		//TODO: Dirty but allows distinguishing between events, parameters, and variables while avoiding code duplication
+		private final VariablesAndType parametersAndType;
 
-		public ArgumentsAndType(final String variable,
-						        final String type)
+		public ParametersAndType(final String parameter,
+								 final String type)
 		{
-			this(List.of(variable), type);
+			this(List.of(parameter), type);
 		}
 
-		public ArgumentsAndType(final Collection<String> variables,
-						        final String type)
+		public ParametersAndType(final Collection<String> parameters,
+								 final String type)
 		{
-			this.variablesAndType = new VariablesAndType(variables, type);
+			this.parametersAndType = new VariablesAndType(parameters, type);
 		}
 
-		public Collection<String> getArguments()
+		public Collection<String> getParameters()
 		{
-			return this.variablesAndType.getVariables();
+			return this.parametersAndType.getVariables();
 		}
 
 		public String getType()
 		{
-			return this.variablesAndType.getType();
+			return this.parametersAndType.getType();
+		}
+	}
+
+	public static class EventsAndType
+	{
+		//TODO: Dirty but allows distinguishing between events, parameters, and variables while avoiding code duplication
+		private final VariablesAndType eventsAndType;
+
+		public EventsAndType(final String event,
+							 final String type)
+		{
+			this(List.of(event), type);
+		}
+
+		public EventsAndType(final Collection<String> events,
+							 final String type)
+		{
+			this.eventsAndType = new VariablesAndType(events, type);
+		}
+
+		public Collection<String> getEvents()
+		{
+			return this.eventsAndType.getVariables();
+		}
+
+		public String getType()
+		{
+			return this.eventsAndType.getType();
 		}
 	}
 

@@ -229,7 +229,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.FLOW,
-					new Lnt.ArgumentsAndType(
+					new Lnt.ParametersAndType(
 						Arrays.asList(Bpmn.IDENT_VARIABLE, Bpmn.SOURCE_LNT_VARIABLE, Bpmn.TARGET_VARIABLE),
 						Bpmn.ID_LNT_TYPE
 					)
@@ -311,8 +311,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.TASK,
-					new Lnt.ArgumentsAndType(Bpmn.IDENT_VARIABLE, Bpmn.ID_LNT_TYPE),
-					new Lnt.ArgumentsAndType(
+					new Lnt.ParametersAndType(Bpmn.IDENT_VARIABLE, Bpmn.ID_LNT_TYPE),
+					new Lnt.ParametersAndType(
 						Arrays.asList(Bpmn.INCOMING_FLOW_VARIABLE, Bpmn.OUTGOING_FLOW_VARIABLE),
 						Bpmn.SET_OF_IDS_LNT_TYPE
 					)
@@ -394,7 +394,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.INITIAL_VARIABLE,
-					new Lnt.ArgumentsAndType(
+					new Lnt.ParametersAndType(
 						Arrays.asList(Bpmn.IDENT_VARIABLE, Bpmn.OUTGOING_FLOW_VARIABLE),
 						Bpmn.ID_LNT_TYPE
 					)
@@ -445,8 +445,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.FINAL,
-					new Lnt.ArgumentsAndType(Bpmn.IDENT_VARIABLE, Bpmn.ID_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.INCOMING_FLOW_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.IDENT_VARIABLE, Bpmn.ID_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.INCOMING_FLOW_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE)
 				))
 				.append(Utils.indent(2))
 				.append(Lnt.OPEN_MULTILINE_COMMENTARY)
@@ -611,10 +611,10 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.GATEWAY,
-					new Lnt.ArgumentsAndType(Bpmn.IDENT_VARIABLE, Bpmn.ID_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.PATTERN_VARIABLE, Bpmn.GATEWAY_PATTERN_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.SORT_VARIABLE, Bpmn.GATEWAY_TYPE_LNT_TYPE),
-					new Lnt.ArgumentsAndType(
+					new Lnt.ParametersAndType(Bpmn.IDENT_VARIABLE, Bpmn.ID_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.PATTERN_VARIABLE, Bpmn.GATEWAY_PATTERN_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.SORT_VARIABLE, Bpmn.GATEWAY_TYPE_LNT_TYPE),
+					new Lnt.ParametersAndType(
 						Arrays.asList(Bpmn.INCOMING_FLOW_VARIABLE, Bpmn.OUTGOING_FLOW_VARIABLE),
 						Bpmn.SET_OF_IDS_LNT_TYPE
 					)
@@ -704,7 +704,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.INITIAL_NODES_IDENTIFIER,
-					new Lnt.ArgumentsAndType(Bpmn.INITIAL_VARIABLE, Bpmn.INITIAL_EVENT_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.INITIAL_VARIABLE, Bpmn.INITIAL_EVENT_LNT_TYPE)
 				))
 				.append(Constant.COMA)
 				.append(Constant.LINE_FEED)
@@ -714,7 +714,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.END_EVENTS_IDENTIFIER,
-					new Lnt.ArgumentsAndType(Bpmn.FINALS_VARIABLE, Bpmn.SET_OF_END_EVENTS_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.FINALS_VARIABLE, Bpmn.SET_OF_END_EVENTS_LNT_TYPE)
 				))
 				.append(Constant.COMA)
 				.append(Constant.LINE_FEED)
@@ -724,7 +724,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.GATEWAYS_IDENTIFIER,
-					new Lnt.ArgumentsAndType(Bpmn.GATEWAYS_VARIABLE, Bpmn.SET_OF_GATEWAYS_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.GATEWAYS_VARIABLE, Bpmn.SET_OF_GATEWAYS_LNT_TYPE)
 				))
 				.append(Constant.COMA)
 				.append(Constant.LINE_FEED)
@@ -734,7 +734,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.TASKS_IDENTIFIER,
-					new Lnt.ArgumentsAndType(Bpmn.TASKS_VARIABLE, Bpmn.SET_OF_TASKS_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.TASKS_VARIABLE, Bpmn.SET_OF_TASKS_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -826,9 +826,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 				.append(Utils.indentLNT(1))
 				.append(Lnt.generateObjectConstructor(
 					Bpmn.PROCESS_IDENTIFIER,
-					new Lnt.ArgumentsAndType(Bpmn.NAME_VARIABLE, Bpmn.ID_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.FLOWS_VARIABLE, Bpmn.SET_OF_FLOWS_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.NAME_VARIABLE, Bpmn.ID_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.FLOWS_VARIABLE, Bpmn.SET_OF_FLOWS_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -864,9 +864,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.IS_MERGE_POSSIBLE_LNT_FUNCTION,
 					Lnt.BOOLEAN_TYPE,
 					true,
-					new Lnt.ArgumentsAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ACTIVE_FLOWS_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ACTIVE_FLOWS_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -996,8 +996,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_INCOMING_FLOWS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_VARIABLE)
+					new Lnt.ParametersAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_VARIABLE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -1074,8 +1074,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_NODES_INCOMING_FLOWS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -1261,8 +1261,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_GATEWAYS_INCOMING_FLOWS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.GATEWAYS_VARIABLE, Bpmn.SET_OF_GATEWAYS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.GATEWAYS_VARIABLE, Bpmn.SET_OF_GATEWAYS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
                 .append(Constant.LINE_FEED)
 
@@ -1436,7 +1436,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_ACTIVE_TOKENS_LNT_FUNCTION,
 					Lnt.NATURAL_NUMBER_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(
+					new Lnt.ParametersAndType(
 						Arrays.asList(Bpmn.ACTIVE_FLOWS_VARIABLE, Bpmn.INCOMING_FLOW_VARIABLE),
 						Bpmn.SET_OF_IDS_LNT_TYPE
 					)
@@ -1550,9 +1550,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.IS_MERGE_POSSIBLE_V2_LNT_FUNCTION,
 					Lnt.BOOLEAN_TYPE,
 					true,
-					new Lnt.ArgumentsAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ACTIVE_FLOWS_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ACTIVE_FLOWS_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
                 .append(Constant.LINE_FEED)
 
@@ -1790,12 +1790,12 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.IS_SYNCHRONISATION_DONE_LNT_FUNCTION,
 					Lnt.BOOLEAN_TYPE,
 					true,
-					new Lnt.ArgumentsAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(
+					new Lnt.ParametersAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(
 						Arrays.asList(Bpmn.ACTIVE_FLOWS_VARIABLE, Bpmn.SYNC_STORE_VARIABLE),
 						Bpmn.SET_OF_IDS_LNT_TYPE
 					),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
                 .append(Constant.LINE_FEED)
 
@@ -1961,9 +1961,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.IS_MERGE_POSSIBLE_PAR_LNT_FUNCTION,
 					Lnt.BOOLEAN_TYPE,
 					true,
-					new Lnt.ArgumentsAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.SYNC_STORE_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_VARIABLE)
+					new Lnt.ParametersAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.SYNC_STORE_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_VARIABLE)
 				))
                 .append(Constant.LINE_FEED)
 
@@ -2459,8 +2459,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_FLOW_SOURCE_LNT_FUNCTION,
 					Bpmn.ID_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.BPMN_PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.FLOW_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.BPMN_PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.FLOW_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -2537,8 +2537,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.TRAVERSE_FLOWS_LNT_FUNCTION,
 					Bpmn.ID_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.FLOWS_VARIABLE, Bpmn.SET_OF_FLOWS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.FLOW_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.FLOWS_VARIABLE, Bpmn.SET_OF_FLOWS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.FLOW_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
                 .append(Constant.LINE_FEED)
 
@@ -2705,8 +2705,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.GET_INCOMING_FLOWS_BY_ID_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.NODE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.NODE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -2794,8 +2794,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.TRAVERSE_NODES_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -3179,8 +3179,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.TRAVERSE_GATEWAYS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.GATEWAYS_VARIABLE, Bpmn.SET_OF_GATEWAYS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.GATEWAYS_VARIABLE, Bpmn.SET_OF_GATEWAYS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -3365,8 +3365,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.TRAVERSE_FINALS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.FINALS_VARIABLE, Bpmn.SET_OF_END_EVENTS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.FINALS_VARIABLE, Bpmn.SET_OF_END_EVENTS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -3512,8 +3512,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.TRAVERSE_TASKS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.TASKS_VARIABLE, Bpmn.SET_OF_TASKS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.TASKS_VARIABLE, Bpmn.SET_OF_TASKS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -3660,9 +3660,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.REMOVE_INCOMING_FLOWS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.BPMN_PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ACTIVE_FLOWS_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.BPMN_PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ACTIVE_FLOWS_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -3736,9 +3736,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.REMOVE_SYNC_LNT_FUNCTON,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.BPMN_PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.SYNC_STORE_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.BPMN_PROCESS_VARIABLE, Bpmn.BPMN_PROCESS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.SYNC_STORE_VARIABLE, Bpmn.SET_OF_IDS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.MERGE_ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -3796,7 +3796,7 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.REMOVE_IDS_FROM_SET_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Arrays.asList(Bpmn.TO_REMOVE_VARIABLE, Bpmn.INPUT_SET_VARIABLE), Bpmn.SET_OF_IDS_LNT_TYPE)
+					new Lnt.ParametersAndType(Arrays.asList(Bpmn.TO_REMOVE_VARIABLE, Bpmn.INPUT_SET_VARIABLE), Bpmn.SET_OF_IDS_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -3917,8 +3917,8 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_ALL_INCOMING_FLOWS_NODES_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -4140,9 +4140,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_INCOMING_FLOWS_GATEWAYS_V2_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					true,
-					new Lnt.ArgumentsAndType(Bpmn.GATEWAYS_VARIABLE, Bpmn.SET_OF_GATEWAYS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.NEXT_NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.GATEWAYS_VARIABLE, Bpmn.SET_OF_GATEWAYS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.NEXT_NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -4332,9 +4332,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_END_NODES_INCOMING_FLOWS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.FINALS_VARIABLE, Bpmn.SET_OF_END_EVENTS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.NEXT_NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.FINALS_VARIABLE, Bpmn.SET_OF_END_EVENTS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.NEXT_NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
@@ -4485,9 +4485,9 @@ public class BpmnTypesBuilder extends BpmnTypesBuilderGeneric
 					Bpmn.FIND_TASKS_INCOMING_FLOWS_LNT_FUNCTION,
 					Bpmn.SET_OF_IDS_LNT_TYPE,
 					false,
-					new Lnt.ArgumentsAndType(Bpmn.TASKS_VARIABLE, Bpmn.SET_OF_TASKS_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE),
-					new Lnt.ArgumentsAndType(Bpmn.NEXT_NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE)
+					new Lnt.ParametersAndType(Bpmn.TASKS_VARIABLE, Bpmn.SET_OF_TASKS_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.ID_VARIABLE, Bpmn.ID_LNT_TYPE),
+					new Lnt.ParametersAndType(Bpmn.NEXT_NODES_VARIABLE, Bpmn.SET_OF_NODES_LNT_TYPE)
 				))
 				.append(Constant.LINE_FEED)
 
