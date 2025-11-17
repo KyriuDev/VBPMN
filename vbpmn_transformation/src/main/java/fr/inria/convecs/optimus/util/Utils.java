@@ -1,5 +1,7 @@
 package fr.inria.convecs.optimus.util;
 
+import fr.inria.convecs.optimus.constants.Constant;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.math.RoundingMode;
@@ -19,6 +21,11 @@ public class Utils
 	private Utils()
 	{
 
+	}
+
+	public static String getDashesStringOfSize(final int nbDashes)
+	{
+		return Constant.DASH.repeat(Math.max(0, nbDashes));
 	}
 
 	public static String indent(int size)
