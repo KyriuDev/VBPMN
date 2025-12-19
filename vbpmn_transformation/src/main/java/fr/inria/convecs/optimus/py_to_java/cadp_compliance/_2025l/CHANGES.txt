@@ -1,0 +1,333 @@
+The following changes of CADP may have impacted the generated LNT code: #3240, #3241, #3246, #3247, #3248, #3250 and #3256.
+Each CADP change is referenced below, with the modifications performed (DONE, UNKNOWN, NOTHING TO DO).
+By convention, CADP items are represented with ``----'', while sub-items (such as TRAIAN ones) are
+represented with ``####''.
+
+-------------------#3240: NOTHING TO DO-------------------
+
+IMPROVEMENT
+Number:		3240
+Date:		Mon Nov 17 15:31:57 CET 2025
+Report:		Hubert Garavel (INRIA/CONVECS)
+Author:		Frederic Lang (INRIA/CONVECS)
+Files:		bin.*/traian, doc/pdf/Champelovier-Clerc-Garavel-et-al-10.*
+
+Nature:		Formerly, when LNT expressions and patterns contained mixed
+		unary operators (which are prefixed) and "of" clauses (which
+		are postfixed), the semantics was ambiguous to human users,
+		while the rules followed by LNT2LOTOS and TRAIAN were all
+		but intuitive.
+
+		To avoid these issues, the following restrictions have been
+		imposed to LNT expressions and patterns. If F is a unary
+		operator having a special identifier (e.g., "-", "+", "@",
+		etc, but neither "length" nor "ord"), if V is an expression
+		or pattern, if T a type, and if E1...En is a list of events:
+
+		a) Any expression or pattern of the form "F V of T" is now
+		   forbidden, since it is unclear whether it should be
+		   understood as "(F V) of T" or "F (V of T)".
+
+		b) Any expression or pattern of the form "F (V) of T" is now
+		   forbidden, since it is unclear whether it should be
+		   understood as "(F (V)) of T" or "F ((V) of T)".
+
+		c) Any expression of the form "F [E1...En] V of T" is now
+		   forbidden, since it is unclear whether it should be
+		   understood as "(F [E1...En] V) of T" or "F [E1...En]
+		   (V of T)".
+
+		d) Any expression of the form "F [E1...En] (V) of T" is now
+		   forbidden, since it is unclear whether it should be
+		   understood as "(F [E1...En] (V)) of T" or "F [E1...En]
+		   ((V) of T)".
+
+		In these cases, TRAIAN now emits the following error message:
+
+		   ambiguous mix of unary F and "of" (parentheses needed)
+
+		or, if the expression or pattern contains parentheses around
+		V, the following message:
+
+		   ambiguous mix of unary F and "of" (more parentheses needed)
+
+		Note 1: Patterns can not invoke unary operators having
+		"[E1...En]" parameters.
+
+		Note 2: If F does not have a special identifier, these
+		restrictions do not apply, since there is no ambiguity.
+		For instance: "length (L) of Nat" is never understood as
+		"length ((L) of Nat)".
+
+		Note 3: There exist a few exceptions to the above rules
+		(see item #3241 below).
+
+		TRAIAN and LNT2LOTOS have been updated accordingly. The
+		NT2LOTOS Reference Manual was updated to document these
+		"ambiguous mix" restrictions and to simplify the table of
+		operator precedence (the "of" notation now has the same
+		priority as other postfix notations, namely field selection
+		".", field update ".{...}", and array access "[...]").
+
+		These changes are not compatible with respect to former
+		versions of TRAIAN and LNT2LOTOS. A few LNT programs that
+		were formally accepted are now rejected.
+
+		To help the migration, we document here the former behaviour
+		of LNT compilers with respect to ambiguous mixes:
+
+		- In LNT expressions: formerly, any expression "F X of T" or
+		  "F (X) of T" was understood as "(F (X)) of T". It is now
+		  forbidden.
+
+		- In LNT patterns: formerly, any expression "F X of T" was
+		  understood as "F (X of T)". It is now forbidden.
+
+		- In LNT patterns: formerly, any expression "F (X) of T" was
+		  understood as "(F (X)) of T". It is now forbidden.
+
+-------------------#3241: NOTHING TO DO-------------------
+
+IMPROVEMENT
+Number:		3241
+Date:		Tue Nov 18 11:47:53 CET 2025
+Authors:	Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/traian
+
+Nature:		Exceptional rules concerning the mixing of unary operators and
+		"of" clauses have been introduced in LNT, as an exception to
+		the aforementioned general rules (see item #3240 above). These
+		additional rules apply in three particular cases:
+		   - expressions of the form "F V of T"
+		   - expressions of the form "F [E1...En] V of T"
+		   - patterns of the form "F V of T"
+		where F is the operator "-" or "+", V is an expression or
+		pattern denoting an unsigned numeric constant, and T a type.
+
+		The general rules do not apply in these three cases: the
+		three above expressions and patterns are not forbidden and
+		are understood as "(F V) of T", "(F [E1...En] V) of T",
+		and "(F V) of T", respectively, meaning that the sign is
+		considered to be part of the number and has precedence over
+		the "of" postfix symbol. For instance, "-1 of Int" and
+		"- 1 of Int" are both understood as "(-1) of Int".
+
+		Note 1: Certain expressions or patterns starting with a zero
+		("000", "0123", etc.) are not understood as numeric constants,
+		but as calls to nullary functions, the name of which is a
+		special identifier. The exceptional rules do not apply to
+		such expressions or patterns.
+
+		Note 2: The exceptional rules do not apply if V is surrounded
+		by parentheses. In such cases, the general rules apply. For
+		instance, it is allowed to write either "-1 of Int", or
+		"(-1) of Int", or "- (1 of Int)", but writing "- (1) of Int"
+		is forbidden. Also, "-128 of Int8" is properly understood as
+		"(-128) of Int8", whereas the opposite interpretation
+		"- (128 of Int8)" would raise an exception since 128 is not
+		a valid 8-bit signed value.
+
+		This change is not compatible with respect to former versions
+		of TRAIAN. Concerning expressions, the situation does not
+		change, since TRAIAN was already implementing the new
+		semantics. Concerning patterns, TRAIAN formerly understood
+		"-1 of Int" as "- (1 of Int)", but now understands it as
+		"(-1) of Int".
+
+-------------------#3246: NOTHING TO DO-------------------
+
+IMPROVEMENT
+Number:		3246
+Date:		Wed Nov 26 18:12:00 CET 2025
+Authors:	Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/traian
+
+Nature:		Similar to the prohibition of ambiguous mixes between unary
+		operators and "of" clauses (see items #3240 and #3241 above),
+		it is now forbidden to mix unary operators with field selection
+		or field updates.
+
+		If F is a unary operator having a special identifier, V an
+		expression or pattern, X a field name, and E1...En a list
+		of exceptions, the following expressions or patterns are now
+		forbidden:
+		   a) F V . X
+		   b) F V . {...}
+		   c) F [E1...En] V . X
+		   d) F [E2...En] V . {...}
+
+		In such case, TRAIAN emits the following error message:
+		   ambiguous mix of unary F and "." (parentheses needed)
+
+		If V is surrounded by parentheses, the above expressions or
+		patterns are also forbidden and, depending on the form of V,
+		TRAIAN emits one of the two following error messages:
+		   ambiguous mix of unary F and "." (dubious parentheses)
+		or
+		   ambiguous mix of unary F and "." (more parentheses needed)
+
+		This change is not backward compatible, since LNT programs
+		that were formerly accepted are now rejected.
+
+-------------------#3247: NOTHING TO DO-------------------
+
+IMPROVEMENT
+Number:		3247
+Date:		Thu Nov 27 14:27:07 CET 2025
+Authors:	Radu Mateescu and Hubert Garavel (INRIA/CONVECS)
+Files:		src/mcl/standard.mcl, demos/archive/demo_01.old/demo.svl,
+		demos/demo_02/demo.svl, demos/demo_05/demo.svl,
+		demos/demo_14/demo.svl, demos/demo_21/demo.svl,
+		demos/demo_22/demo.svl, demos/demo_31/demo.svl,
+		demos/demo_34/demo.svl, demos/demo_37/demo.svl,
+		demos/demo_40/demo.svl
+
+Nature:		The "standard.mcl" library file was enhanced as follows:
+
+		- The macro SOME() was renamed to SOMETIMES(), which is more
+		  coherent as SOMETIMES() is the dual of NEVER(). The demos
+		  02, 14, 31, and 40 (and the archived demo 01) of CADP have
+		  been updated accordingly.
+
+		- The former macro ALWAYS_1_UNTIL_2() was renamed to
+		  ONLY_1_INEVITABLE_2(), which is more coherent. Demo 34 was
+		  updated accordingly.
+
+		- A new macro POSSIBLE() was defined in "standard.mcl". The
+		  demos 02, 05, 14, 21, 22, 37, and 40 were updated to replace
+		  many formulas:
+		     < true* . A > true
+		  and
+		     SOMETIMES (true* . A)
+		  by
+		     POSSIBLE (A)
+
+		- Three new macros named AFTER_1_WITHOUT_2_INEVITABLE_3(),
+		  WITHOUT_1_INEVITABLE_2(), and AFTER_1_ONLY_2_INEVITABLE_3()
+		  have been defined in "standard.mcl".
+
+-------------------#3248: NOTHING TO DO-------------------
+
+IMPROVEMENT
+Number:		3248
+Date:		Fri Nov 28 10:52:18 CET 2025
+Authors:	Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/traian
+
+Nature:		Following prior changes concerning the mixing of unary
+		operators and postfix notations (see items #3240, #3241, and
+		#3246 above), TRAIAN was further modified with respect to
+		mixing of unary operator and array accesses.
+
+		From now on, all expressions of the form "F V1 [V2]", where
+		F is a unary operator having a special identifier and where
+		V1 and V2 are two expressions, are forbidden in the general
+		case. For such ambiguous expressions, which the user should
+		rewrite either as "(F V1) [V2]" or "F (V1 [V2])", TRAIAN emits
+		the following error message:
+
+		   ambiguous mix of unary F and [...] (parentheses needed)
+
+		Note 1: This only concerns expressions, since patterns cannot
+		contain array accesses.
+
+		However, in the particular case where F is the unary operator
+		"-" or "+" and V1 a variable, TRAIAN accepts the expression
+		"F V1 [V2]" and understands it as "F (V1 [V2])".
+
+		Note 2: the cases where V1 would be a numeric constant are
+		not syntactically possible, since the LNT grammar does not
+		allow constants to be array names.
+
+		But more complex expressions V1 fall in the general case and
+		are thus forbidden. For instance, the following expressions:
+
+		   - (V1 + V2) [V3]
+		   - F (V1, V2) [V3]
+		   - [E1...En] (V1) [V2]
+
+		are rejected and TRAIAN emits for them the error message:
+
+		 ambiguous mix of unary "-" and [...] (more parentheses needed)
+
+		Similarly, the following expressions:
+
+		   - (V1) [V2]          -- even if V1 is a simple variable
+		   - (V1.X) [V2]
+		   - (V1 [V2]) [V3]
+		   - (F (V1, V2)) [V3]
+		   - [E1...En] (V1) [V2]
+		   - [E1...En] (V1.X) [V2]
+
+		are rejected and TRAIAN emits for them the error message:
+
+		   ambiguous mix of unary "-" and [...] (dubious parentheses)
+
+		Clearly, these changes are not backward compatible, as TRAIAN
+		may now rejects LNT programs that were formerly accepted. In
+		general, the user should add extra parentheses to resolve the
+		ambiguities reported by TRAIAN. But, in some cases, removing
+		parentheses is the solution; for instance, "- (X [I]) [J]"
+		may be rewritten to "- X [I] [J]". Such changes bring a gain
+		in code readability.
+
+-------------------#3250: NOTHING TO DO-------------------
+
+BUG FIX
+Number:		3250
+Date:		Mon Dec  1 16:07:27 CET 2025
+Author:		Frederic Lang (INRIA/CONVECS)
+Files:		bin.*/traian
+
+Nature:		TRAIAN was made stricter with respect to modules that use
+		types not defined in their parent modules (transitively).
+		Formerly, TRAIAN emitted the following message:
+
+		   warning: type T is declared in non-imported module M2
+
+		for each module M1 that uses type T and does not import module
+		M2 (for instance, if M2 imports M1, but not the other way
+		found). Tolerance towards such irregular uses could cause
+		issues in type analysis, possibly leading to spurious errors
+		(as types depending on type T could be wrongly considered as
+		unproductive or infinite).
+
+		From now on, TRAIAN emits a fatal error (rather than merely a
+		warning) whenever a type is declared in a non-imported module.
+
+		As regards those channels, functions, and processes declared
+		in non-imported modules, TRAIAN still emits warnings, rather
+		than errors (although this may change in the future).
+
+-------------------#3256: NOTHING TO DO-------------------
+
+IMPROVEMENT
+Number:		3256
+Date:		Fri Dec  5 11:34:00 CET 2025
+Report:		Hubert Garavel (INRIA/CONVECS)
+Author:		Frederic Lang (INRIA/CONVECS)
+Files:		bin.*/svl_kernel, src/svl/standard, man/*/svl-lang.*
+
+Nature:		The syntax of the SVL operator "|=":
+
+		    [ <diag> = ] <behaviour> "|=" <MCL-or-XTL-formula>;
+
+		was extended to accept also:
+
+		    [ <diag> = ] <behaviour> "|=" <file>
+
+		where diag> is an optional behaviour file that stores a
+		diagnostics, <behaviour> is an SVL behaviour, and <file> is
+		a file name of either form "<name>.mcl" or "<name>.xtl"
+		containing an MCL or XTL formula. The final semicolon (used
+		to indicate the end of the inlined formula) is still allowed,
+		but no longer mandatory).
+
+		This new syntax is equivalent to the former one:
+
+		    [ <diag> = ] "verify" <file> "in" <behaviour>
+
+		which is now deprecated, since it was less intuitive. The
+		SVL language manual page was updated to reflect this change.
+		Also, the output displayed by SVL now uses the new syntax
+		("|=") rather than the old one ("verify").
