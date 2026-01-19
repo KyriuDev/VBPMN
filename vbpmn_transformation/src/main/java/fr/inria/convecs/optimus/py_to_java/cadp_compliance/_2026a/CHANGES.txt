@@ -1,0 +1,84 @@
+The following changes of CADP may have impacted the generated LNT code: #3269, #3270.
+Each CADP change is referenced below, with the modifications performed (DONE, UNKNOWN, NOTHING TO DO).
+By convention, CADP items are represented with ``----'', while sub-items (such as TRAIAN ones) are
+represented with ``####''.
+
+-------------------#3269: NOTHING TO DO-------------------
+
+IMPROVEMENT
+Number:		3269
+Date:		Mon Jan  5 15:54:38 CET 2026
+Author:		Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/evaluator.a, bin.*/evaluator5.a, doc/=READ_ME.txt,
+		man/*/evaluator.*, src/eucalyptus/eucalyptus.tcl, ./VERSIONS
+
+Nature:		Following the reorganization of CADP undertaken in October
+		2024 (see item #3061 above), the EVALUATOR 3 and EVALUATOR 4
+		are now deprecated. EVALUATOR 5 becomes the official version.
+
+		The binaries "bin.*/evaluator3.a" and "bin.*/evaluator4.a"
+		are kept in CADP for the moment, but will be eventually
+		removed from the distribution.
+
+		The binaries "bin.*/evaluator.a" are no longer symbolic links
+		to "bin.*/evaluator4.a", but contain EVALUATOR 5.
+
+		The binaries "bin.*/evaluator5.a" are also deprecated and
+		replaced by symbolic links to "bin.*/evaluator.a".
+
+		Preliminary changes have been brought to the EVALUATOR manual
+		page.
+
+		The files VERSIONS and doc/=READ_ME.txt have been simplified
+		to only mention EVALUATOR instead of EVALUATOR 3, 4, and 5.
+
+		The EUCALYPTUS graphical user interface was simplified. Its
+		"Options / EVALUATOR" menu no longer proposes a choice between
+		several versions of EVALUATOR. Its "Help / Help Index / Tools
+		help" menu only proposes the EVALUATOR man page. Also, its
+		"Help / Help Index / Files help" menu only proposes the MCL
+		manual page. Finally, its "Help / Tool Versions" menu no
+		longer displays the version numbers for EVALUATOR 3 and 4.
+
+-------------------#3270: NOTHING TO DO-------------------
+
+IMPROVEMENT
+Number:		3270
+Date:		Tue Jan  6 12:00:32 CET 2026
+Report:		Hubert Garavel (INRIA/CONVECS)
+Author:		Frederic Lang (INRIA/CONVECS)
+Files:		src/svl/standard, man/*/svl-lang.*
+
+Nature:		Following the recent changes concerning EVALUATOR (see item
+		#3269 above), the SVL language and compiler have been updated
+		as follows:
+
+		- The "evaluator" keyword of SVL (which can be used either
+		  in a "with" clause or as value for the shell variables
+		  $DEFAULT_VERIFY_TOOL" and "$DEFAULT_LOCK_TOOL") now refers
+		  to EVALUATOR version 5 rather than version 4.
+
+		- The "evaluator3", "evaluator4", and "evaluator5" keywords
+		  of SVL are now deprecated and should be replaced by
+		  "evaluator". An SVL warning is issued if they are used.
+		  This warning will automatically turn into an error when
+		  the binaries bin.*/evaluator3.a, bin.*/evaluator4.a, and
+		  bin.*/evaluator5.a will be removed from CADP.
+
+		- As a consequence, the following shell variables are now
+		  deprecated:
+		     $DEFAULT_EVALUATOR3_LIBRARIES
+		     $DEFAULT_EVALUATOR4_LIBRARIES
+		     $DEFAULT_EVALUATOR5_LIBRARIES
+		     $EVALUATOR3_EXECUTABLE
+		     $EVALUATOR4_EXECUTABLE
+		     $EVALUATOR5_EXECUTABLE
+		     $EVALUATOR3_OPTIONS
+		     $EVALUATOR4_OPTIONS
+		     $EVALUATOR5_OPTIONS
+		  They must be replaced, respectively, by:
+		     $DEFAULT_MCL_LIBRARIES
+		     $EVALUATOR_EXECUTABLE
+		     $EVALUATOR_OPTIONS
+
+-------------------------------------------------------------------------------
