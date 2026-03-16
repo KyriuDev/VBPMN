@@ -1,0 +1,156 @@
+The following changes of CADP may have impacted the generated LNT code: #3294, #3307, #3312, #3313.
+Each CADP change is referenced below, with the modifications performed (DONE, UNKNOWN, NOTHING TO DO).
+By convention, CADP items are represented with ``----'', while sub-items (such as TRAIAN ones) are
+represented with ``####''.
+
+-----------------------------#3294: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:         3294
+Date:           Mon Feb 16 10:28:55 CET 2026
+Report:         Hubert Garavel (INRIA/CONVECS)
+Author:         Frederic Lang (INRIA/CONVECS)
+Files:          bin.*/exp2c, com/exp.open, man/*/exp.*, man/*/exp.open.*
+
+Nature:         The "elotos" and "ELOTOS" keywords of the EXP language have
+                been renamed to "lnt" and "LNT", respectively.
+
+                Similarly, the "-elotos" option of EXP.OPEN was renamed to
+                "-lnt".
+
+                The manual pages have been updated accordingly.
+
+-----------------------------#3307: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:         3307
+Date:           Wed Mar  4 19:04:24 CET 2026
+Report:         Wei Chen (INRIA/CONVECS)
+Authors:        Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:          bin.*/traian, bin.*/lnt2lotos, com/upc,
+                lib/lnt_predefined.lnt, lib/LNT_V1.lib,
+                ext/a2ps/lnt.ssh, ext/emacs/lnt-mode.el, ext/gtk/lnt.lang,
+                ext/jedit/lnt.xml, ext/latex-listings/cadp-lnt.sty,
+                ext/nano/lnt.nanorc, ext/npp/lnt.xml,
+                ext/sublime/lnt.sublime-syntax, ext/vim/lnt.vim,
+                ext/vscode/lnt.tmLanguage.json,
+                ext/vscode/lnt-configuration.json
+
+Nature:         The exponentiation operators of LNT have been renamed from
+                "**" to "^". The new syntax is more concise, more intuitive,
+                and more modern compared to the former syntax inherited from
+                FORTRAN.
+
+                TRAIAN, LNT2LOTOS, their libraries, their reference manuals,
+                and the CADP editor style files for LNT have been updated
+                accordingly.
+
+                Users are advised to update their ".lnt" files. This can be
+                done automatically by typing the following command:
+                   upc 2026-SVL-POWER <directory>
+                which will recursively explore the contents of the specified
+                <directory> and perform appropriate substitutions in ".lnt"
+                files automatically.
+
+-----------------------------#3312: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:         3312
+Date:           Thu Mar 12 10:18:21 CET 2026
+Authors:        Hubert Garavel and Frederic Lang (INRIA/CONVECS)
+Files:          com/upc, demos/demo_13/*.bcg
+
+Nature:         From now on, the versions 1.0 and 1.1 of the BCG format are
+                deprecated. Version 1.0 was issued in October 1994 (see item
+                #314 above). Version 1.1 was issued in 2009 (see item #1402
+                above). Since August 2014, the successive versions of CADP
+                produced BCG files only in version 1.2, with no possibility
+                to produce BCG files in versions 1.0 or 1.1 (see item #1947
+                above).
+
+                In a near future, versions 1.0 and 1.1 will no longer be
+                supported by the various CADP tools. Users are thus advised to
+                upgrade their BCG files produced before August 2014.
+
+                This can be done easily by running the following command:
+                   upc 2026-BCG [<directory>]
+                which will recursively explore the contents of the specified
+                <directory> and upgrade old BCG files to version 1.2
+                automatically. While running, UPC will emit messages such as:
+
+                   upc: ``./D/a.bcg'' needs to be upgraded from BCG format
+                         1.0 to 1.2
+                   upc: ``./D/b.bcg'' needs to be upgraded from BCG format
+                         1.1 to 1.2
+
+                Contrary to the usual behaviour of UPC, no query will be made
+                whether to upgrade or not. Compressed BCG files (i.e., with
+                suffix ".Z", ".gz", ".bz2", ".xz", or ".zip") will be upgraded
+                too. Files will be left unchanged if UPC cannot safely modify
+                them, e.g., if they are write-protected.
+
+                The BCG files of demo_13, as well as those of the VLTS
+                benchmark suite, have been upgraded to version 1.2 of the
+                BCG format.
+
+-----------------------------#3313: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:         3313
+Date:           Thu Mar 12 16:33:39 CET 2026
+Report:         Hubert Garavel (INRIA/CONVECS)
+Author:         Frederic Lang (INRIA/CONVECS)
+Files:          bin.*/traian, com/upc,
+                demo_11/DTD.lnt, demo_11/Scenarios/APPLICATION_*.lnt
+
+Nature:         So far, the LNT language has been case-insensitive for the
+                identifiers defined the user. For instance, a variable can
+                be declared as "ABC" and later referenced as "Abc" or "abc".
+
+                This feature, inherited from LOTOS and E-LOTOS, is no longer
+                desirable today, as it makes LNT programs harder to read and
+                to maintain (all searches for identifiers must be done in a
+                case-insensitive way, which is not the default option for
+                most text and code editors).
+
+                To remedy this situation, TRAIAN still tolerates mixed letter
+                case in variable names, but now emits new warnings when a
+                variable is referenced using a different letter case that its
+                definition. Examples of such warnings are:
+
+                   variable Rw_Ps declared as RW_Ps at F.lnt:5236 (wrong
+                      letter case)
+                   variable Tl declared as TL at F.lnt:5426 (wrong letter
+                      case)
+                   variable BB0_BBN declared as BB0_BBn at F.lnt:21744 (wrong
+                      letter case)
+                   variable IF0_Ifn declared as IF0_IFn at F.lnt:22208 (wrong
+                      letter case)
+
+                The UPC shell script was extended to help users updating their
+                LNT code. This can be done by typing the following command:
+                   upc 2026-LNT-LETTER-CASE <directory>
+                which will recursively explore the contents of the specified
+                <directory> and perform appropriate substitutions in ".lnt"
+                files automatically.
+
+                Notice that "upc 2026-LNT-LETTER-CASE" does not handle all
+                situations, especially when a given line contains multiple
+                occurrences of the same identifier. In such case, UPC may
+                commit mistakes. For instance:
+
+                - In a scope where a variable X is declared, the expression
+                  "x of x" will be replaced with "X of X".
+
+                - In a scope where an event e and a variable E are declared,
+                  the expression "F [E] (e)" will be replaced with "F [e] (e)"
+                  instead of "F [e] (E)".
+
+                Thus, users should carefully examine the substitutions
+                proposed by UPC before accepting them. Yet, we believe that
+                such situations are quite rare.
+
+                Many files of the CADP demo_11 have been modified to avoid
+                these new warnings.
+
+-------------------------------------------------------------------------------
