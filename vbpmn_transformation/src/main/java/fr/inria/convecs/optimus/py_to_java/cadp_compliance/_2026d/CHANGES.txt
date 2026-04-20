@@ -1,0 +1,321 @@
+The following changes of CADP may have impacted the generated LNT code: #3315, #3317, #3318, #3319, #3320, #3321, #3329.
+Each CADP change is referenced below, with the modifications performed (DONE, UNKNOWN, NOTHING TO DO).
+By convention, CADP items are represented with ``----'', while sub-items (such as TRAIAN ones) are
+represented with ``####''.
+
+-----------------------------#3315: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3315
+Date:		Mon Mar 16 11:55:00 CET 2026
+Authors:	Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/traian, doc/pdf/Champelovier-Clerc-Garavel-et-al-10.*
+
+Nature:		Following the letter-case checks recently introduced in TRAIAN
+		for variable identifiers (see item #3313 above), TRAIAN was
+		further extended to verify that loop identifiers are written
+		using the same letter case as they are defined. If not, new
+		warnings are emitted by TRAIAN, e.g.:
+
+		   warning: loop l1 declared as L1 at TEST.lnt:23159 (wrong
+		      letter case)
+
+		To avoid such warnings, users can upgrade (provided some
+		restrictions) their LNT code automatically by invoking the
+		UPC shell script with the key 2026-LNT-LETTER-CASE (see item
+		#3313 above).
+
+		Additionally, the documentation and error messages of TRAIAN
+		have been modified to replace "loop label" by "loop name",
+		since the word "label" could cause confusions with Labelled
+		Transition Systems.
+
+-----------------------------#3317: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3317
+Date:		Tue Mar 17 10:24:40 CET 2026
+Author:		Frederic Lang (INRIA/CONVECS)
+Files:		bin.*/traian, doc/pdf/Champelovier-Clerc-Garavel-et-al-10.*,
+		demos/demo_16/PROTOCOL.lnt
+
+Nature:		Following the letter-case checks recently introduced in TRAIAN
+		for variable and loop identifiers (see items #3313 and #3315
+		above), TRAIAN was further extended to verify that event
+		identifiers are written using the same letter case as they
+		are defined. If not, new warnings are emitted by TRAIAN, e.g.:
+
+		   warning: event Print declared as PRINT at TEST.lnt:11
+		      (wrong letter case)
+		   warning: event SEND declared as Send at TEST.lnt:54
+		      (wrong letter case)
+
+		To avoid such warnings, users can upgrade (provided some
+		restrictions) their LNT code automatically by invoking the
+		UPC shell script with the key 2026-LNT-LETTER-CASE (see item
+		#3313 above).
+
+		Demo_16 was modified accordingly (replacing Output by OUTPUT).
+
+-----------------------------#3318: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3318
+Date:		Tue Mar 17 13:59:42 CET 2026
+Authors:	Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/traian, lib/BIT.lnt, lib/OCTET.lnt, lib/OCTETVALUES.lnt,
+		demos/demo_05/FILES.lnt, demos/demo_05/MESSAGES.lnt,
+		demos/demo_06/handshake.lnt, demos/demo_06/handshake_types.lnt,
+		demos/demo_06/test_purpose_*.lnt, demos/demo_07/overtaking.lnt,
+		demos/demo_09/inres_protocol_int_6.lnt,
+		demos/demo_10/Components/EXTENDED_VARIABLE_ARRAY.lnt,
+		demos/demo_10/Components/VARIABLE_ARRAY.lnt,
+		demos/demo_10/Components/MEMORY.lnt, demos/demo_11/DTD.lnt,
+		demos/demo_23/DATA.lnt, demos/demo_24/CO4_DATATYPES.lnt,
+		demos/demo_24/CO4_PROCESSES.lnt,
+		demos/demo_24/LOTOS/CO4_PROCESSES.lib,
+		demos/demo_27/DCM_asyn.lnt, demos/demo_32/ELEM_E12_4P.lnt,
+		demos/demo_32/ELEM_E12_I.lnt, demos/demo_32/ELEM_E1_I.lnt,
+		demos/demo_32/ELEM_E12_SAMEADDR_I.lnt
+		demos/demo_32/ELEM_E1_J.lnt, demos/demo_32/TYPES_COMMON.lnt,
+		demos/demo_32/PI_SSOUT_FONC_T_NDET.lnt,
+		demos/demo_34/cim.lnt, demos/demo_37/odp.lnt,
+		demos/demo_40/COMMERCE_PROCESSES.lnt,
+		demos/demo_40/NEGOTIATION_TYPES.lnt
+
+Nature:		Following the letter-case checks recently introduced in TRAIAN
+		for variable, loop, and event identifiers (see items #3313,
+		#3315, and #3317 above), TRAIAN was further extended to verify
+		that type identifiers are written using the same letter case
+		as they are defined. If not, new warnings are emitted by
+		TRAIAN, e.g.:
+
+		   warning: type DataType declared as DATATYPE at TEST.lnt:14
+		      (wrong letter case)
+		   warning: type TypePID declared as TypePid at TYPE.lnt:79
+		      (wrong letter case)
+
+		To avoid such warnings, users can upgrade (provided some
+		restrictions) their LNT code automatically by invoking the
+		UPC shell script with the key 2026-LNT-LETTER-CASE (see item
+		#3313 above).
+
+		Concerning the predefined type identifiers BOOL, NAT, INT,
+		REAL, CHAR, and STRING (which are defined, in uppercase, in
+		"lib/lnt_predefined.lnt"), they may be written in any letter
+		case (e.g., Bool, nat), but this choice of notation must be
+		consistent throughout the entire LNT program. Otherwise,
+		TRAIAN emits warnings such as:
+
+		   warning: type BOOL written Bool at TEST.lnt:230 (wrong
+		      letter case)
+		   warning: type Nat written nat at TEST.lnt:17 (wrong letter
+		      case)
+
+		Such situations cannot be handled by UPC and must be sorted
+		out by the user.
+
+		The auxiliary libraries "lib/BIT.lnt", "lib/OCTET.lnt", and
+		"lib/OCTETVALUES.lnt" have been updated to write all type
+		names in uppercase, so as to be aligned with the contents of
+		"lib/lnt_predefined.lnt".
+
+		Many CADP demos have been corrected: demo_05 (Nat -> NAT),
+		demo_06 (ciphers -> Ciphers, CLientHello -> ClientHello,
+		certificateType -> CertificateType, ciphertype -> CipherType,
+		certificateRequestContext -> CertificateRequestContext),
+		demo_07 (PDUSORT -> PDUsort), demo_09 (Sequencenumber ->
+		SequenceNumber), demo_10 (Nat_array -> Nat_Array), demo_11
+		(host_job -> Host_Job), demo_23 (nat -> Nat), demo_24
+		(message -> Message, Parentbase -> ParentBase), demo_27
+		(hosts -> Hosts), demo_32 (Bool -> BOOL, index -> INDEX),
+		demo_34 (bool -> Bool, nat -> Nat), demo_37 (Database ->
+		DataBase), and demo_40 (PRODUCT -> Product, STOCK -> Stock,
+		BOOK -> Book, BOOKSTORE -> BookStore, Bookstore -> BookStore).
+
+-----------------------------#3319: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3319
+Date:		Wed Mar 18 11:16:53 CET 2026
+Authors:	Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/traian, demos/demo_18/DATAINPORTS.lnt,
+		demos/demo_34/cim.lnt, demos/demo_35/summation.lnt
+
+Nature:		Following the letter-case checks recently introduced in TRAIAN
+		for variable, loop, event, and type identifiers (see items
+		#3313, #3315, #3317, and #3318 above), TRAIAN was further
+		extended to verify that channel identifiers are written using
+		the same letter case as they are defined. If not, new warnings
+		are emitted by TRAIAN, e.g.:
+
+		   warning: channel Chan declared as chan at TEST.lnt:103
+		      (wrong letter case)
+		   warning: channel operation declared as Operation at
+		      TEST.lnt:31 (wrong letter case)
+
+		To avoid such warnings, users can upgrade (provided some
+		restrictions) their LNT code automatically by invoking the
+		UPC shell script with the key 2026-LNT-LETTER-CASE (see item
+		#3313 above).
+
+		Concerning the predefined channel identifiers EXIT and NONE
+		(which are defined, in uppercase, in "lib/lnt_predefined.lnt"),
+		they may be written in any letter case (e.g., Exit, none)
+		but this choice of notation must be consistent throughout the
+		entire LNT program. Otherwise, TRAIAN emits warnings such as:
+
+		   warning: channel exit written EXIT at TEST.lnt:1657
+		      (wrong letter case)
+		   warning: channel none written NONE at TEST.lnt:493
+		      (wrong letter case)
+		   warning: channel None written none at TEST.lnt:325
+		      (wrong letter case)
+
+		Such situations cannot be handled by UPC and must be sorted
+		out by the user.
+
+		Three CADP demos have been corrected: demo_18 (RaCHannel
+		-> RaChannel), demo_34 (none -> None), and demo_35
+		(identity_Answer_Channel -> Identity_Answer_Channel).
+
+-----------------------------#3320: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3320
+Date:		Wed Mar 18 17:26:35 CET 2026
+Authors:	Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/traian, bin.*/svl_kernel, demos/demo_08/demo.svl,
+		demos/demo_10/demo.svl, demos/demo_18/DATAINPORTS.lnt
+
+Nature:		Following the letter-case checks recently introduced in TRAIAN
+		for variable, loop, event, type, and channel identifiers (see
+		items #3313, #3315, #3317, #3318, and #3319 above), TRAIAN
+		was further extended to verify that process identifiers are
+		written using the same letter case as they are defined. If
+		not, new warnings are emitted by TRAIAN, e.g.:
+
+		   warning: process p declared as P at TEST.lnt:5 (wrong
+		      letter case)
+		   warning: process StackOp declared as StackOP at TEST.lnt:60
+		      (wrong letter case)
+		   warning: argument of "-main" option: warning: process main
+		      declared as MAIN at TEST.lnt:5 (wrong letter case)
+
+		To avoid such warnings, users can upgrade (provided some
+		restrictions) their LNT code automatically by invoking the
+		UPC shell script with the key 2026-LNT-LETTER-CASE (see item
+		#3313 above).
+
+		Also, the SVL compiler was modified accordingly: from now on,
+		all process and function identifiers occurring in process
+		calls (after the "at" keyword) and in module parameters
+		(after the "with" keyword) are not anymore converted to
+		uppercase (this would cause spurious warnings from TRAIAN).
+
+		Three CADP demos have been fixed: demo_08 (CRASH_TRANSMITTER
+		-> Crash_Transmitter), demo_10 (PROTOCOL -> Protocol), and
+		demo_18 (Inport -> InPort).
+
+-----------------------------#3321: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3321
+Date:		Thu Mar 19 16:58:17 CET 2026
+Authors:	Frederic Lang and Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/traian, lib/BIT.lnt, demos/demo_06/handshake.lnt,
+		demos/demo_06/test_purpose_common.lnt,
+		demos/demo_07/overtaking.lnt, demos/demo_10/peterson.lnt,
+		demos/demo_11/DTD.lnt, demos/demo_11/INFO.lnt,
+		demos/demo_11/TYPES.lnt, demos/demo_24/CO4_DATATYPES.lnt,
+		demos/demo_24/CO4_PROCESSES.lnt, demos/demo_24/co4_5_1.lnt,
+		demos/demo_25/cfs.lnt, demos/demo_25/LOTOS/cfs.lotos,
+		demos/demo_27/MS.lnt, demos/demo_27/LOTOS/MS.lotos,
+		demos/demo_29/SPEC.lnt, demos/demo_38/DES_SAMPLE.lnt,
+		demos/demo_40/NEGOTIATION_TYPES.lnt
+
+Nature:		Following the letter-case checks recently introduced in
+		TRAIAN for variable, loop, event, type, channel, and process
+		identifiers (see items #3313, #3315, #3317, #3318, #3319,
+		and #3320 above), TRAIAN was further extended to verify that
+		(alphanumeric) function identifiers are written using the
+		same letter case as they are defined. If not, new warnings
+		are emitted by TRAIAN, e.g.:
+
+		   function book declared as Book at TYPE.lnt:101 (wrong
+		      letter case)
+		   function Message declared as message at TEST.lnt:381
+		      (wrong letter case)
+
+		To avoid such warnings, users can upgrade (provided some
+		restrictions) their LNT code automatically by invoking the
+		UPC shell script with the key 2026-LNT-LETTER-CASE (see item
+		#3313 above).
+
+		Concerning the predefined function identifiers FALSE, TRUE,
+		NOT, NIL, etc. (which are defined in uppercase in the LNT
+		library "lib/lnt_predefined.lnt" and scheme files), they may
+		be written in any letter case (e.g., False, false), but this
+		choice of notation must be consistent throughout the entire
+		LNT program. Otherwise, TRAIAN emits warnings such as:
+
+		   warning: function TRUE written True at TEST.lnt:91 (wrong
+		      letter case)
+		   warning: function nil written NIL at TEST.lnt:150 (wrong
+		      letter case)
+
+		Such situations cannot be handled by UPC and must be sorted
+		out by the user.
+
+		The auxiliary library "lib/BIT.lnt" was updated to write
+		FALSE and TRUE constants in uppercase, so as to be aligned
+		with the contents of "lib/lnt_predefined.lnt".
+
+		Many CADP demos have been corrected: demo_06 (x509 -> X509),
+		demo_07 (BMW -> bmw, Saab -> saab, Volvo -> volvo), demo_11
+		(Stack -> stack, job_stack -> Job_Stack, done -> DONE,
+		dont_care -> DONT_CARE, nat -> Nat, host_job -> HOST_JOB,
+		wait_slave -> WAIT_SLAVE), demo_24 (butfirst -> ButFirst,
+		Card -> card, none -> None, some -> Some, issome -> isSome,
+		insert -> Insert, remove -> Remove, next -> Next, isin ->
+		IsIn, set_count -> Set_count, set_status -> Set_status, etc.),
+		demo_25 (First -> first, butfirst -> butFirst, ButFirst ->
+		butFirst), demo_27 (MaxBuf -> maxBuf), demo_29 (Message ->
+		message), demo_38 (C_01234567_89abcdef -> C_01234567_89ABCDEF,
+		C_85e81354_0f0ab405 -> C_85E81354_0F0AB405), demo_40 (book ->
+		Book).
+
+-----------------------------#3329: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3329
+Date:		Thu Apr  2 14:19:06 CEST 2026
+Author:		Hubert Garavel (INRIA/CONVECS)
+Files:		bin.*/bcg_labels, bin.*/determinator.a, bin.*/libcaesar.a,
+		bin.*/projector.a, bin.*/reductor.a, incl/caesar_mask_1.h,
+		man/html/caesar_mask_1.html, man/manl/caesar_mask_1.l,
+		src/open_caesar/generator.c, src/open_caesar/reductor3.c
+
+Nature:		To prepare future extensions in the "caesar_mask_1" library
+		of OPEN/CAESAR, the profile of the CAESAR_HISTORY_MASK_1()
+		function has been modified as follows: a third parameter
+		of type CAESAR_TYPE_STRING has been inserted, so that
+		function CAESAR_HISTORY_MASK_1() now has 7 parameters
+		instead of 6.
+
+		This change is not backward compatible. All source code that
+		invokes CAESAR_HISTORY_MASK_1() must be updated manually,
+		since it no longer compiles using the new "caesar_mask_1.h"
+		include file. In most cases, inserting a NULL parameter in
+		each call to CAESAR_HISTORY_MASK_1() is sufficient, e.g.,
+		replacing:
+
+		   CAESAR_HISTORY_MASK_1 (caesar_m, "created by generator",
+		      NULL, NULL, NULL, NULL)
+
+		with:
+
+		   CAESAR_HISTORY_MASK_1 (caesar_m, "created by generator",
+		      NULL, NULL, NULL, NULL, NULL)
+
+-------------------------------------------------------------------------------
