@@ -28,7 +28,7 @@ public class Template
 		Fourth one is the second model (LTS in BCG format).
 	 */
 	public static final String SVL_COMPARISON_CHECKING =
-		"% bcg_open \"{0}.bcg\" bisimulator -{1} -{2} -diag \"{3}.bcg\"\n"
+		"% bcg_open \"{0}.bcg\" bisimulator -{1} -{2} -diag \"diag.bcg\" \"{3}.bcg\"\n"
 	;
 
 	/*
@@ -45,8 +45,12 @@ public class Template
 		First argument is the model file (LTS in BCG format).
 		Second one is the formula (MCG) file.
 	 */
-	public static final String SVL_FORMULA_CHECKING =
-		"% bcg_open \"{0}.bcg\" evaluator4 -diag \"{1}\"\n"
+	public static final String SVL_FORMULA_CHECKING_PRE_V_2026_H =
+		"% bcg_open \"{0}.bcg\" evaluator4 -diag \"diag.bcg\" \"{1}\"\n"
+	;
+
+	public static final String SVL_FORMULA_CHECKING_POST_V_2026_H =
+		"% bcg_open \"{0}.bcg\" evaluator -diag \"diag.bcg\" \"{1}\"\n"
 	;
 
 	/*

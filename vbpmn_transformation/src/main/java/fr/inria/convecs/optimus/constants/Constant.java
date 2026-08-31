@@ -2,6 +2,8 @@ package fr.inria.convecs.optimus.constants;
 
 public class Constant
 {
+	public static final int ASCII_FIRST_LOWERCASE_LETTER = 97;
+	public static final int ASCII_LAST_LOWERCASE_LETTER = 122;
 	public static final int MAX_VARS_PER_LINE = 8; //After 8 variables, the line size necessarily exceeds 79 chars thus multiple lines are required
 	public static final int PROCESS_INDENT_LENGTH = 8;
 

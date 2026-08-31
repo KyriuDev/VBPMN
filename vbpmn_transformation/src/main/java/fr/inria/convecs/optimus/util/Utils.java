@@ -136,4 +136,18 @@ public class Utils
 			return df.format((double) nanoseconds) + "ns";
 		}
 	}
+
+	public static boolean isAnInt(final String s)
+	{
+		try
+		{
+			Integer.parseInt(s);
+		}
+		catch (NumberFormatException e)
+		{
+			return false;
+		}
+
+		return true;
+	}
 }
