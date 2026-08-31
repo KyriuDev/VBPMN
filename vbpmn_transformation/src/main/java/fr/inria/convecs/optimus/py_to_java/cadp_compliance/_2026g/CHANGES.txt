@@ -1,0 +1,178 @@
+The following changes of CADP may have impacted the generated LNT code: #3394, #3404, #3406, #3407.
+Each CADP change is referenced below, with the modifications performed (DONE, UNKNOWN, NOTHING TO DO).
+By convention, CADP items are represented with ``----'', while sub-items (such as TRAIAN ones) are
+represented with ``####''.
+
+-----------------------------#3394: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3394
+Date:		Tue Jun 16 11:02:15 CEST 2026
+Author:		Hubert Garavel (INRIA/ARMADHA)
+Files:		bin.*/bcg_labels, man/*/bcg_info.*, man/*/bcg_labels.*,
+		src/eucalyptus/eucalyptus.tcl
+
+Nature:		Formerly, invoking BCG_LABELS on a BCG graph without "-cut",
+		"-hide", or "-rename" option, i.e.,
+		   bcg_labels FILE.bcg
+		has no effect (it was understood as applying the identity
+		function to the labels of "FILE.bcg").
+
+		From now on, this invocation of BCG_LABELS displays the labels
+		of "FILE.bcg". This new functionality is similar to that of
+		"bcg_info -labels", with 4 differences:
+		   - it is shorter to type on the command line;
+		   - the number of labels is not displayed by BCG_LABELS;
+		   - the "i" label is not displayed by BCG_LABELS;
+		   - the labels displayed by BCG_LABELS are alphabetically
+		     sorted.
+
+		Thus, this new feature of BCG_LABELS should be useful to
+		those who perform verification on the command line using
+		CADP. The manual pages of BCG_INFO and BCG_LABELS have been
+		updated accordingly. Also, the "Display labels" menu entry of
+		EUCALYPTUS now invokes BCG_LABELS rather than BCG_INFO.
+
+-----------------------------#3404: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3404
+Date:		Mon Jul  6 10:17:01 CEST 2026
+Report:		Frederic Lang (INRIA/ARMADHA)
+Author:		Wendelin Serwe (INRIA/ARMADHA)
+Files:		bin.*/traian, doc/*/Champelovier-Clerc-Garavel-et-al-10.*
+
+Nature:		Formerly, the LNT language tolerated "with get" and "with set"
+		clauses attached to array types. Such clauses were not useful,
+		since array types do not have "." and ".{...}" notations, and
+		would trigger warnings of the following form:
+		   warning: "with get" clause of type T never employed
+		   warning: "with set" clause of type T never employed
+		They would also generate extra LOTOS code, e.g., operations
+		GET_1(), ..., GET_n(), and RAISE_TEST__GET_SET() that were
+		not used actually.
+
+		From now on, it is no longer possible to attach "with get"
+		or "with set" clauses to array types. Doing so will trigger
+		fatal error messages of the following form:
+		   error: forbidden function get in "with" clause of type T
+		   error: forbidden function set in "with" clause of type T
+
+		This change is not backward compatible, and LNT source code
+		must be modified manually to remove such "with get" and
+		"with set" clauses. Consequently, the LOTOS code generated
+		by LNT2LOTOS becomes smaller, since the functions GET_i(),
+		RAISE_TEST__GET_SET(), etc. are removed.
+
+-----------------------------#3406: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3406
+Date:		Tue Jul  7 17:34:29 CEST 2026
+Report:		Hubert Garavel and Frederic Lang (INRIA/ARMADHA)
+Author:		Wendelin Serwe (INRIA/ARMADHA)
+Files:		bin.*/traian, doc/*/Champelovier-Clerc-Garavel-et-al-10.*
+
+Nature:		At present, the LNT semantics of an incomplete "case" (i.e.,
+		"case V1, ... , Vn of" in which no branch matches the tuple
+		of values V1, ..., Vn) is complicated:
+
+		- For instructions (i.e., if the incomplete "case" occurs in a
+		  function definition), it triggers an exception at run time.
+		  This is equivalent to adding an extra branch to the "case":
+		     any, ..., any -> raise UNEXPECTED
+
+		- For behaviours (i.e., if the incomplete "case" occurs in a
+		  process definition), it is interpreted as a deadlock.
+		  This is equivalent to adding an extra branch to the "case":
+		     any, ..., any -> stop
+
+		In both cases, TRAIAN emits a warnings when it considers that
+		a "case" is incomplete (which depends on the accuracy of its
+		static data-flow algorithms).
+
+		We plan to evolve step-by-step the definition of LNT in order
+		to make it closer to mainstream languages, in which incomplete
+		"case"s are tolerated. The goal is to interpret an incomplete
+		"case" by adding an extra branch:
+		    any, ..., any -> null
+
+		As a first step, the TRAIAN compiler now rejects incomplete
+		"case" instructions (i.e., in function definitions) that would
+		cause data-flow errors if an "any, ..., any -> null" branch
+		was added to them. For instance, the following definition:
+
+		   function F (X: nat) : bool is
+		      case X in
+                         0 -> return false
+                      |  1 -> return true
+                      end case
+                   end function
+
+		is now rejected by TRAIAN, whereas it was formerly accepted
+		(with a warning). Three main error messages may appear:
+		  function F may terminate without returning a value
+		  variable X may be uninitialized
+		  function F may return without assigning "out" parameter X
+
+		Notice that this is a preliminary step, as LNT2LOTOS has not
+		been yet modified to implement the "any -> null" semantics.
+
+		This change is not backward compatible, as an LNT program
+		formerly accepted may now be rejected by TRAIAN. In such a
+		situation, one should modify manually this program to add
+		a clause "any -> raise UNEXPECTED" or "any, ..., any ->
+		raise UNEXPECTED" at the end of the incomplete "case".
+
+		Doing so, will remove the warning about incomplete "case"
+		emitted by TRAIAN and slightly change the error message at
+		run-time, which evolves from:
+		   TEST.lnt:40:error: unexpected case in pattern matching
+		to:
+		   TEST.lnt:44: "UNEXPECTED" event raised
+
+		In very rare cases, a few warnings formerly emitted by TRAIAN
+		may disappear, e.g.:
+		   function with result but no normal termination
+		   unreachable instruction (dead code) after "raise"
+		   unreachable instruction (dead code) after "return"
+
+		In such a situation, the corresponding LNT code should be
+		inspected carefully to understand what is its expected
+		semantics ("any -> null" or "any -> raise UNEXPECTED").
+
+-----------------------------#3407: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3407
+Date:		Thu Jul  9 10:31:34 CEST 2026
+Report:		Hubert Garavel (INRIA/ARMADHA)
+Author:		Wendelin Serwe (INRIA/ARMADHA)
+Files:		bin.*/traian, doc/*/Champelovier-Clerc-Garavel-et-al-10.*
+
+Nature:		Following the progressive reform of incomplete "case"s in LNT
+		(see item #3406 above), TRAIAN was further modified to reject
+		incomplete "case" behaviours (i.e., in process definitions)
+		that would cause data-flow errors if an "any, ..., any -> null"
+		branch was added to them.
+
+		As a consequence, LNT programs that were formerly accepted may
+		now be rejected with one of the two following error messages:
+		   variable X may be uninitialized
+		   process P may return without assigning "out" parameter X
+
+		In practice, some warnings formerly emitted by TRAIAN may
+		disappear, e.g.:
+		   unreachable behaviour (dead code) after "stop"
+
+		This change is not backward compatible. If an LNT program
+		formerly accepted is now rejected by TRAIAN, one should
+		modify manually this program to add a clause "any -> raise
+		UNEXPECTED" or "any, ..., any -> raise UNEXPECTED" at the end
+		of the incomplete "case".
+
+		In practice, we observe that only a very few LNT programs
+		have to be modified this way (because LNT processes do not
+		have, contrary to LNT functions, a "return" instruction).
+
+-------------------------------------------------------------------------------

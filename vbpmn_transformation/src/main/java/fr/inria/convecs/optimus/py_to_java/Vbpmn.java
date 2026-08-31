@@ -1,7 +1,9 @@
 package fr.inria.convecs.optimus.py_to_java;
 
+import fr.inria.convecs.optimus.constants.Constant;
 import fr.inria.convecs.optimus.py_to_java.cadp_compliance.generics.BpmnTypesBuilderGeneric;
 import fr.inria.convecs.optimus.py_to_java.cadp_compliance.generics.Pif2LntGeneric;
+import fr.inria.convecs.optimus.util.CadpHelper;
 import fr.inria.convecs.optimus.util.CommandManager;
 import fr.inria.convecs.optimus.util.PifUtil;
 import fr.inria.convecs.optimus.util.Utils;
@@ -10,7 +12,6 @@ import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.slf4j.Logger;
@@ -19,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -63,7 +63,8 @@ public class Vbpmn
 		First argument is the model file (LTS in BCG format).
 		Second one is the formula (MCG) file.
 	 */
-	private static final String SVL_FORMULA_CHECKING_TEMPLATE = "% bcg_open \"{0}.bcg\" evaluator4 -diag \"{1}\"\n";
+	private static final String SVL_FORMULA_CHECKING_TEMPLATE_PRE_V_2026_H = "% bcg_open \"{0}.bcg\" evaluator4 -diag \"{1}\"\n";
+	private static final String SVL_FORMULA_CHECKING_TEMPLATE_POST_V_2026_H = "% bcg_open \"{0}.bcg\" evaluator -diag \"{1}\"\n";
 
 	/*
 		Template for hiding in SVL.
@@ -141,6 +142,7 @@ public class Vbpmn
 	private final boolean compareOrVerify;
 	private final ArrayList<Pair<Long, String>> executionTimes;
 
+	private String cadpVersion;
 
 	public Vbpmn(final String[] sysArgs,
 				 final String outputFolder)
@@ -183,14 +185,14 @@ public class Vbpmn
 
 		//Get CADP version
 		final long computeCADPVersionStartTime = System.nanoTime();
-		final String cadpVersionDir = this.getCadpVersion();
+		this.cadpVersion = this.getCadpVersion();
 		final long computeCADPVersionEndTime = System.nanoTime();
 		final long computeCADPVersionTime = computeCADPVersionEndTime - computeCADPVersionStartTime;
 		this.executionTimes.add(Pair.of(computeCADPVersionTime, "Retrieving the installed CADP version took " + Utils.nanoSecToReadable(computeCADPVersionTime)));
 
 		//Load the good Pif2Lnt class (depending on the CADP version)
 		final long pif2LntClassRetrievalStartTime = System.nanoTime();
-		final Pif2LntGeneric pif2lnt = this.loadPif2LntGenericClass(cadpVersionDir);
+		final Pif2LntGeneric pif2lnt = this.loadPif2LntGenericClass();
 		pif2lnt.setBalance(processIsBalanced);
 		pif2lnt.setOutputFolder(this.outputFolder);
 		final long pif2LntClassRetrievalEndTime = System.nanoTime();
@@ -199,7 +201,7 @@ public class Vbpmn
 
 		//Load the good BpmnTypesBuilder class (depending on the CADP version)
 		final long bpmnTypesBuilderClassRetrievalStartTime = System.nanoTime();
-		final BpmnTypesBuilderGeneric bpmnTypesBuilder = this.loadBpmnTypesBuilderClass(cadpVersionDir);
+		final BpmnTypesBuilderGeneric bpmnTypesBuilder = this.loadBpmnTypesBuilderClass();
 		bpmnTypesBuilder.setOutputDirectory(this.outputFolder);
 		bpmnTypesBuilder.dumpBpmnTypesFile();
 		final long bpmnTypesBuilderClassRetrievalEndTime = System.nanoTime();
@@ -479,7 +481,7 @@ public class Vbpmn
 	}
 
 	@SuppressWarnings("unchecked")
-	private Pif2LntGeneric loadPif2LntGenericClass(final String cadpVersionDir)
+	private Pif2LntGeneric loadPif2LntGenericClass()
 	{
 		final Pif2LntGeneric pif2lnt;
 
@@ -487,7 +489,7 @@ public class Vbpmn
 		{
 			//Load the Pif2Lnt class located in the package corresponding to the good version
 			final Class<? extends Pif2LntGeneric> pif2LntClass = (Class<? extends Pif2LntGeneric>)
-					Class.forName("fr.inria.convecs.optimus.py_to_java.cadp_compliance." + cadpVersionDir + ".Pif2Lnt");
+					Class.forName("fr.inria.convecs.optimus.py_to_java.cadp_compliance." + this.cadpVersion + ".Pif2Lnt");
 			final Constructor<? extends Pif2LntGeneric> pif2LntConstructor = pif2LntClass.getDeclaredConstructor();
 			pif2lnt = pif2LntConstructor.newInstance();
 		}
@@ -495,7 +497,7 @@ public class Vbpmn
 			   IllegalAccessException e)
 		{
 			final String errorMessage = "Please make sure that the path \"fr.inria.convecs.optimus.py_to_java.cadp_compliance."
-					+ cadpVersionDir + "\" exists and contains \"Pif2Lnt.java\"). If yes, please send an email to the staff.";
+					+ this.cadpVersion + "\" exists and contains \"Pif2Lnt.java\"). If yes, please send an email to the staff.";
 			System.out.println(errorMessage);
 			throw new RuntimeException(errorMessage, e);
 		}
@@ -504,7 +506,7 @@ public class Vbpmn
 	}
 
 	@SuppressWarnings("unchecked")
-	private BpmnTypesBuilderGeneric loadBpmnTypesBuilderClass(final String cadpVersionDir)
+	private BpmnTypesBuilderGeneric loadBpmnTypesBuilderClass()
 	{
 		final BpmnTypesBuilderGeneric bpmnTypesBuilder;
 
@@ -512,7 +514,7 @@ public class Vbpmn
 		{
 			//Load the BpmnTypesBuilder class located in the package corresponding to the good version
 			final Class<? extends BpmnTypesBuilderGeneric> bpmnTypesBuilderClass = (Class<? extends BpmnTypesBuilderGeneric>)
-					Class.forName("fr.inria.convecs.optimus.py_to_java.cadp_compliance." + cadpVersionDir + ".BpmnTypesBuilder");
+					Class.forName("fr.inria.convecs.optimus.py_to_java.cadp_compliance." + this.cadpVersion + ".BpmnTypesBuilder");
 			final Constructor<? extends BpmnTypesBuilderGeneric> bpmnTypesBuilderConstructor = bpmnTypesBuilderClass.getDeclaredConstructor();
 			bpmnTypesBuilder = bpmnTypesBuilderConstructor.newInstance();
 		}
@@ -520,7 +522,7 @@ public class Vbpmn
 			   IllegalAccessException e)
 		{
 			final String errorMessage = "Please make sure that the path \"fr.inria.convecs.optimus.py_to_java.cadp_compliance."
-					+ cadpVersionDir + "\" exists and contains \"BpmnTypesBuilder.java\"). If yes, please send an email to the staff.";
+					+ this.cadpVersion + "\" exists and contains \"BpmnTypesBuilder.java\"). If yes, please send an email to the staff.";
 			System.out.println(errorMessage);
 			throw new RuntimeException(errorMessage, e);
 		}
@@ -823,18 +825,29 @@ public class Vbpmn
 		@Override
 		public void genSVL(final String filename)
 		{
+			final String formulaCheckingTemplate;
+
+			if (CadpHelper.versionIsGreaterThan(cadpVersion, Constant.CADP_V_2026_H))
+			{
+				formulaCheckingTemplate = SVL_FORMULA_CHECKING_TEMPLATE_POST_V_2026_H;
+			}
+			else
+			{
+				formulaCheckingTemplate = SVL_FORMULA_CHECKING_TEMPLATE_PRE_V_2026_H;
+			}
+
 			final StringBuilder svlCommands = new StringBuilder(PyToJavaUtils.parametrize(
-					SVL_FORMULA_CHECKING_TEMPLATE,
-					this.model1,
-					MCL_FORMULA)
+				formulaCheckingTemplate,
+				this.model1,
+				MCL_FORMULA)
 			);
 
 			if (!this.model1.equals(this.model2))
 			{
 				svlCommands.append(PyToJavaUtils.parametrize(
-						SVL_FORMULA_CHECKING_TEMPLATE,
-						this.model2,
-						MCL_FORMULA)
+					formulaCheckingTemplate,
+					this.model2,
+					MCL_FORMULA)
 				);
 			}
 

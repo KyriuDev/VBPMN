@@ -2,10 +2,13 @@ package fr.inria.convecs.optimus.constants;
 
 public class Constant
 {
+	public static final int ASCII_FIRST_LOWERCASE_LETTER = 97;
+	public static final int ASCII_LAST_LOWERCASE_LETTER = 122;
 	public static final int MAX_VARS_PER_LINE = 8; //After 8 variables, the line size necessarily exceeds 79 chars thus multiple lines are required
 	public static final int PROCESS_INDENT_LENGTH = 8;
 
 	public static final String CADP = "cadp";
+	public static final String CADP_V_2026_H = "_2026h";
 	public static final String COLON = ":";
 	public static final String COLON_AND_SPACE = ": ";
 	public static final String COMA = ",";
