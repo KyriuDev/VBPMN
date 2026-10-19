@@ -1,0 +1,146 @@
+The following changes of CADP may have impacted the generated LNT code: #3435, #3445, #3447, and #3448.
+Each CADP change is referenced below, with the modifications performed (DONE, UNKNOWN, NOTHING TO DO).
+By convention, CADP items are represented with ``----'', while sub-items (such as TRAIAN ones) are
+represented with ``####''.
+
+-----------------------------#3435: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3435
+Date:		Mon Sep 14 10:22:38 CEST 2026
+Authors:	Hubert Garavel and Radu Mateescu (INRIA/ARMADHA)
+Files:		src/mcl/standard.mcl, demos/demo_01/demo.svl
+
+Nature:		In the standard library of MCL, two new macros have been added:
+
+		 - EITHER_1_OR_2()
+		 - BOTH_1_AND_2()
+
+		and four macros have been renamed with explicit names:
+
+		 - AFTER_1_EITHER_2_OR_3() -> AFTER_1_POSSIBLE_EITHER_2_OR_3()
+		 - AFTER_1_BOTH_2_AND_3() -> AFTER_1_POSSIBLE_BOTH_2_AND_3()
+		 - AFTER_1_WITHOUT_2_EITHER_3_OR_4() ->
+		                   AFTER_1_WITHOUT_2_POSSIBLE_EITHER_3_OR_4()
+		 - AFTER_1_WITHOUT_2_BOTH_3_AND_4() ->
+		                   AFTER_1_WITHOUT_2_POSSIBLE_BOTH_3_AND_4()
+
+		This change is not backward compatible. The SVL file of
+		demo_01 was updated accordingly.
+
+-----------------------------#3445: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3445
+Date:		Tue Sep 29 11:49:02 CEST 2026
+Report:		Hubert Garavel (INRIA/ARMADHA)
+Author:		Frederic Lang (INRIA/ARMADHA)
+Files:		bin.*/exp2c, man/*/exp.*, man/*/svl-lang.*
+
+Nature:		The implementation of priorities ("prio" operator) in the
+		EXP language was deeply revised.
+
+		1) EXP2C now emits better error messages when the priority
+		   relation ">" over labels (specified in the source ".exp"
+		   file) is not a partial order. Formerly, EXP2C displayed
+		   a single error message for some arbitrary label, e.g.:
+
+		      ">" is not a strict partial order: A1 > A1
+
+		   From now on, EXP2C displays one error message for each
+		   pattern that causes the issue, e.g.:
+
+		      labels matching "A.*" have priority over themselves
+		      labels matching "B.*" have priority over themselves
+
+		2) EXP2C is now more stringent with respect to the various
+		   patterns contained in the source ".exp" file. From now
+		   on, these patterns must be pairwise disjoint, in the
+		   sense that two syntactically different patterns used
+		   in the same "prio" operator are no longer allowed to
+		   match the same transition label. For instance, the
+		   following EXP expression:
+
+		      prio "A1" > "A2" > all but "A.*" in ...
+
+		   is now rejected with the following error message:
+
+		      non-exclusive regular expressions "A1" and "A.*" in
+		      prio (label "A1" matches both)
+
+		   This new restriction is not backward compatible. Some
+		   existing ".exp" (or ".svl") files might have to be
+		   updated manually. Getting rid of the error message can
+		   be done by splitting the largest pattern into smaller
+		   patterns. In the above example, "A.*" can be split into
+		   "A1" and "A2", e.g.,
+
+		       prio "A1" > "A2" > all but "A1", "A2" in ...
+
+		3) Based on this restriction, EXP2C now properly computes
+		   the exact transitive closure of the relation ">", whereas
+		   it formerly computed an approximation of it. Indeed, given
+		   that EXP2C does not try to compute the intersection of two
+		   patterns), if a pattern R was not matched by at least one
+		   label, EXP2C ignored all rules R > R' and R' > R given
+		   in the source ".exp" file, which could produce counter-
+		   intuitive results, as R' > R and R > R'' did not imply
+		   R' > R''. In such case, EXP2C issued a warning message
+		   such as:
+
+		     the regular expression "R" does not match any label
+		     in sub-behaviour
+
+		   but this warning was obscure and possibly redundant with
+		   other warnings introduced recently (see item #3290 above).
+		   The new semantics of EXP2C solves this issue.
+
+-----------------------------#3447: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3447
+Date:		Mon Oct  5 11:06:20 CEST 2026
+Authors:	Hubert Garavel and Radu Mateescu (INRIA/ARMADHA)
+Files:		src/mcl/standard.mcl,
+		demos/archive/demo_01.old/demo.svl, demos/demo_01/demo.svl,
+		demos/demo_02/demo.svl, demos/demo_14/demo.svl,
+		demos/demo_29/demo.svl, demos/demo_31/demo.svl,
+		demos/demo_34/demo.svl, demos/demo_39/demo.svl
+
+Nature:		In the standard library of MCL, two macros have been renamed:
+
+		 - SOMETIMES(R) -> SOME(R)
+		 - NEVER(R) -> NONE(R)
+
+		The new names are more adapted, as SOMETIMES() and NEVER()
+		implicitly referred to the elapse of time, whereas these
+		two macros merely express properties of the transitions
+		going out of the current state.
+
+		Also, two new macros SOME() and NONE(), without arguments,
+		have been added to the standard library.
+
+		This change is not backward compatible. Seven CADP demos
+		have been updated to use the new macro names.
+
+-----------------------------#3448: NOTHING TO DO------------------------------
+
+IMPROVEMENT
+Number:		3448
+Date:		Mon Oct  5 13:27:12 CEST 2026
+Authors:	Radu Mateescu and Hubert Garavel (INRIA/ARMADHA)
+Files:		src/mcl/standard.mcl, demos/demo_29/demo.svl
+
+Nature:		In the standard library of MCL, the definition of the macro
+		AFTER_1_WITHOUT_2_IMPOSSIBLE_3() was simplified by using the
+		macro IMPOSSIBLE(). This change should be transparent to
+		end-users.
+
+		Also, the macro NOT_1_TO_2_UNLESS_3 (A, B, C) was removed
+		from the standard library, since it was equivalent to
+		AFTER_1_WITHOUT_2_IMPOSSIBLE_3 (A, C, B). This change is
+		not backward compatible. The demo 29 of CADP, which was the
+		only place where NOT_1_TO_2_UNLESS_3() was used, has been
+		updated accordingly.
+
+-------------------------------------------------------------------------------
